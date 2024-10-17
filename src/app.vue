@@ -25,6 +25,7 @@ const templates = [
   },
 ]
 const options = $ref({
+  locale: 'en-US',
   toolbar: {
     // defaultMode: 'classic',
     // menus: ['base'],
@@ -33,6 +34,16 @@ const options = $ref({
   document: {
     // title: '测试文档',
     content: localStorage.getItem('document.content') ?? '<p>测试文档</p>',
+    typographyRules: {
+      openDoubleQuote: false,
+      rightArrow: false,
+      leftArrow: false,
+      closeDoubleQuote: false,
+      openSingleQuote: false,
+      closeSingleQuote: false,
+      notEqual: false
+
+    },
   },
   templates,
   cdnUrl: 'https://cdn.umodoc.com',

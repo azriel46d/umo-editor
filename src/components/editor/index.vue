@@ -37,8 +37,16 @@ import Image from '@/extensions/image'
 import Page from '@/extensions/page'
 import { pagePlugin } from '@/extensions/page/page-plugin'
 
-const { options, editor, page, painter, setEditor, editorDestroyed } =
-  useStore()
+const {
+  options,
+  editor,
+  page,
+  painter,
+  setEditor,
+  editorDestroyed,
+  container,
+  tableOfContents,
+} = useStore()
 
 const $document = useState('document')
 
@@ -76,7 +84,7 @@ const editorInstance: Editor = new Editor({
       types: options.value.page.nodesComputedOption?.types ?? [],
       slots: useSlots(),
     }),
-    ...extensions,
+    ...extensions(options.value, container, tableOfContents.value),
     ...(options.value.extensions as Extension[]),
   ],
   onCreate({ editor }) {

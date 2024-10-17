@@ -61,7 +61,7 @@ export const useStore = createGlobalState(() => {
       ),
     )
     const $locale = useState('locale')
-    if (!$locale.value) {
+    if (!options.value.locale) {
       $locale.value = options.value.locale
     }
     return options.value

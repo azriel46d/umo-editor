@@ -55,115 +55,115 @@ import TextBox from './text-box'
 import Toc from './toc'
 import Video from './video'
 
-const { options, container, tableOfContents } = useStore()
+export const extensions = (
+  { dicts, document: doc, file }: any,
+  container: any,
+  tableOfContents: any,
+) => [
+    StarterKit.configure({
+      document: false,
+      bold: false,
+      bulletList: false,
+      orderedList: false,
+      codeBlock: false,
+      horizontalRule: false,
+      dropcursor: false,
+    }),
+    Document.extend({ content: 'page+' }),
+    Placeholder.configure({
+      placeholder: l(doc.placeholder),
+    }),
+    Focus.configure({
+      className: 'umo-node-focused',
+      mode: 'all',
+    }),
+    FormatPainter,
+    FontFamily,
+    FontSize,
+    Bold.extend({
+      renderHTML: ({ HTMLAttributes }) => ['b', HTMLAttributes, 0],
+    }),
+    Underline,
+    Subscript,
+    Superscript,
+    Color,
+    TextColor,
+    Highlight.configure({
+      multicolor: true,
+    }),
+    BulletList,
+    OrderedList,
+    Indent,
+    TextAlign,
+    NodeAlign,
+    TaskItem.configure({ nested: true }),
+    TaskList.configure({
+      HTMLAttributes: {
+        class: 'umo-task-list',
+      },
+    }),
+    LineHeight.configure({
+      types: ['heading', 'paragraph'],
+      defaultLineHeight: dicts.lineHeights.find((item: any) => item.default)
+        .value,
+    }),
+    Margin,
+    SearchReplace.configure({
+      searchResultClass: 'umo-search-result',
+    }),
+    Link,
+    Image,
+    Video,
+    Audio,
+    File,
+    TextBox,
+    CodeBlock,
+    ColorHighlighter,
+    hr,
+    Iframe,
+    Mathematics,
 
-const { dicts, document: doc, file } = options.value
-
-export const extensions = [
-  StarterKit.configure({
-    document: false,
-    bold: false,
-    bulletList: false,
-    orderedList: false,
-    codeBlock: false,
-    horizontalRule: false,
-    dropcursor: false,
-  }),
-  Document.extend({ content: 'page+' }),
-  Placeholder.configure({
-    placeholder: l(doc.placeholder),
-  }),
-  Focus.configure({
-    className: 'umo-node-focused',
-    mode: 'all',
-  }),
-  FormatPainter,
-  FontFamily,
-  FontSize,
-  Bold.extend({
-    renderHTML: ({ HTMLAttributes }) => ['b', HTMLAttributes, 0],
-  }),
-  Underline,
-  Subscript,
-  Superscript,
-  Color,
-  TextColor,
-  Highlight.configure({
-    multicolor: true,
-  }),
-  BulletList,
-  OrderedList,
-  Indent,
-  TextAlign,
-  NodeAlign,
-  TaskItem.configure({ nested: true }),
-  TaskList.configure({
-    HTMLAttributes: {
-      class: 'umo-task-list',
-    },
-  }),
-  LineHeight.configure({
-    types: ['heading', 'paragraph'],
-    defaultLineHeight: dicts.lineHeights.find((item: any) => item.default)
-      .value,
-  }),
-  Margin,
-  SearchReplace.configure({
-    searchResultClass: 'umo-search-result',
-  }),
-  Link,
-  Image,
-  Video,
-  Audio,
-  File,
-  TextBox,
-  CodeBlock,
-  ColorHighlighter,
-  hr,
-  Iframe,
-  Mathematics,
-
-  // 表格
-  Table.configure({
-    allowTableNodeSelection: true,
-    resizable: true,
-  }),
-  TableRow,
-  TableHeader,
-  TableCell,
-  // 页面
-  Toc,
-  // 其他
-  Selection,
-  TableOfContents.configure({
-    getIndex: getHierarchicalIndexes,
-    onUpdate: (content) => {
-      tableOfContents.value = content
-    },
-    scrollParent: () =>
-      document.querySelector(
-        `${container} .umo-zoomable-container`,
-      ) as HTMLElement,
-    getId: () => shortId(6),
-  }),
-  Typography.configure(doc.typographyRules),
-  CharacterCount.configure({
-    limit: doc.characterLimit !== 0 ? doc.characterLimit : undefined,
-  }),
-  FileHandler.configure({
-    allowedMimeTypes: file.allowedMimeTypes,
-    onPaste(editor: Editor, files: any) {
-      for (const file of files) {
-        editor.commands.insertFile({ file, autoType: true })
-      }
-    },
-    onDrop: (editor: Editor, files: any, pos: number) => {
-      for (const file of files) {
-        editor.commands.insertFile({ file, autoType: true, pos })
-      }
-    },
-  }),
-  Dropcursor.configure({
-    color: 'var(--umo-primary-color)',
-  }),
-]
+    // 表格
+    Table.configure({
+      allowTableNodeSelection: true,
+      resizable: true,
+    }),
+    TableRow,
+    TableHeader,
+    TableCell,
+    // 页面
+    Toc,
+    // 其他
+    Selection,
+    TableOfContents.configure({
+      getIndex: getHierarchicalIndexes,
+      onUpdate: (content) => {
+        tableOfContents.value = content
+      },
+      scrollParent: () =>
+        document.querySelector(
+          `${container} .umo-zoomable-container`,
+        ) as HTMLElement,
+      getId: () => shortId(6),
+    }),
+    Typography.configure(doc.typographyRules),
+    CharacterCount.configure({
+      limit: doc.characterLimit !== 0 ? doc.characterLimit : undefined,
+    }),
+    FileHandler.configure({
+      allowedMimeTypes: file.allowedMimeTypes,
+      onPaste(editor: Editor, files: any) {
+        for (const file of files) {
+          editor.commands.insertFile({ file, autoType: true })
+        }
+      },
+      onDrop: (editor: Editor, files: any, pos: number) => {
+        for (const file of files) {
+          editor.commands.insertFile({ file, autoType: true, pos })
+        }
+      },
+    }),
+    Dropcursor.configure({
+      color: 'var(--umo-primary-color)',
+    }),
+  ]
