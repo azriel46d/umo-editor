@@ -21,7 +21,7 @@ import type {
 // 默认配置
 const defaultOptions: UmoEditorOptions = {
   editorKey: 'default',
-  locale: 'zh-CN',
+  locale: 'en-US',
   theme: 'light',
   height: '100%',
   dicts: {

@@ -4,9 +4,7 @@ import App from './app.vue'
 import { useUmoEditor } from './components'
 const app = createApp(App)
 
-const options = {
-  locale: 'en-US'
-}
+const options = {}
 
 app.use(useUmoEditor, options as unknown as UmoEditorOptions)
 
