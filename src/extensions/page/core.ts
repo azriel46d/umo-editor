@@ -401,7 +401,6 @@ export function changeComputedHtml() {
   const { width, height } = pageSize()
   //  @ts-ignore
   const { right, left, bottom, top } = page.value.margin
-  buildComputedHtml()
   const pageContent = iframeDoc.getElementById('computeddiv')
   // eslint-disable-next-line prefer-destructuring
   const watermark = iframeDoc.getElementsByClassName('umo-page-watermark')[0]

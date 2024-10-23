@@ -88,11 +88,11 @@ const editorInstance: Editor = new Editor({
     ...(options.value.extensions as Extension[]),
   ],
   onCreate({ editor }) {
+    isReady = true
     isEmpty = editor.commands.setPlaceholder('')
   },
   onUpdate({ editor }) {
     isEmpty = editor.commands.setPlaceholder('')
-    isReady = true
     $document.value.content = editor.getHTML()
   },
 })
