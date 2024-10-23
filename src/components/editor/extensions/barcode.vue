@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import JsBarcode from 'jsbarcode'
 
