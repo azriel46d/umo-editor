@@ -219,7 +219,6 @@
 
 <script setup lang="ts">
 import JsBarcode from 'jsbarcode'
-import svg64 from 'svg64'
 
 import { shortId } from '@/utils/short-id'
 
@@ -340,33 +339,26 @@ const setBarcode = () => {
     useMessage('error', t('tools.barcode.renderError'))
     return
   }
+
   if (config.content === '') {
     useMessage('error', t('tools.barcode.notEmpty'))
     return
   }
+
   const name = `barcode-${shortId()}.svg`
-  const { size } = new Blob([barcodeSvgRef.outerHTML], {
-    type: 'image/svg+xml',
-  })
-  const width = barcodeSvgRef?.width.animVal.value
-  const height = barcodeSvgRef?.height.animVal.value
+
+  const settings = { ...config }
+  delete settings.content
+
+  const settingsJson = JSON.stringify(settings).replaceAll("'", "\\\"")
+
+  const barCodeHtml = `<bar-code key="${name}" value="${config.content}" settings='${settingsJson}'></barcode>`
 
   if (changed) {
     editor.value
       ?.chain()
       .focus()
-      .setImage(
-        {
-          type: 'barcode',
-          name,
-          size,
-          src: svg64(barcodeSvgRef?.outerHTML ?? ''),
-          content: JSON.stringify(config),
-          width,
-          height,
-        },
-        !!content,
-      )
+      .insertContent(barCodeHtml)
       .run()
   }
   dialogVisible = false

@@ -299,7 +299,7 @@ const defaultOptions: UmoEditorOptions = {
     enableMarkdown: true,
     enableBubbleMenu: true,
     enableBlockMenu: true,
-    enableComment: true,
+    enableComment: false,
     readOnly: false,
     autofocus: true,
     characterLimit: 0,

@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { shortId } from '@/utils/short-id'
-
 // import { UmoEditor } from '../dist/umo-editor'
 
 const editorRef = $ref(null)
@@ -33,7 +32,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-    content: localStorage.getItem('document.content') ?? '<p>测试文档</p>',
+    content: '',
     typographyRules: {
       openDoubleQuote: false,
       rightArrow: false,
