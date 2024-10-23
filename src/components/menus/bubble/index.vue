@@ -14,7 +14,6 @@
       </template>
     </menus-bubble-menus>
     <assistant-input v-if="options?.assistant?.enabled && assistantBox" />
-    <comment-input v-if="options?.document?.enableComment && commentBox" />
   </bubble-menu>
 </template>
 

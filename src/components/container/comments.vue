@@ -4,7 +4,7 @@
     1. 每个有评论的节点后面显示一个数字，点击后打开评论列表
     2. 点击文档中的标注正文也可以打开评论
   -->
-  <div v-if="visible" class="umo-comments-group-container">
+  <div v-if="false" class="umo-comments-group-container">
     <!-- 仅显示当前节点下的所有评论 -->
     <div :style="`transform: translateY(${scrollTop}px);`">
       <div class="umo-comments-group-header">
@@ -39,7 +39,7 @@ import type { Editor } from '@tiptap/vue-3'
 
 const { page, editor } = useStore()
 
-let visible = $ref(true)
+let visible = $ref(false)
 let scrollTop = $ref(0)
 
 // 更新位置
