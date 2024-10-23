@@ -474,7 +474,7 @@ const autoWidth = (auto = true, padding = 50) => {
     console.warn('Page auto width calculation error', e)
   }
 }
-useHotkeys('Ctrl0,command+0', autoWidth)
+useHotkeys('Control+0,command+0', autoWidth)
 
 watch(
   () => page.value.showToc,
