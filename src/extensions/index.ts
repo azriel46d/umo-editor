@@ -55,6 +55,10 @@ import TextBox from './text-box'
 import Toc from './toc'
 import Video from './video'
 
+// Custom
+import BarCodeExtension from '@/extensions/bar-code'
+import { BladeForeach } from './blade/foreach'
+
 export const extensions = (
   { dicts, document: doc, file }: any,
   container: any,
@@ -166,4 +170,6 @@ export const extensions = (
     Dropcursor.configure({
       color: 'var(--umo-primary-color)',
     }),
+    BarCodeExtension,
+    BladeForeach
   ]

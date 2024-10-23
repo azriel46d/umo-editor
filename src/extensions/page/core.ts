@@ -306,16 +306,18 @@ export function computedWidth(html: string, cache = true) {
 }
 
 export function getDefault() {
-  if (map.has('defaultheight')) {
+  const computedspan = iframeDoc.getElementById('computedspan')
+  if (map.has('defaultheight') || !computedspan) {
     return map.get('defaultheight')
   }
-  const computedspan = iframeDoc.getElementById('computedspan')
   const { height: pHeight } = getDomHeight(computedspan)
   map.set('defaultheight', pHeight)
   return pHeight
 }
 
 export function getDomHeight(dom: HTMLElement) {
+  if (!dom) { return map.get('defaultheight') }
+
   const contentStyle =
     window.getComputedStyle(dom) ||
     iframeComputed.contentWindow.getComputedStyle(dom)
@@ -556,8 +558,8 @@ export const findDomRefAtPos = (position, domAtPos) => {
 
 export const findParentNode =
   (predicate: any) =>
-  ({ $from }: { $from: any }) =>
-    findParentNodeClosestToPos($from, predicate)
+    ({ $from }: { $from: any }) =>
+      findParentNodeClosestToPos($from, predicate)
 
 // @ts-ignore
 export const findParentNodeClosestToPos = ($pos, predicate) => {
