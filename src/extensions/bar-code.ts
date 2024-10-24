@@ -14,9 +14,7 @@ export default Node.create({
         default: '0148043',
       },
       settings: {
-        default: {
-          default: '{}'
-        }
+        default: '{}'
       }
     }
   },
