@@ -125,7 +125,9 @@ export const extensions = (
     ColorHighlighter,
     hr,
     Iframe,
-    Mathematics,
+    Mathematics.configure({
+      regex: /#([^#]*)#/gi
+    }),
 
     // 表格
     Table.configure({
