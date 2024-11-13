@@ -379,7 +379,8 @@ const setToolbar = (params: { mode: 'classic' | 'ribbon'; show: boolean }) => {
 const setPage = (params: {
   size: string
   orientation: string
-  background: string
+  background: string,
+  margin: Record<'top' | 'right' | 'bottom' | 'left', number>,
 }) => {
   if (!isRecord(params)) {
     throw new Error('params must be an object.')
@@ -415,6 +416,19 @@ const setPage = (params: {
       throw new Error('"params.background" must be a string.')
     }
     page.value.background = params.background
+  }
+
+  if (params?.margin) {
+    if (!isRecord(params.margin)) {
+      throw new Error('"params.margin" must be an object.')
+    }
+
+    page.value.margin = {
+      left: params.margin?.left ?? page.value?.margin?.left,
+      right: params.margin?.right ?? page.value?.margin?.right,
+      top: params.margin?.top ?? page.value?.margin?.top,
+      bottom: params.margin?.bottom ?? page.value?.margin?.bottom,
+    }
   }
 }
 

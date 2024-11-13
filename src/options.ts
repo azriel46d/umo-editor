@@ -421,7 +421,7 @@ const isLocale = (value: unknown) => {
   return false
 }
 
-const ojbectSchema = new ObjectSchema({
+const objectSchema = new ObjectSchema({
   editorKey: {
     merge: 'replace',
     validate: 'string!',
@@ -1042,4 +1042,4 @@ const ojbectSchema = new ObjectSchema({
   },
 })
 
-export { defaultOptions, ojbectSchema, propsOptions }
+export { defaultOptions, objectSchema, propsOptions }

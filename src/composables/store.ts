@@ -4,7 +4,7 @@ import type { TableOfContentDataItem } from '@tiptap-pro/extension-table-of-cont
 import { isRecord } from '@tool-belt/type-predicates'
 
 import { changeComputedHtml } from '@/extensions/page/core'
-import { defaultOptions, ojbectSchema } from '@/options'
+import { defaultOptions, objectSchema } from '@/options'
 import type { PageOption, UmoEditorOptions } from '@/types'
 import { shortId } from '@/utils/short-id'
 
@@ -48,7 +48,7 @@ export const useStore = createGlobalState(() => {
         ? value.value
         : value
 
-    options.value = ojbectSchema.merge(
+    options.value = objectSchema.merge(
       options.value,
       Object.keys(opts).reduce<Record<string, unknown>>(
         (acc: Record<string, unknown>, key: string) => {
@@ -81,36 +81,37 @@ export const useStore = createGlobalState(() => {
     painter.value.marks = marks
   }
 
+  watch(options, ({ page }: UmoEditorOptions) => {
+    updatePage(page)
+  })
+
+  const updatePage = ({ defaultBackground, defaultMargin, defaultOrientation, watermark, }: PageOption) => {
+    page.value = {
+      size: options.value.dicts?.pageSizes.find(
+        (item: { default: boolean }) => item.default,
+      ),
+      margin: defaultMargin,
+      background: defaultBackground,
+      orientation: defaultOrientation,
+      watermark,
+      header: true,
+      footer: true,
+      showLineNumber: false,
+      showToc: false,
+      pagination: true,
+      zoomLevel: 100,
+      autoWidth: false,
+      preview: {
+        enabled: false,
+        laserPointer: true,
+      },
+    }
+  }
+
   watch(
     () => options.value.page,
-    ({
-      defaultBackground,
-      defaultMargin,
-      defaultOrientation,
-      watermark,
-    }: PageOption) => {
-      page.value = {
-        size: options.value.dicts?.pageSizes.find(
-          (item: { default: boolean }) => item.default,
-        ),
-        margin: defaultMargin,
-        background: defaultBackground,
-        orientation: defaultOrientation,
-        watermark,
-        header: true,
-        footer: true,
-        showLineNumber: false,
-        showToc: false,
-        pagination: true,
-        zoomLevel: 100,
-        autoWidth: false,
-        preview: {
-          enabled: false,
-          laserPointer: true,
-        },
-      }
-    },
-    { immediate: true, once: true },
+    updatePage,
+    { immediate: true, once: true, deep: true },
   )
 
   watch(
