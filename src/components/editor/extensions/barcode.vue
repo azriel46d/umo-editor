@@ -16,7 +16,7 @@ onMounted(() => {
 
 </script>
 <template>
-  <NodeViewWrapper>
+  <NodeViewWrapper :id="props.node.attrs.id">
     <svg ref="barcode"></svg>
   </NodeViewWrapper>
 </template>

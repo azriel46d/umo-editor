@@ -11,6 +11,7 @@ export const LISTITEM = 'listItem'
 export const TASKLIST = 'taskList'
 export const TASKITEM = 'taskItem'
 export const ORDEREDLIST = 'orderedList'
+export const BARCODE = 'barCode'
 
 export const TABLE = 'table'
 

@@ -352,7 +352,7 @@ const setBarcode = () => {
 
   const settingsJson = JSON.stringify(settings).replaceAll("'", "\\\"")
 
-  const barCodeHtml = `<bar-code key="${name}" value="${config.content}" settings='${settingsJson}'></barcode>`
+  const barCodeHtml = `<bar-code key="${name}" value="${config.content}" id="${shortId()}" settings='${settingsJson}'></barcode>`
 
   if (changed) {
     editor.value

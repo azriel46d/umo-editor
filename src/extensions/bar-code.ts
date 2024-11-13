@@ -10,6 +10,9 @@ export default Node.create({
 
   addAttributes() {
     return {
+      id: {
+        default: null,
+      },
       value: {
         default: '0148043',
       },
@@ -28,7 +31,7 @@ export default Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['bar-code', mergeAttributes(HTMLAttributes)]
+    return ['bar-code', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
   },
 
   addNodeView() {
