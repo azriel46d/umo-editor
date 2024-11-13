@@ -385,7 +385,24 @@ export function buildComputedHtml() {
   clonePageToIframe()
 }
 
+const queuedActions: [(...args: any[]) => any, any, any][] = []
+
+export function addQueuedAction(func: (...args: any[]) => any, args: any[] = [], context = null) {
+  queuedActions.push([func, args, context])
+}
+
+export function runQueuedActions() {
+  queuedActions.forEach(([func, args, context]) => {
+    func.call(context, ...args)
+  })
+}
+
 export function changeComputedHtml() {
+  if (!iframeDoc) {
+    addQueuedAction(changeComputedHtml)
+    return
+  }
+
   getPageOption(true)
   const { page } = useStore()
   const pageSize = () => {
@@ -429,6 +446,7 @@ function clonePageToIframe() {
   filterAndCopyHtmlToIframe(iframe, ['header', 'iframe', 'footer'])
   cleanPagecontent(iframe)
   adddPForProseMirror(iframe)
+  runQueuedActions()
 }
 
 function cleanPagecontent(iframe: any) {

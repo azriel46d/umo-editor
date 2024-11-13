@@ -21,7 +21,6 @@ export const BladeForeach = Node.create({
       start: {
         default: 1,
         parseHTML: element => {
-          console.log(element)
           return element.hasAttribute('start')
             ? parseInt(element.getAttribute('start') || '', 10)
             : 1
@@ -30,7 +29,6 @@ export const BladeForeach = Node.create({
       type: {
         default: undefined,
         parseHTML: element => {
-          console.log(element)
           return element.getAttribute('type')
         },
       },

@@ -237,6 +237,8 @@ watch(
 watch(
   () => page.value.size,
   (pageSize: any, oldPageSize: any) => {
+    if (pageSize === oldPageSize) { return; }
+
     emits('changed:pageSize', { pageSize, oldPageSize })
   },
   { deep: true },
