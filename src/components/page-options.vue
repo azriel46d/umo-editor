@@ -59,7 +59,7 @@
                 class="umo-page-setting-number"
                 theme="normal"
                 align="center"
-                :min="10"
+                :min="0"
                 :label="t('pageOptions.size.width')"
                 :suffix="t('page.size.cm')"
                 placeholder=""
@@ -76,7 +76,7 @@
                 class="umo-page-setting-number"
                 theme="normal"
                 align="center"
-                :min="10"
+                :min="0"
                 :label="t('pageOptions.size.height')"
                 :suffix="t('page.size.cm')"
                 placeholder=""
@@ -261,8 +261,8 @@ const inputPageSize = (value: number, field: 'width' | 'height') => {
       height: 0,
     }
   }
-  if (!value || value < 10) {
-    Reflect.set(pageOptions.size, field, 10)
+  if (!value || value < 0) {
+    Reflect.set(pageOptions.size, field, 2)
     return
   }
   pageOptions.size.label = t('pageOptions.size.custom')
