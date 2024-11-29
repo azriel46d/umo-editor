@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <button @click="toggleReadOnly">readonly</button>
     <umo-editor ref="editorRef" v-bind="options" @changed:page-size="changedPageSize" />
   </div>
 </template>
@@ -9,6 +10,12 @@ import { shortId } from '@/utils/short-id'
 // import { UmoEditor } from '../dist/umo-editor'
 
 const editorRef = $ref(null)
+let readOnly = $ref(true)
+
+const toggleReadOnly = () => {
+  readOnly = !readOnly
+  editorRef.setReadOnly(readOnly)
+}
 
 const templates = [
   {
@@ -81,7 +88,7 @@ const options = $ref({
     if (!file) {
       throw new Error('没有找到要上传的文件')
     }
-    console.log('onUpload', file)
+
     await new Promise((resolve) => setTimeout(resolve, 3000))
     return {
       id: shortId(),
