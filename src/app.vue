@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <umo-editor ref="editorRef" v-bind="options" />
+    <umo-editor ref="editorRef" v-bind="options" @changed:page-size="changedPageSize" />
   </div>
 </template>
 
@@ -9,12 +9,13 @@ import { shortId } from '@/utils/short-id'
 // import { UmoEditor } from '../dist/umo-editor'
 
 const editorRef = $ref(null)
+
 const templates = [
   {
     title: '工作任务',
     description: '工作任务模板',
     content:
-      '<h1>工作任务</h1><h3>任务名称：</h3><p>[任务的简短描述]</p><h3>负责人：</h3><p>[执行任务的个人姓名]</p><h3>截止日期：</h3><p>[任务需要完成的日期]</p><h3>任务详情：</h3><ol><li>[任务步骤1]</li><li>[任务步骤2]</li><li>[任务步骤3]...</li></ol><h3>目标：</h3><p>[任务需要达成的具体目标或结果]</p><h3>备注：</h3><p>[任何额外信息或注意事项]</p>',
+      `<page id="o6bv0prl" extend="false" pagenumber="1" force="false"><p id="b9s3774c" extend="false">@foreach ($data as $row)</p><bar-code value="{{ $row['eans_codigo'] }}" settings="{&quot;width&quot;:2,&quot;height&quot;:100,&quot;font&quot;:&quot;&quot;,&quot;format&quot;:&quot;CODE128&quot;,&quot;lineColor&quot;:&quot;#000&quot;,&quot;background&quot;:&quot;&quot;,&quot;fontOptions&quot;:&quot;&quot;,&quot;displayValue&quot;:true,&quot;textAlign&quot;:&quot;center&quot;,&quot;textPosition&quot;:&quot;bottom&quot;,&quot;fontSize&quot;:20,&quot;textMargin&quot;:2,&quot;margin&quot;:10}"></bar-code><p id="b9s3774c" extend="false">@endforeach</p><p id="b9s3774c" extend="false">fdsadfafdsadfa</p><p id="b9s3774c" extend="false">fdsadfa</p><p id="b9s3774c" extend="false">fdsadfa</p><p id="b9s3774c" extend="false">fdsadfa</p></page>`,
   },
   {
     title: '工作周报',
@@ -32,7 +33,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-    content: '',
+    content: ``,
     typographyRules: {
       openDoubleQuote: false,
       rightArrow: false,
@@ -63,19 +64,18 @@ const options = $ref({
     nickName: 'Umo Editor',
     avatarUrl: 'https://tdesign.gtimg.com/site/avatar.jpg',
   },
-  async onSave(content: string, page: number, document: { content: string }) {
-    localStorage.setItem('document.content', document.content)
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const success = true
-        if (success) {
-          console.log('onSave', { content, page, document })
-          resolve('操作成功')
-        } else {
-          reject(new Error('操作失败'))
-        }
-      }, 2000)
-    })
+  page: {
+    defaultMargin: {
+      left: 1,
+      right: 1,
+      top: 1,
+      bottom: 1,
+    }
+  },
+  async onSave(_: string, __: number, document: { content: string }) {
+    console.log(document.content)
+    console.log(editorRef.getHTML())
+    console.log(editorRef.getJSON())
   },
   async onFileUpload(file: File & { url?: string }) {
     if (!file) {

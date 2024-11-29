@@ -11,7 +11,7 @@ import Highlight from '@tiptap/extension-highlight'
 import Link from '@tiptap/extension-link'
 import Subscript from '@tiptap/extension-subscript'
 import Superscript from '@tiptap/extension-superscript'
-import TableRow from '@tiptap/extension-table-row'
+import TableRow from './table-row'
 import TaskItem from '@tiptap/extension-task-item'
 import TextColor from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
@@ -57,7 +57,6 @@ import Video from './video'
 
 // Custom
 import BarCodeExtension from '@/extensions/bar-code'
-import { BladeForeach } from './blade/foreach'
 
 export const extensions = (
   { dicts, document: doc, file }: any,
@@ -172,6 +171,5 @@ export const extensions = (
     Dropcursor.configure({
       color: 'var(--umo-primary-color)',
     }),
-    BarCodeExtension,
-    BladeForeach
+    BarCodeExtension
   ]

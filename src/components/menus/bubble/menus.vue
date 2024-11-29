@@ -107,7 +107,6 @@
       <menus-bubble-assistant />
       <div class="umo-bubble-menu-divider"></div>
     </template>
-    <menus-toolbar-blade-foreach />
     <menus-toolbar-base-font-size :select="false" />
     <div class="umo-bubble-menu-divider"></div>
     <menus-toolbar-base-bold />
