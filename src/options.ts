@@ -1014,7 +1014,7 @@ const objectSchema = new ObjectSchema({
   onFileDelete: {
     merge: 'replace',
     validate(value: any) {
-      if (!isFunction(value)) {
+      if (typeof value !== 'function') {
         throw new Error('Key "onFileDelete" must be a function.')
       }
     },
