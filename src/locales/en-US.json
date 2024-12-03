@@ -523,7 +523,8 @@
     "loading": "Loading Source Editor..."
   },
   "document": {
-    "untitled": "Untitled Document"
+    "untitled": "Untitled Document",
+    "title": "Insert Title"
   },
   "search": {
     "text": "Search",

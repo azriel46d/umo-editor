@@ -18,6 +18,12 @@
       :style="{ height: options.height }"
     >
       <header class="umo-toolbar">
+        <div class="umo-editor-title">
+          <t-input
+            v-model="options.document.title"
+            :placeholder="t('document.title')"
+          />
+        </div>
         <toolbar
           :key="toolbarKey"
           @menu-change="(event: any) => emits('menuChange', event)"
@@ -763,6 +769,10 @@ watch(
   },
 )
 
+watch(() => options.value.document.title, (title: string) => {
+  $document.value.title = title
+})
+
 // Hotkeys Setup
 const unsetFormatPainter = () => editor.value?.commands.unsetFormatPainter()
 useHotkeys('ctrl+s,command+s', () => {
@@ -849,6 +859,15 @@ defineExpose({
   color: var(--umo-text-color);
   font-family: var(--umo-font-family);
   position: relative !important;
+
+  .umo-editor-title {
+    .umo-input__inner {
+      text-align: center;
+    }
+    .umo-input {
+      border: none !important;
+    }
+  }
   .umo-toolbar,
   .umo-footer {
     background-color: var(--umo-color-white);
