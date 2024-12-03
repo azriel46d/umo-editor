@@ -1,4 +1,4 @@
-import { EditorState, NodeSelection, TextSelection } from '@tiptap/pm/state'
+import { type EditorState, NodeSelection, TextSelection } from '@tiptap/pm/state'
 import { canSplit } from '@tiptap/pm/transform'
 import type { RawCommands } from '@tiptap/vue-3'
 import { defaultBlockAt } from '@tiptap/vue-3'

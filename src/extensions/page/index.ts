@@ -83,7 +83,7 @@ const types = [
 export default Node.create<PageOptions>({
   priority: 200,
   name: `${PAGE}`,
-  content: `block*`,
+  content: 'block*',
   group: `${PAGE}`,
   isolating: true,
   selectable: false,
@@ -378,6 +378,7 @@ const deleteSelection = (commands: SingleCommands) => {
       },
       (node) => node.type.name === CASSIE_BLOCK,
     )
+
     for (const node of nodesInChangedRanges) {
       const endPos = node.pos + node.node.nodeSize
       if (selection.from < node.pos || selection.to > endPos) {

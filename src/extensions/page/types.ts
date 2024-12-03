@@ -1,9 +1,9 @@
 import type { NodeViewRenderer } from '@tiptap/core'
 import type { Attrs } from '@tiptap/pm/model'
-import { Node, NodeType, Schema } from '@tiptap/pm/model'
-import { Transaction } from '@tiptap/pm/state'
+import type { Node, NodeType, Schema } from '@tiptap/pm/model'
+import type { Transaction } from '@tiptap/pm/state'
 
-import { SplitContext } from '@/extensions/page/computed'
+import type { SplitContext } from '@/extensions/page/computed'
 import { getPageOption } from '@/extensions/page/core'
 
 export type ComputedFn = (

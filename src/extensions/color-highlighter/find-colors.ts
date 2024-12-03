@@ -1,4 +1,4 @@
-import { Node } from '@tiptap/pm/model'
+import type { Node } from '@tiptap/pm/model'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 
 export default function (doc: Node): DecorationSet {
@@ -10,8 +10,7 @@ export default function (doc: Node): DecorationSet {
       return
     }
 
-    Array.from(node.text.matchAll(hexColor)).forEach((match) => {
-      // eslint-disable-next-line prefer-destructuring
+    for (const match of node.text.matchAll(hexColor)) {
       const color = match[0]
       const index = match.index || 0
       const from = position + index
@@ -22,7 +21,7 @@ export default function (doc: Node): DecorationSet {
       })
 
       decorations.push(decoration)
-    })
+    }
   })
 
   return DecorationSet.create(doc, decorations)

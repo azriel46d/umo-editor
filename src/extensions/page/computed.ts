@@ -1,6 +1,6 @@
-import { Editor, findParentNode, getNodeType } from '@tiptap/core'
-import { Fragment, Node, Schema, Slice } from '@tiptap/pm/model'
-import { EditorState, Transaction } from '@tiptap/pm/state'
+import { type Editor, findParentNode, getNodeType } from '@tiptap/core'
+import { Fragment, type Node, type Schema, Slice } from '@tiptap/pm/model'
+import type { EditorState, Transaction } from '@tiptap/pm/state'
 import { ReplaceStep } from '@tiptap/pm/transform'
 
 import type {
@@ -168,7 +168,7 @@ export const defaultNodesComputed: NodesComputed = {
   [PAGE]: (splitContex, node, pos, parent, dom, startIndex, forcePageId, i) => {
     return startIndex === i && parent?.type.name === 'doc'
   },
-  ['default']: (splitContex, node, pos, parent, dom) => {
+  default: (splitContex, node, pos, parent, dom) => {
     const { height: pHeight } = getDomHeight(dom)
     if (!splitContex.isOverflow(pHeight)) {
       splitContex.addHeight(pHeight)
@@ -623,7 +623,7 @@ export class PageComputedContext {
         ) {
           dom = getAbsentHtmlH(node, this.state.schema)
         }
-        return (nodesComputed[node.type.name] || nodesComputed['default'])(
+        return (nodesComputed[node.type.name] || nodesComputed.default)(
           splitContex,
           node,
           pos,

@@ -62,7 +62,7 @@ const onDrag = ({ left, top }: { left: number; top: number }) => {
   updateAttributes({ left, top })
 }
 
-onClickOutside(containerRef, () => (selected = false))
+onClickOutside(containerRef, () => { selected = false })
 </script>
 
 <style lang="less">

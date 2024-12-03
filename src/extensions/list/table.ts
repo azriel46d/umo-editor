@@ -1,6 +1,6 @@
 import { Table } from '@tiptap/extension-table'
 import { TextSelection } from '@tiptap/pm/state'
-import { Fragment, Node as ProsemirrorNode, Schema } from '@tiptap/pm/model'
+import type { Fragment, Node as ProsemirrorNode, Schema } from '@tiptap/pm/model'
 
 export default Table.extend({
   content: 'tableRow*',

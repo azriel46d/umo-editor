@@ -1,8 +1,8 @@
 import type { JSONContent } from '@tiptap/core'
-import { DOMSerializer, Node, Schema } from '@tiptap/pm/model'
-import { createHTMLDocument, VHTMLDocument } from 'zeed-dom'
+import { DOMSerializer, Node, type Schema } from '@tiptap/pm/model'
+import { createHTMLDocument, type VHTMLDocument } from 'zeed-dom'
 
-import { SplitContext } from '@/extensions/page/computed'
+import type { SplitContext } from '@/extensions/page/computed'
 
 /**
  * 根据schema doc生成html
@@ -323,10 +323,10 @@ export function getDomHeight(dom: HTMLElement) {
     iframeComputed.contentWindow.getComputedStyle(dom)
   const marginTop = contentStyle.getPropertyValue('margin-top')
   const marginBottom = contentStyle.getPropertyValue('margin-bottom')
-  const margin = parseFloat(marginTop) + parseFloat(marginBottom)
+  const margin = Number.parseFloat(marginTop) + Number.parseFloat(marginBottom)
   return {
     margin,
-    height: margin + dom.offsetHeight + parseFloat(contentStyle.borderWidth),
+    height: margin + dom.offsetHeight + Number.parseFloat(contentStyle.borderWidth),
   }
 }
 
@@ -350,12 +350,12 @@ export function getAbsentHtmlH(node: Node, schema: Schema) {
   const ids = findTextblockHacksIds(node)
   if (computeddiv) {
     computeddiv.innerHTML = `<p><br class='ProseMirror-trailingBreak'></p>${html}`
-    ids.forEach((id) => {
+    for (const id of ids) {
       const nodeHtml = iframeDoc.getElementById(id)
       if (nodeHtml) {
         nodeHtml.innerHTML = "<br class='ProseMirror-trailingBreak'>"
       }
-    })
+    }
   }
   const nodesom = iframeDoc.getElementById(node.attrs.id)
   return nodesom
@@ -392,9 +392,9 @@ export function addQueuedAction(func: (...args: any[]) => any, args: any[] = [],
 }
 
 export function runQueuedActions() {
-  queuedActions.forEach(([func, args, context]) => {
+  for (const [func, args, context] of queuedActions) {
     func.call(context, ...args)
-  })
+  }
 }
 
 export function changeComputedHtml() {
@@ -496,20 +496,17 @@ function copyStylesToIframe(iframeContentDoc: Document) {
     }
   }
   const styles = document.querySelectorAll('style')
-  styles.forEach((style) => {
-    // 创建一个新的<style>标签
+  for (const style of styles) {
     const newStyle = iframeContentDoc.createElement('style')
-    // 将样式内容复制到新标签中
     newStyle.textContent = style.textContent
-    // 将新标签插入到iframe的<head>中
     iframeContentDoc.head.appendChild(newStyle)
-  })
+  }
   const elementsWithInlineStyles = document.querySelectorAll('[style]')
-  elementsWithInlineStyles.forEach((element) => {
+  for (const element of elementsWithInlineStyles) {
     const styleAttr = element.getAttribute('style') ?? ''
     const clonedElement = iframeContentDoc.createElement(element.tagName)
     clonedElement.setAttribute('style', styleAttr)
-  })
+  }
 }
 
 function filterAndCopyHtmlToIframe(iframe: any, excludedTags: string[]) {

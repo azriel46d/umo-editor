@@ -193,21 +193,20 @@ export default Node.create({
     }
   },
   onTransaction({ transaction }) {
-    transaction.steps.forEach((step: any) => {
+    for (const step of transaction.steps) {
       if (step instanceof ReplaceStep && step.slice.size === 0) {
         // 使用事务前的文档状态来获取被删除的页面节点
         const deletedPages = transaction.before.content.cut(step.from, step.to)
-        deletedPages.forEach((page: any) => {
-          // 遍历删除的页面节点
-          page.content.forEach((node: any) => {
-            // 如果是文件节点，调用删除方法删除文件
+
+        for (const page of deletedPages.content) {
+          for (const node of page.content.content) {
             if (['image', 'video', 'audio', 'file'].includes(node.attrs.type)) {
               const { id, src, url } = node.attrs
               options.value.onFileDelete(id, src || url)
             }
-          })
-        })
+          }
+        }
       }
-    })
+    }
   },
 })

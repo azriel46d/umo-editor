@@ -1,5 +1,5 @@
 import { getNodeType } from '@tiptap/core'
-import { Fragment, NodeType, Slice } from '@tiptap/pm/model'
+import { Fragment, type NodeType, Slice } from '@tiptap/pm/model'
 import { TextSelection } from '@tiptap/pm/state'
 import { canSplit } from '@tiptap/pm/transform'
 import type { RawCommands } from '@tiptap/vue-3'

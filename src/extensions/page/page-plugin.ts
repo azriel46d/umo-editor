@@ -1,7 +1,7 @@
-import { Editor, findParentNode } from '@tiptap/core'
-import { Node } from '@tiptap/pm/model'
-import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state'
-import { EditorView } from '@tiptap/pm/view'
+import { type Editor, findParentNode } from '@tiptap/core'
+import type { Node } from '@tiptap/pm/model'
+import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state'
+import type { EditorView } from '@tiptap/pm/view'
 
 import type { NodesComputed } from '@/extensions/page/types'
 import { PageState } from '@/extensions/page/types'
