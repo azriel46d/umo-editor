@@ -3,17 +3,6 @@
   --es-drager-color: var(--umo-primary-color) !important;
   box-sizing: border-box;
 
-  &:not([draggable='true']) {
-    left: 0;
-    top: 0;
-  }
-
-  &[draggable='true'] {
-    position: absolute;
-    z-index: 90 !important;
-    cursor: move;
-  }
-
   &:after {
     content: '';
     position: absolute;
@@ -129,10 +118,17 @@
   }
 }
 
-[contenteditable='false'] .is-draggable {
-  .es-drager {
-    position: absolute;
-    z-index: 90;
-    cursor: move;
+:not(.is-draggable) {
+  > .es-drager {
+    left: 0 !important;
+    top: 0 !important;
+  }
+}
+
+.is-draggable {
+  > .es-drager {
+    position: absolute !important;
+    z-index: 90 !important;
+    cursor: move !important;
   }
 }
