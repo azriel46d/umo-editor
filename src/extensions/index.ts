@@ -12,6 +12,7 @@ import Link from '@tiptap/extension-link'
 import Subscript from '@tiptap/extension-subscript'
 import Superscript from '@tiptap/extension-superscript'
 import TableRow from './table-row'
+import Paragraph from './paragraph'
 import TaskItem from '@tiptap/extension-task-item'
 import TextColor from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
@@ -110,6 +111,7 @@ export const extensions = (
       defaultLineHeight: dicts.lineHeights.find((item: any) => item.default)
         .value,
     }),
+    Paragraph,
     Margin,
     SearchReplace.configure({
       searchResultClass: 'umo-search-result',
