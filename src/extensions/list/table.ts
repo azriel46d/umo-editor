@@ -43,7 +43,7 @@ export function createTable(
     if (cell) cells.push(cell)
 
     if (withHeaderRow) {
-      const headerCell = types.cell.createAndFill()
+      const headerCell = types.header_cell.createAndFill()
 
       if (headerCell) {
         headerCells.push(headerCell)
