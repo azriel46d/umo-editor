@@ -172,14 +172,18 @@ export const idPlugin = (types: string[]) => {
     appendTransaction(transactions, _prevState, nextState) {
       const { tr } = nextState
       let modified = false
+      const idsUsed = new Set()
       const init = idPluginKey.getState(nextState)
       if (init || transactions.some((transaction) => transaction.docChanged)) {
         nextState.doc.descendants((node, pos) => {
           const { attrs } = node
-          if (types.includes(node.type.name) && !attrs.id) {
+
+          if (types.includes(node.type.name) && !attrs.id || idsUsed.has(attrs?.id)) {
             tr.setNodeMarkup(pos, undefined, { ...attrs, id: getId() })
             modified = true
           }
+
+          if (attrs?.id) idsUsed.add(attrs.id)
         })
       }
       return modified ? tr : null
