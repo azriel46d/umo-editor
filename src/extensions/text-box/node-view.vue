@@ -12,7 +12,10 @@
     }"
     @dblclick.capture="disabled = true"
   >
-    <div class="umo-node-container umo-node-text-box">
+    <div
+      class="umo-node-container umo-node-text-box"
+      :class="{ 'is-draggable': node.attrs.draggable }"
+    >
       <drager
         :selected="selected"
         :disabled="disabled"
@@ -30,8 +33,7 @@
         @rotate="onRotate"
         @resize="onResize"
         @drag="onDrag"
-        @dragend="onDragEnd"
-        @blur="disabled = false"
+        @blur="onBlur"
         @click="selected = true"
       >
         <node-view-content class="umo-node-text-box-content" />
@@ -50,7 +52,11 @@ const { options } = useStore()
 
 const containerRef = ref(null)
 let selected = $ref(false)
-const disabled = $ref(false)
+let disabled = $ref(false)
+
+const onBlur = () => {
+  disabled = false
+}
 
 const onRotate = ({ angle }: { angle: number }) => {
   updateAttributes({ angle })

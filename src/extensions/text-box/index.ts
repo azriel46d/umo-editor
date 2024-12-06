@@ -12,7 +12,7 @@ declare module '@tiptap/core' {
 export default Node.create({
   name: 'textBox',
   group: 'block',
-  content: 'inline*',
+  content: 'block*',
   draggable: false,
   addAttributes() {
     return {
@@ -65,14 +65,17 @@ export default Node.create({
   },
   addCommands() {
     return {
-      setTextBox:
-        (options) =>
-        ({ commands }) => {
-          return commands.insertContent({
-            type: this.name,
-            attrs: options,
-          })
-        },
+      setTextBox: (options) => ({ commands }) => {
+        return commands.insertContent({
+          type: this.name,
+          attrs: options,
+          content: [
+            {
+              type: 'paragraph',
+            }
+          ]
+        })
+      },
     }
   },
 })

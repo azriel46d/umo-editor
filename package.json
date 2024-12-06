@@ -105,7 +105,7 @@
     "buffer-image-size": "^0.6.4",
     "docx": "^8.5.0",
     "dom-to-image-more": "^3.4.3",
-    "es-drager": "0.3.4",
+    "es-drager": "1.2.11",
     "file-saver": "^2.0.5",
     "file64": "^1.0.4",
     "hotkeys-js": "^3.13.7",
