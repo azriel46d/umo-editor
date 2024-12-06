@@ -62,7 +62,7 @@
         position: relative;
         z-index: 1;
 
-        + * {
+        + *:not(:has(> .is-draggable)) {
           margin-top: var(--umo-content-node-bottom);
         }
 
