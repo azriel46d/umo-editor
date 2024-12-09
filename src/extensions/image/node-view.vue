@@ -117,6 +117,10 @@ const nodeStyle = $computed(() => {
   }
 })
 
+watch(() => node.attrs.draggable, () => {
+  updateAttributes({ top: 0, left: 0 })
+})
+
 const uploadImage = async () => {
   if (node.attrs.uploaded || !node.attrs.file) {
     return

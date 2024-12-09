@@ -324,10 +324,9 @@ export function getDomHeight(dom: HTMLElement) {
   const marginTop = contentStyle.getPropertyValue('margin-top')
   const marginBottom = contentStyle.getPropertyValue('margin-bottom')
   const margin = Number.parseFloat(marginTop) + Number.parseFloat(marginBottom)
-  return {
-    margin,
-    height: margin + dom.offsetHeight + Number.parseFloat(contentStyle.borderWidth),
-  }
+  const height = margin + dom.offsetHeight + Number.parseFloat(contentStyle.borderWidth)
+
+  return { margin, height }
 }
 
 function findTextblockHacksIds(node: Node) {
