@@ -76,6 +76,21 @@ export const sameItemCalculation: ComputedFn = (
   return false
 }
 
+const c = (
+  splitContex: SplitContext,
+  dom: HTMLElement,
+) => {
+  let { height, margin } = getDomHeight(dom)
+
+  if (splitContex.firstNode) {
+    height = height - margin
+  } else if (splitContex.validNode && margin == 0) {
+    height = height + 12
+  }
+
+  return { height, margin }
+}
+
 export const defaultNodesComputed: NodesComputed = {
   [ORDEREDLIST]: sameListCalculation,
   [BULLETLIST]: sameListCalculation,
@@ -113,7 +128,8 @@ export const defaultNodesComputed: NodesComputed = {
     return false
   },
   [TABLE]: (splitContex, node, pos, parent, dom) => {
-    const { height: pHeight, margin } = getDomHeight(dom)
+    const { height: pHeight, margin } = c(splitContex, dom)
+
     //如果列表的高度超过分页高度 直接返回继续循环 tr 或者li
     if (splitContex.isOverflow(pHeight)) {
       splitContex.addHeight(margin)
@@ -143,9 +159,9 @@ export const defaultNodesComputed: NodesComputed = {
     }
     return false
   },
-
   [PARAGRAPH]: (splitContex, node, pos, parent, dom) => {
-    const { height: pHeight } = getDomHeight(dom)
+    const { height: pHeight } = c(splitContex, dom)
+
     if (!splitContex.isOverflow(pHeight)) {
       splitContex.addHeight(pHeight)
       return false
@@ -169,7 +185,8 @@ export const defaultNodesComputed: NodesComputed = {
     return startIndex === i && parent?.type.name === 'doc'
   },
   default: (splitContex, node, pos, parent, dom) => {
-    const { height: pHeight } = getDomHeight(dom)
+    const { height: pHeight } = c(splitContex, dom)
+
     if (!splitContex.isOverflow(pHeight)) {
       splitContex.addHeight(pHeight)
       return false
@@ -194,6 +211,8 @@ export class SplitContext {
   #accumolatedHeight = 0 //累加高度
   #pageBoundary: SplitInfo | null = null //返回的切割点
   #height = 0 //分页的高度
+  firstNode = true
+  validNode = false
   #paragraphDefaultHeight = 0 //p标签的默认高度
   attributes: Record<string, any> = {}
   schema: Schema
@@ -217,6 +236,7 @@ export class SplitContext {
     doc: Node,
     height: number,
     paragraphDefaultHeight: number,
+    public tr: Transaction | null = null
   ) {
     this.#doc = doc
     this.#height = height
@@ -379,7 +399,7 @@ export class PageComputedContext {
    */
   splitDocument() {
     const { schema } = this.state
-    for (;;) {
+    for (; ;) {
       // 获取最后一个page计算高度，如果返回值存在的话证明需要分割
       const splitInfo = this.getNodeHeight()
       if (!splitInfo) return
@@ -537,13 +557,13 @@ export class PageComputedContext {
       after = Fragment.from(
         typeAfter
           ? typeAfter.type.create(
-              {
-                id: getId(),
-                pageNumber: na?.attrs.pageNumber + 1,
-                force,
-              },
-              after,
-            )
+            {
+              id: getId(),
+              pageNumber: na?.attrs.pageNumber + 1,
+              force,
+            },
+            after,
+          )
           : na,
       )
     }
@@ -568,7 +588,6 @@ export class PageComputedContext {
           beforeBolck = node
           beforePos = pos
         } else {
-          // console.log('beforeBolck: ' + beforeBolck)
           const mappedPos = tr.mapping.map(pos)
           if (beforeBolck.type === schema.nodes[PARAGRAPH]) {
           } else {
@@ -603,12 +622,15 @@ export class PageComputedContext {
       doc,
       bodyOptions?.bodyHeight,
       getDefault(),
+      this.tr
     )
     const { nodesComputed } = this
     const { restDomIds } = this
     const { forcePageId } = this
     const { startIndex } = this
     let breakDescendants = false
+    const { options } = useStore()
+
     doc.descendants((node, pos, parentNode, i) => {
       if (breakDescendants || node.attrs.id === forcePageId) {
         breakDescendants = true
@@ -623,7 +645,25 @@ export class PageComputedContext {
         ) {
           dom = getAbsentHtmlH(node, this.state.schema)
         }
-        return (nodesComputed[node.type.name] || nodesComputed.default)(
+
+
+        const isParagraph = node.type.name === PARAGRAPH
+
+        const elementDraggable = !dom?.querySelector('.is-draggable') && !isParagraph
+
+        const paragraphEmpty = dom?.classList.contains('p-empty') && isParagraph
+
+        const paragraphEmptyAfterBlade = isParagraph
+          && (
+            (
+              !dom?.classList.contains('p-empty')
+              && !dom?.querySelector('br.ProseMirror-trailingBreak')
+            ) || !options.value.document.readOnly
+          )
+
+        splitContex.validNode = !!(node.type.name != PAGE && (elementDraggable || paragraphEmptyAfterBlade || paragraphEmpty))
+
+        const result = (nodesComputed[node.type.name] || nodesComputed.default)(
           splitContex,
           node,
           pos,
@@ -634,6 +674,13 @@ export class PageComputedContext {
           forcePageId,
           i,
         )
+
+
+        if (node.type.name != PAGE && (elementDraggable || paragraphEmptyAfterBlade || paragraphEmpty)) {
+          splitContex.firstNode = false
+        }
+
+        return result
       }
       return false
     })

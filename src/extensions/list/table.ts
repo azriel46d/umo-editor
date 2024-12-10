@@ -1,9 +1,45 @@
 import { Table } from '@tiptap/extension-table'
 import { TextSelection } from '@tiptap/pm/state'
-import type { Fragment, Node as ProsemirrorNode, Schema } from '@tiptap/pm/model'
+import type { DOMOutputSpec, Fragment, Node as ProsemirrorNode, Schema } from '@tiptap/pm/model'
+import { TableView } from '@tiptap/pm/tables'
+
+export class CustomTableView extends TableView {
+  constructor(node: ProsemirrorNode, cellMinWidth: number) {
+    super(node, cellMinWidth)
+    this.updateAttrs(node.attrs)
+  }
+
+  update(node: ProsemirrorNode): boolean {
+    this.updateAttrs(node.attrs)
+    return super.update(node)
+  }
+
+  private updateAttrs(attrs: Record<string, any>) {
+    if (attrs?.class) this.table.className = attrs.class
+
+    if (attrs?.id) this.table.id = attrs.id
+  }
+}
 
 export default Table.extend({
   content: 'tableRow*',
+
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      View: CustomTableView as any
+    }
+  },
+
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      id: {
+        default: null,
+      }
+    }
+  },
+
   addCommands() {
     return {
       ...this.parent?.(),

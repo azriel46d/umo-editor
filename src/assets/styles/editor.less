@@ -1,5 +1,37 @@
 @import '@/assets/styles/_mixins.less';
 
+.hide-editor>.umo-editor-container {
+  .umo-page-node-content {
+
+    >p:not(.p-empty):has(br.ProseMirror-trailingBreak) {
+      display: none;
+      margin: 0 !important;
+    }
+
+    >*:not(:not(.p-empty):has(br.ProseMirror-trailingBreak, .is-draggable)) {
+      position: relative;
+      z-index: 1;
+
+      ~*:not(:not(.p-empty):has(br.ProseMirror-trailingBreak, .is-draggable)) {
+        margin-top: var(--umo-content-node-bottom) !important;
+      }
+    }
+  }
+}
+
+div:not(.hide-editor):has(> div[id^=umo-editor-]) .umo-editor-container {
+  .umo-page-node-content {
+    >*:not(:has(.is-draggable)) {
+      position: relative;
+      z-index: 1;
+
+      ~*:not(:has(.is-draggable)) {
+        margin-top: var(--umo-content-node-bottom);
+      }
+    }
+  }
+}
+
 .umo-editor-container {
   flex: 1;
   width: 100%;
@@ -10,7 +42,7 @@
   }
 
   &.is-empty {
-    .umo-page-node-content > :first-child {
+    .umo-page-node-content> :first-child {
       &::after {
         content: var(--umo-editor-placeholder);
         color: var(--umo-content-placeholder-color);
@@ -23,7 +55,7 @@
 
   &.show-line-number {
     .umo-page-node-content {
-      > *:not([data-line-number='false']):not(div):not(.umo-node-focused) {
+      >*:not([data-line-number='false']):not(div):not(.umo-node-focused) {
         position: relative;
 
         &::before {
@@ -58,13 +90,9 @@
     }
 
     .umo-page-node-content {
-      > * {
+      >*:not(:has(.is-draggable)) {
         position: relative;
         z-index: 1;
-
-        + *:not(:has(> .is-draggable)) {
-          margin-top: var(--umo-content-node-bottom);
-        }
 
         &.umo-node-focused {
           &:not(hr):not(.tableWrapper):not(table):before {
@@ -87,6 +115,7 @@
               bottom: -8px !important;
             }
           }
+
           &.umo-node-view-empty {
             &::before {
               top: 3px !important;
@@ -116,7 +145,7 @@
 
     .is-editor-empty {
       &:first-child {
-        > * {
+        >* {
           display: none;
         }
 
@@ -211,7 +240,7 @@
       box-sizing: border-box;
       position: relative;
 
-      > * {
+      >* {
         margin-bottom: 0;
       }
 
@@ -362,16 +391,17 @@
         }
       }
 
-      > label {
+      >label {
         flex: 0 0 auto;
         margin-right: 10px;
         user-select: none;
+
         input {
           transform: translateY(0.2em);
         }
       }
 
-      > div {
+      >div {
         flex: 1 1 auto;
       }
     }
@@ -407,9 +437,11 @@
     display: flex;
     position: relative;
     max-height: 100%;
+
     .umo-node-container {
       max-height: 100%;
     }
+
     .umo-hover-shadow:hover {
       box-shadow: var(--umo-shadow);
     }
@@ -419,6 +451,7 @@
   .ProseMirror-gapcursor {
     height: 24px;
     display: flex;
+
     &:after {
       height: 16px;
       width: 100%;

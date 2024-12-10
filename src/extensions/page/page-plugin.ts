@@ -178,7 +178,7 @@ export const idPlugin = (types: string[]) => {
         nextState.doc.descendants((node, pos) => {
           const { attrs } = node
 
-          if (types.includes(node.type.name) && !attrs.id || idsUsed.has(attrs?.id)) {
+          if ((types.includes(node.type.name) && !attrs.id) || idsUsed.has(attrs?.id)) {
             tr.setNodeMarkup(pos, undefined, { ...attrs, id: getId() })
             modified = true
           }

@@ -46,7 +46,7 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "vue-tsc --noEmit && vite build",
-    "dev": "vite --port 9000 --open --force",
+    "dev": "vite --port 9000",
     "format": "prettier --write .",
     "check:code": "eslint --cache src",
     "check:style": "stylelint src/**/*.{css,less,vue}",
