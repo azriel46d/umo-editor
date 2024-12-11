@@ -1,4 +1,4 @@
-import Image from '@tiptap/extension-image'
+import ImageExtension from '@tiptap/extension-image'
 import { type CommandProps, VueNodeViewRenderer } from '@tiptap/vue-3'
 
 import NodeView from './node-view.vue'
@@ -9,7 +9,31 @@ declare module '@tiptap/core' {
     }
   }
 }
-export default Image.extend({
+
+export function validImage(url: string, timeoutT?: number) {
+    return new Promise(function (resolve, reject) {
+        var timeout = timeoutT || 5000;
+        var timer: NodeJS.Timeout, img = new Image();
+
+        img.onerror = img.onabort = function () {
+            clearTimeout(timer);
+            reject("error");
+        };
+
+        img.onload = function () {
+            clearTimeout(timer);
+            resolve("success");
+        };
+
+        timer = setTimeout(function () {
+            img.src = "//!!!!/test.jpg";
+            reject("timeout");
+        }, timeout);
+        img.src = url;
+    });
+}
+
+export default ImageExtension.extend({
   atom: true,
   addAttributes() {
     return {
@@ -24,6 +48,9 @@ export default Image.extend({
       },
       name: {
         default: null,
+      },
+      originalSrc: {
+        default: null
       },
       size: {
         default: null,

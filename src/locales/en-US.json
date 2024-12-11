@@ -138,6 +138,7 @@
     },
     "image": "Image",
     "link": {
+      "image": "Link Image",
       "text": "Link",
       "title": "Insert Link",
       "insert": "Insert",

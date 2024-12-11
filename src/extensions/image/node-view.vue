@@ -70,6 +70,7 @@
               node.attrs.flipX || node.attrs.flipY
                 ? `rotateX(${node.attrs.flipX ? '180' : '0'}deg) rotateY(${node.attrs.flipY ? '180' : '0'}deg)`
                 : 'none',
+            objectFit: node.attrs.type === 'image-url' ? 'cover' : 'fill'
           }"
           :data-id="node.attrs.id"
           loading="lazy"
@@ -92,6 +93,7 @@ import Drager from 'es-drager'
 import { base64ToFile } from 'file64'
 
 import { shortId } from '@/utils/short-id'
+import { validImage } from '.';
 
 const { node, updateAttributes } = defineProps(nodeViewProps)
 const { options, editor, imageViewer } = useStore()
@@ -123,8 +125,29 @@ watch(() => node.attrs.draggable, () => {
 
 const uploadImage = async () => {
   if (node.attrs.uploaded || !node.attrs.file) {
+    if (
+      node.attrs.originalSrc
+        && options.value.document?.readOnly
+        && node.attrs.type === 'image-url'
+    ) {
+      try{
+        await validImage(node.attrs.originalSrc, 1000)
+        updateAttributes({
+          src: node.attrs.originalSrc,
+          uploaded: true,
+          originalSrc: null
+        })
+      } catch (error) {
+        useMessage('error', t('node.image.error'))
+        updateAttributes({
+          uploaded: true,
+          originalSrc: null
+        })
+      }
+    }
     return
   }
+
   try {
     const { id, url } =
       (await options.value?.onFileUpload?.(node.attrs.file)) ?? {}
@@ -143,6 +166,13 @@ const onLoad = async () => {
     maxHeight = containerRef.value?.$el.clientWidth / ratio
     updateAttributes({ width: (200 * ratio).toFixed(2) })
   }
+
+  if ([null, 'auto', 0].includes(node.attrs.width)) {
+    await nextTick()
+    const { width } = imageRef?.getBoundingClientRect() ?? {}
+    updateAttributes({ width: width.toFixed(2) })
+  }
+
   if ([null, 'auto', 0].includes(node.attrs.height)) {
     await nextTick()
     const { height } = imageRef?.getBoundingClientRect() ?? {}
