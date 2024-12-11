@@ -138,7 +138,6 @@ const uploadImage = async () => {
           originalSrc: null
         })
       } catch (error) {
-        useMessage('error', t('node.image.error'))
         updateAttributes({
           uploaded: true,
           originalSrc: null
