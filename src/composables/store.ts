@@ -13,6 +13,7 @@ export type TableOfContentItem = TableOfContentDataItem & { title: string }
 export const useStore = createGlobalState(() => {
   const toolbarKey = ref<string>(shortId())
   const options = ref<UmoEditorOptions>(defaultOptions)
+  const defaultOptionsCustom = ref<PageOption>()
   const page = ref<PageOption>(defaultOptions.page)
   const editor = ref<Editor>()
   const painter = ref<{
@@ -42,7 +43,11 @@ export const useStore = createGlobalState(() => {
   const hidePageFooter = ref(true)
   const editorDestroyed = ref(false)
 
-  const setOptions = (value: unknown) => {
+  const setOptions = (value: unknown, isDefault = false) => {
+    if (isDefault) {
+      defaultOptionsCustom.value = value
+    }
+
     const opts =
       isRecord(value) && Object.keys(value).includes('value')
         ? value.value
@@ -85,9 +90,9 @@ export const useStore = createGlobalState(() => {
     updatePage(page)
   })
 
-  const updatePage = ({ defaultBackground, defaultMargin, defaultOrientation, watermark, }: PageOption) => {
+  const updatePage = ({ size, defaultBackground, defaultMargin, defaultOrientation, watermark, }: PageOption) => {
     page.value = {
-      size: options.value.dicts?.pageSizes.find(
+      size: size ?? options.value.dicts?.pageSizes.find(
         (item: { default: boolean }) => item.default,
       ),
       margin: defaultMargin,
@@ -130,6 +135,10 @@ export const useStore = createGlobalState(() => {
     editor.value = editorInstance
   }
   const resetStore = () => {
+    options.value = objectSchema.merge(
+      defaultOptions,
+      defaultOptionsCustom.value ?? {},
+    )
     editor.value = undefined
     tableOfContents.value = []
     searchReplace.value = false
