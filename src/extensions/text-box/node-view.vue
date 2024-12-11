@@ -18,7 +18,7 @@
     >
       <drager
         :selected="selected"
-        :disabled="disabled"
+        :disabled="disabled || options?.document?.readOnly"
         :draggable="!options?.document?.readOnly"
         :rotatable="true"
         :boundary="false"
