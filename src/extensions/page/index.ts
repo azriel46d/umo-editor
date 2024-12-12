@@ -362,14 +362,6 @@ const deleteSelection = (commands: SingleCommands) => {
   return commands.command(({ tr }) => {
     const { selection, doc } = tr
 
-    doc.nodesBetween(selection.from, selection.to, (child) => {
-      if (child.type.name === IMAGE) {
-        const { id, src } = child.attrs
-        const { options } = useStore()
-        options.value.onFileDelete?.(id, src)
-      }
-    })
-
     const nodesInChangedRanges = findChildrenInRange(
       doc,
       {

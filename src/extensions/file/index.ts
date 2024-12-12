@@ -142,6 +142,7 @@ export default Node.create({
           if (type.startsWith('audio/') && mimeTypes.audio.includes(type)) {
             previewType = 'audio'
           }
+
           // 插入节点
           return commands.insertContentAt(position, {
             type: autoType ? (previewType ?? 'file') : 'file',

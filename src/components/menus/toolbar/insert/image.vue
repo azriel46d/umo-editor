@@ -66,7 +66,7 @@ const IMAGE_PLACEHOLDER = 'https://dummyimage.com/100x100/eee/aaa'
 let urlPreview = $ref(IMAGE_PLACEHOLDER)
 
 const onBlur = async () => {
-  if (form?.url?.match(/^https?:\/\//)) {
+  if (form?.url?.match(/^(https?:\/\/|data:)/)) {
     try {
       await validImage(form.url, 1000)
       form.errors.url = false

@@ -134,12 +134,10 @@ const uploadImage = async () => {
         await validImage(node.attrs.originalSrc, 1000)
         updateAttributes({
           src: node.attrs.originalSrc,
-          uploaded: true,
           originalSrc: null
         })
       } catch (error) {
         updateAttributes({
-          uploaded: true,
           originalSrc: null
         })
       }
@@ -252,6 +250,10 @@ watch(
     }
   },
 )
+
+onUnmounted(() => {
+  if (node.attrs.uploaded) options.value.onFileDelete?.(node.attrs.id, node.attrs.src)
+})
 </script>
 
 <style lang="less">
