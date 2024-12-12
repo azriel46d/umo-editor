@@ -103,6 +103,9 @@ export default ImageExtension.extend({
       previewType: {
         default: 'image',
       },
+      zIndex: {
+        default: 0
+      }
     }
   },
   parseHTML() {

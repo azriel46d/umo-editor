@@ -42,11 +42,11 @@
     <menus-bubble-image-open />
     <div class="umo-bubble-menu-divider"></div>
     <menus-bubble-image-edit />
-    <menus-bubble-node-duplicate
-      v-if="
-        editor?.isActive('image') && editor?.getAttributes('image').draggable
-      "
-    />
+    <template v-if="editor?.isActive('image') && editor?.getAttributes('image').draggable">
+      <menus-bubble-node-duplicate />
+      <menus-bubble-draggable-up-layer />
+      <menus-bubble-draggable-down-layer />
+    </template>
     <menus-bubble-node-tofile
       v-if="editor?.getAttributes('image').previewType !== null"
     />

@@ -53,7 +53,7 @@
         :min-height="14"
         :max-width="maxWidth"
         :max-height="node.attrs.equalProportion ? maxHeight : undefined"
-        :z-index="10"
+        :z-index="node.attrs.zIndex"
         :equal-proportion="node.attrs.equalProportion"
         @rotate="onRotate"
         @resize="onResize"
@@ -115,7 +115,7 @@ const nodeStyle = $computed(() => {
     justifyContent: nodeAlign,
     marginTop,
     marginBottom,
-    zIndex: selected ? 100 : node.attrs.draggable ? 95 : 0,
+    zIndex: selected ? 1000000 : node.attrs.draggable ? node.attrs.zIndex : 0,
   }
 })
 
