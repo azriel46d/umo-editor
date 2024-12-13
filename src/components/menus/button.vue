@@ -172,6 +172,9 @@
           :disabled="disabled || editor?.isEditable === false"
           @change="menuClick"
         >
+          <template #valueDisplay="{ label }" v-if="$slots['valueDisplay']">
+            <slot name="valueDisplay" :label="label" />
+          </template>
           <slot />
         </t-select>
       </template>

@@ -113,7 +113,7 @@
           <t-dropdown-menu
             v-for="item in editorModeOptions"
             :key="item.value as string"
-            :content="item.label"
+            :content="t(item.label)"
             :value="item.value"
             :divider="item.divider"
             :active="item.value === $toolbar.mode"
@@ -145,17 +145,17 @@ const online = useOnline()
 
 // 工具栏菜单
 const defaultToolbarMenus = [
-  { label: t('toolbar.base'), value: 'base' },
-  { label: t('toolbar.insert'), value: 'insert' },
-  { label: t('toolbar.table'), value: 'table' },
-  { label: t('toolbar.tools'), value: 'tools' },
-  { label: t('toolbar.page'), value: 'page' },
-  { label: t('toolbar.export'), value: 'export' },
+  { label: 'toolbar.base', value: 'base' },
+  { label: 'toolbar.insert', value: 'insert' },
+  { label: 'toolbar.table', value: 'table' },
+  { label: 'toolbar.tools', value: 'tools' },
+  { label: 'toolbar.page', value: 'page' },
+  { label: 'toolbar.export', value: 'export' },
 ]
 let toolbarMenus = defaultToolbarMenus
 if (options.value.toolbar?.menus) {
   toolbarMenus = options.value.toolbar?.menus.map(
-    (item: any) => defaultToolbarMenus.filter((menu) => menu.value === item)[0],
+    (item: any) => defaultToolbarMenus.find((menu) => menu.value === item),
   )
 }
 let currentMenu = $ref(toolbarMenus[0].value)
@@ -184,24 +184,24 @@ const editorModeOptions = computed(() => {
     divider?: boolean
   }[] = [
     {
-      label: t('toolbar.ribbon'),
+      label: 'toolbar.ribbon',
       value: 'ribbon',
       prefixIcon: 'toolbar-ribbon',
     },
     {
-      label: t('toolbar.classic'),
+      label: 'toolbar.classic',
       value: 'classic',
       prefixIcon: 'toolbar-classic',
     },
     {
-      label: t('toolbar.hide'),
+      label: 'toolbar.hide',
       value: 'hideToolbar',
       prefixIcon: 'hide-toolbar',
     },
   ]
   if (options.value.toolbar?.enableSourceEditor) {
     modeOptions.splice(2, 0, {
-      label: t('toolbar.source'),
+      label: 'toolbar.source',
       value: 'source',
       prefixIcon: 'toolbar-source',
       divider: true,

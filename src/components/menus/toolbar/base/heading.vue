@@ -13,7 +13,7 @@
           :class="{ active: item.value === currentValue && editor?.isEditable }"
           @click="setHeading(item.value)"
         >
-          <div class="title" :class="item.desc">{{ item.label }}</div>
+          <div class="title" :class="item.desc">{{ t(item.label, item.binds) }}</div>
           <div class="subtitle">{{ item.desc }}</div>
         </div>
       </template>
@@ -39,7 +39,7 @@
                 }"
                 @click="setHeading(item.value)"
               >
-                <div class="title" :class="item.desc">{{ item.label }}</div>
+                <div class="title" :class="item.desc">{{ t(item.label, item.binds) }}</div>
                 <div class="subtitle">{{ item.desc }}</div>
               </div>
             </template>
@@ -78,12 +78,13 @@ const $toolbar = useState('toolbar')
 const popupContentRef = ref(null)
 
 const options = $ref([
-  { label: t('base.heading.paragraph'), desc: 'text', value: 'paragraph' },
+  { label: 'base.heading.paragraph', desc: 'text', value: 'paragraph' },
 ])
 for (const i of Array.from({ length: 6 }).keys()) {
   const level = i + 1
   options.push({
-    label: `${t('base.heading.text', { level })}`,
+    label: `base.heading.text`,
+    binds: { level },
     desc: `h${level}`,
     value: level,
   })

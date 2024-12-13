@@ -19,12 +19,12 @@
           }"
           @click="setTemplate(item)"
         >
-          <div class="title">{{ item.title }}</div>
+          <div class="title">{{ l(item.title) }}</div>
           <div
             v-if="item.description && item.description !== ''"
             class="description"
           >
-            {{ item.description }}
+            {{ l(item.description) }}
           </div>
         </t-dropdown-item>
       </t-dropdown-menu>

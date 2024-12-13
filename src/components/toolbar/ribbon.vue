@@ -8,7 +8,7 @@
         :class="{ active: currentMenu === item.value }"
         @click="changeMenu(item.value)"
       >
-        {{ item.label }}
+        {{ t(item.label) }}
       </div>
     </div>
     <toolbar-scrollable ref="scrollableRef" class="umo-scrollable-container">

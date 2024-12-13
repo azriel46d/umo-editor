@@ -5,13 +5,18 @@
     menu-type="select"
     hide-text
     style="width: 80px"
-    :select-options="fontSizes"
     :select-value="editor?.getAttributes('textStyle').fontSize || '14px'"
     v-bind="$attrs"
     :placeholder="t('base.fontSize.text')"
     filterable
     @menu-click="setFontSize"
   >
+    <template #valueDisplay="{ label }">
+      <span>{{ label ? t(label) : label }}</span>
+    </template>
+    <t-option v-for="item in fontSizes" :value="item.value" :label="item.label" :key="item.value">
+      <span>{{ item?.useI18n ? t(item.label) : item.label }}</span>
+    </t-option>
   </menus-button>
   <menus-button
     ico="font-size-increase"
@@ -39,21 +44,21 @@ const { editor } = useStore()
 const $toolbar = useState('toolbar')
 
 const fontSizes = [
-  { label: t('base.fontSize.default'), value: '14px', order: 4 },
-  { label: t('base.fontSize.42pt'), value: '42pt', order: 20 }, //56
-  { label: t('base.fontSize.36pt'), value: '36pt', order: 19 }, //48
-  { label: t('base.fontSize.26pt'), value: '26pt', order: 16 }, //35
-  { label: t('base.fontSize.24pt'), value: '24pt', order: 15 }, //32
-  { label: t('base.fontSize.22pt'), value: '22pt', order: 14 }, //29
-  { label: t('base.fontSize.18pt'), value: '18pt', order: 11 }, //24
-  { label: t('base.fontSize.16pt'), value: '16pt', order: 10 }, //22
-  { label: t('base.fontSize.15pt'), value: '15pt', order: 9 }, //21
-  { label: t('base.fontSize.14pt'), value: '14pt', order: 7 }, //19
-  { label: t('base.fontSize.12pt'), value: '12pt', order: 4 }, //16
-  { label: t('base.fontSize.10_5pt'), value: '10.5pt', order: 1 }, //14
-  { label: t('base.fontSize.9pt'), value: '9pt', order: 3 }, //12
-  { label: t('base.fontSize.7_5pt'), value: '7.5pt', order: 1 }, //10
-  { label: t('base.fontSize.6_5pt'), value: '6.5pt', order: 0 }, //9
+  { label: 'base.fontSize.default', value: '14px', order: 4, useI18n: true },
+  { label: 'base.fontSize.42pt', value: '42pt', order: 20, useI18n: true }, //56
+  { label: 'base.fontSize.36pt', value: '36pt', order: 19, useI18n: true }, //48
+  { label: 'base.fontSize.26pt', value: '26pt', order: 16, useI18n: true }, //35
+  { label: 'base.fontSize.24pt', value: '24pt', order: 15, useI18n: true }, //32
+  { label: 'base.fontSize.22pt', value: '22pt', order: 14, useI18n: true }, //29
+  { label: 'base.fontSize.18pt', value: '18pt', order: 11, useI18n: true }, //24
+  { label: 'base.fontSize.16pt', value: '16pt', order: 10, useI18n: true }, //22
+  { label: 'base.fontSize.15pt', value: '15pt', order: 9, useI18n: true }, //21
+  { label: 'base.fontSize.14pt', value: '14pt', order: 7, useI18n: true }, //19
+  { label: 'base.fontSize.12pt', value: '12pt', order: 4, useI18n: true }, //16
+  { label: 'base.fontSize.10_5pt', value: '10.5pt', order: 1, useI18n: true  }, //14
+  { label: 'base.fontSize.9pt', value: '9pt', order: 3, useI18n: true  }, //12
+  { label: 'base.fontSize.7_5pt', value: '7.5pt', order: 1, useI18n: true  }, //10
+  { label: 'base.fontSize.6_5pt', value: '6.5pt', order: 0, useI18n: true  }, //9
   { label: '10', value: '10px', order: 1 },
   { label: '11', value: '11px', order: 2 },
   { label: '12', value: '12px', order: 3 },

@@ -26,179 +26,170 @@ const defaultOptions: UmoEditorOptions = {
   height: '100%',
   dicts: {
     fonts: [
-      { label: { en_US: 'Default Font', zh_CN: '默认字体' }, value: null },
-      { label: { en_US: 'Songti', zh_CN: '宋体' }, value: 'SimSun' },
-      { label: { en_US: 'Heiti', zh_CN: '黑体' }, value: 'SimHei' },
-      { label: { en_US: 'Kaiti', zh_CN: '楷体' }, value: 'KaiTi' },
+      { label: { en_US: 'Default Font', zh_CN: '默认字体', pt_BR: 'Fonte padrão' }, value: null },
+      { label: { en_US: 'Songti', zh_CN: '宋体', pt_BR: 'Songti' }, value: 'SimSun' },
+      { label: { en_US: 'Heiti', zh_CN: '黑体', pt_BR: 'Heiti' }, value: 'SimHei' },
+      { label: { en_US: 'Kaiti', zh_CN: '楷体', pt_BR: 'Kaiti' }, value: 'KaiTi' },
       {
-        label: { en_US: 'Kaiti GB2312', zh_CN: '楷体_GB2312' },
+        label: { en_US: 'Kaiti GB2312', zh_CN: '楷体_GB2312', pt_BR: 'Kaiti GB2312' },
         value: 'KaiTi_GB2312',
       },
-      { label: { en_US: 'Fangsong', zh_CN: '仿宋' }, value: 'FangSong' },
+      { label: { en_US: 'Fangsong', zh_CN: '仿宋', pt_BR: 'Fangsong' }, value: 'FangSong' },
       {
-        label: { en_US: 'Fangsong GB2312', zh_CN: '仿宋_GB2312' },
+        label: { en_US: 'Fangsong GB2312', zh_CN: '仿宋_GB2312', pt_BR: 'Fangsong GB2312' },
         value: 'FangSong_GB2312',
       },
-      { label: { en_US: 'STSong', zh_CN: '华文宋体' }, value: 'STSong' },
+      { label: { en_US: 'STSong', zh_CN: '华文宋体', pt_BR: 'STSong' }, value: 'STSong' },
       {
-        label: { en_US: 'STFangsong', zh_CN: '华文仿宋' },
+        label: { en_US: 'STFangsong', zh_CN: '华文仿宋', pt_BR: 'STFangsong' },
         value: 'STFangsong',
       },
       {
-        label: { en_US: 'FZ Fangsong Simplified', zh_CN: '方正仿宋简体' },
+        label: { en_US: 'FZ Fangsong Simplified', zh_CN: '方正仿宋简体', pt_BR: 'FZ Fangsong Simplified' },
         value: 'FZFangSong-Z02S',
       },
       {
-        label: { en_US: 'FZ Xiaobiao Song', zh_CN: '方正小标宋' },
+        label: { en_US: 'FZ Xiaobiao Song', zh_CN: '方正小标宋', pt_BR: 'FZ Xiaobiao Song' },
         value: 'FZXiaoBiaoSong-B05S',
       },
       {
-        label: { en_US: 'Microsoft Yahei', zh_CN: '微软雅黑' },
+        label: { en_US: 'Microsoft Yahei', zh_CN: '微软雅黑', pt_BR: 'Microsoft Yahei' },
         value: 'Microsoft Yahei',
-      },
-      { label: 'Arial', value: 'Arial' },
-      { label: 'Times New Roman', value: 'Times New Roman' },
-      { label: 'Verdana', value: 'Verdana' },
-      { label: 'Helvetica', value: 'Helvetica' },
-      { label: 'Calibri', value: 'Calibri' },
-      { label: 'Cambria', value: 'Cambria' },
-      { label: 'Tahoma', value: 'Tahoma' },
-      { label: 'Georgia', value: 'Georgia' },
-      { label: 'Comic Sans MS', value: 'Comic Sans MS' },
-      { label: 'Impact', value: 'Impact' },
+      }
     ],
     // prettier-ignore
     colors: [
-			"#FFF",
-			"#000",
-			"#4A5366",
-			"#3B74EC",
-			"#45A2EF",
-			"#529867",
-			"#CD4A3F",
-			"#EA8D40",
-			"#EEC543",
-			"#8E45D0",
-			"#F2F2F2",
-			"#7F7F7F",
-			"#F4F5F7",
-			"#CBDCFC",
-			"#E8F6FE",
-			"#EDFAF2",
-			"#FCEAE9",
-			"#FDF3EC",
-			"#FEF9E5",
-			"#FAECFE",
-			"#EEE",
-			"#595959",
-			"#C6CAD2",
-			"#CEEBFD",
-			"#CBDCFC",
-			"#CBE9D7",
-			"#F7CBC9",
-			"#FADDC7",
-			"#FDEEB5",
-			"#EBCAFC",
-			"#BFBFBF",
-			"#3F3F3F",
-			"#828B9D",
-			"#A0BEFA",
-			"#A7DCFC",
-			"#A6D5B8",
-			"#F2A19C",
-			"#F5BC8C",
-			"#FBE281",
-			"#CB94F9",
-			"#A5A5A5",
-			"#262626",
-			"#363B44",
-			"#2452B2",
-			"#3473A1",
-			"#417A53",
-			"#922B22",
-			"#AD642A",
-			"#9E8329",
-			"#57297D",
-			"#939393",
-			"#0D0D0D",
-			"#25272E",
-			"#15316A",
-			"#1C415A",
-			"#284D34",
-			"#511712",
-			"#573213",
-			"#635217",
-			"#36194E",
-		],
+      "#FFF",
+      "#000",
+      "#4A5366",
+      "#3B74EC",
+      "#45A2EF",
+      "#529867",
+      "#CD4A3F",
+      "#EA8D40",
+      "#EEC543",
+      "#8E45D0",
+      "#F2F2F2",
+      "#7F7F7F",
+      "#F4F5F7",
+      "#CBDCFC",
+      "#E8F6FE",
+      "#EDFAF2",
+      "#FCEAE9",
+      "#FDF3EC",
+      "#FEF9E5",
+      "#FAECFE",
+      "#EEE",
+      "#595959",
+      "#C6CAD2",
+      "#CEEBFD",
+      "#CBDCFC",
+      "#CBE9D7",
+      "#F7CBC9",
+      "#FADDC7",
+      "#FDEEB5",
+      "#EBCAFC",
+      "#BFBFBF",
+      "#3F3F3F",
+      "#828B9D",
+      "#A0BEFA",
+      "#A7DCFC",
+      "#A6D5B8",
+      "#F2A19C",
+      "#F5BC8C",
+      "#FBE281",
+      "#CB94F9",
+      "#A5A5A5",
+      "#262626",
+      "#363B44",
+      "#2452B2",
+      "#3473A1",
+      "#417A53",
+      "#922B22",
+      "#AD642A",
+      "#9E8329",
+      "#57297D",
+      "#939393",
+      "#0D0D0D",
+      "#25272E",
+      "#15316A",
+      "#1C415A",
+      "#284D34",
+      "#511712",
+      "#573213",
+      "#635217",
+      "#36194E",
+    ],
     lineHeights: [
-      { label: { en_US: 'Single', zh_CN: '单倍行距' }, value: 1 },
+      { label: { en_US: 'Single', zh_CN: '单倍行距', pt_BR: 'Simples' }, value: 1 },
       {
-        label: { en_US: '1.5 Line Spacing', zh_CN: '1.5 倍行距' },
+        label: { en_US: '1.5 Line Spacing', zh_CN: '1.5 倍行距', pt_BR: 'Espaçamento de 1.5 linhas' },
         value: 1.5,
         default: true,
       },
-      { label: { en_US: 'Double', zh_CN: '2 倍行距' }, value: 2 },
-      { label: { en_US: '2.5 Line Spacing', zh_CN: '2.5 倍行距' }, value: 2.5 },
-      { label: { en_US: 'Triple', zh_CN: '3 倍行距' }, value: 3 },
+      { label: { en_US: 'Double', zh_CN: '2 倍行距', pt_BR: 'Duas vezes' }, value: 2 },
+      { label: { en_US: '2.5 Line Spacing', zh_CN: '2.5 倍行距', pt_BR: 'Espaçamento de 2.5 linhas' }, value: 2.5 },
+      { label: { en_US: 'Triple', zh_CN: '3 倍行距', pt_BR: 'Três vezes' }, value: 3 },
     ],
     symbols: [
       {
-        label: { en_US: 'Plain Text', zh_CN: '普通文本' },
+        label: { en_US: 'Plain Text', zh_CN: '普通文本', pt_BR: 'Texto Padrão' },
         items: '‹›«»‘’“”‚„¡¿‥…‡‰‱‼⁈⁉⁇©®™§¶⁋',
       },
       {
-        label: { en_US: 'Currency Symbols', zh_CN: '货币符号' },
+        label: { en_US: 'Currency Symbols', zh_CN: '货币符号', pt_BR: 'Símbolos de Moeda' },
         items: '$€¥£¢₠₡₢₣₤¤₿₥₦₧₨₩₪₫₭₮₯₰₱₲₳₴₵₶₷₸₹₺₻₼₽',
       },
       {
-        label: { en_US: 'Mathematical Symbols', zh_CN: '数学符号' },
+        label: { en_US: 'Mathematical Symbols', zh_CN: '数学符号', pt_BR: 'Símbolos Matemáticos' },
         items: '<>≤≥–—¯‾°−±÷⁄×ƒ∫∑∞√∼≅≈≠≡∈∉∋∏∧∨¬∩∪∂∀∃∅∇∗∝∠¼½¾',
       },
-      { label: { en_US: 'Arrows', zh_CN: '箭头' }, items: '←→↑↓⇐⇒⇑⇓⇠⇢⇡⇣⇤⇥⤒⤓↨' },
+      { label: { en_US: 'Arrows', zh_CN: '箭头', pt_BR: 'Setas' }, items: '←→↑↓⇐⇒⇑⇓⇠⇢⇡⇣⇤⇥⤒⤓↨' },
       {
-        label: { en_US: 'Latin Script', zh_CN: '拉丁语' },
+        label: { en_US: 'Latin Script', zh_CN: '拉丁语', pt_BR: 'Alfabeto Latino' },
         items:
           'ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ',
       },
     ],
+
     emojis: [
       {
-        label: { en_US: 'Emotions & People', zh_CN: '表情与角色' },
+        label: { en_US: 'Emotions & People', zh_CN: '表情与角色', pt_BR: 'Emoções & Pessoas' },
         items:
           '😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 🫠 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺️ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😶‍🌫️ 😏 😒 🙄 😬 😮‍💨 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 😵‍💫 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 🫤 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👹 👺 👻 👽 👾 🤖 👋 🤚 🖐️ ✋ 🖖 🫱 🫲 🫳 🫴 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 🫵 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻',
       },
       {
-        label: { en_US: 'Animals & Nature', zh_CN: '动物与自然' },
+        label: { en_US: 'Animals & Nature', zh_CN: '动物与自然', pt_BR: 'Animais & Natureza' },
         items:
           '🐵 🐒 🦍 🦧 🐶 🐕 🦮 🐕‍🦺 🐩 🐺 🦊 🦝 🐱 🐈 🐈‍⬛ 🦁 🐯 🐅 🐆 🐴 🐎 🦄 🦓 🦌 🦬 🐮 🐂 🐃 🐄 🐷 🐖 🐗 🐽 🐏 🐑 🐐 🐪 🐫 🦙 🦒 🐘 🦣 🦏 🦛 🐭 🐁 🐀 🐹 🐰 🐇 🐿️ 🦫 🦔 🦇 🐻 🐻‍❄️ 🐨 🐼 🦥 🦦 🦨 🦘 🦡 🐾 🦃 🐔 🐓 🐣 🐤 🐥 🐦 🐧 🕊️ 🦅 🦆 🦢 🦉 🦤 🪶 🦩 🦚 🦜 🐸 🐊 🐢 🦎 🐍 🐲 🐉 🦕 🦖 🐳 🐋 🐬 🦭 🐟 🐠 🐡 🦈 🐙 🐚 🪸 🐌 🦋 🐛 🐜 🐝 🪲 🐞 🦗 🪳 🕷️ 🕸️ 🦂 🦟 🪰 🪱 🦠 💐 🌸 💮 🪷 🏵️ 🌹 🥀 🌺 🌻 🌼 🌷 🌱 🪴 🌲 🌳 🌴 🌵 🌾 🌿 ☘️ 🍀 🍁 🍂 🍃 🪹 🪺',
       },
       {
-        label: { en_US: 'Food & Drink', zh_CN: '食物与食品' },
+        label: { en_US: 'Food & Drink', zh_CN: '食物与食品', pt_BR: 'Comida & Bebida' },
         items:
           '🥬 🥦 🧄 🧅 🍄 🥜 🫘 🌰 🍞 🥐 🥖 🫓 🥨 🥯 🥞 🧇 🧀 🍖 🍗 🥩 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🫔 🥙 🧆 🥚 🍳 🥘 🍲 🫕 🥣 🥗 🍿 🧈 🧂 🥫 🍱 🍘 🍙 🍚 🍛 🍜 🍝 🍠 🍢 🍣 🍤 🍥 🥮 🍡 🥟 🥠 🥡 🦀 🦞 🦐 🦑 🦪 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🫖 🍵 🍶 🍾 🍷 🍸 🍹 🍺 🍻 🥂 🥃 🫗 🥤 🧋 🧃 🧉 🧊 🥢 🍽️ 🍴 🥄 🔪 🫙 🏺',
       },
       {
-        label: { en_US: 'Activities', zh_CN: '活动' },
+        label: { en_US: 'Activities', zh_CN: '活动', pt_BR: 'Atividades' },
         items:
           '🎗️ 🎟️ 🎫 🎖️ 🏆 🏅 🥇 🥈 🥉 ⚽ ⚾ 🥎 🏀 🏐 🏈 🏉 🎾 🥏 🎳 🏏 🏑 🏒 🥍 🏓 🏸 🥊 🥋 🥅 ⛳ ⛸️ 🎣 🤿 🎽 🎿 🛷 🥌 🎯 🪀 🪁 🎱 🔮 🪄 🧿 🪬 🎮 🕹️ 🎰 🎲 🧩 🧸 🪅 🪩 🪆 ♠️ ♥️ ♦️ ♣️ ♟️ 🃏 🀄 🎴 🎭 🖼️ 🎨 🧵 🪡 🧶 🪢',
       },
       {
-        label: { en_US: 'Travel & Places', zh_CN: '旅行与景点' },
+        label: { en_US: 'Travel & Places', zh_CN: '旅行与景点', pt_BR: 'Viagem & Lugares' },
         items:
           '🚈 🚉 🚊 🚝 🚞 🚋 🚌 🚍 🚎 🚐 🚑 🚒 🚓 🚔 🚕 🚖 🚗 🚘 🚙 🛻 🚚 🚛 🚜 🏎️ 🏍️ 🛵 🦽 🦼 🛺 🚲 🛴 🛹 🛼 🚏 🛣️ 🛤️ 🛢️ ⛽ 🛞 🚨 🚥 🚦 🛑 🚧 ⚓ 🛟 ⛵ 🛶 🚤 🛳️ ⛴️ 🛥️ 🚢 ✈️ 🛩️ 🛫 🛬 🪂 💺 🚁 🚟 🚠 🚡 🛰️ 🚀 🛸 🛎️ 🧳 ⌛ ⏳ ⌚ ⏰ ⏱️ ⏲️ 🕰️ 🕛 🕧 🕐 🕜 🕑 🕝 🕒 🕞 🕓 🕟 🕔 🕠 🕕 🕡 🕖 🕢 🕗 🕣 🕘 🕤 🕙 🕥 🕚 🕦 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌙 🌚 🌛 🌜 🌡️ ☀️ 🌝 🌞 🪐 ⭐ 🌟 🌠 🌌 ☁️ ⛅ ⛈️ 🌤️ 🌥️ 🌦️ 🌧️ 🌨️ 🌩️ 🌪️ 🌫️ 🌬️ 🌀 🌈 🌂 ☂️ ☔ ⛱️ ⚡ ❄️ ☃️ ⛄ ☄️ 🔥 💧 🌊',
       },
       {
-        label: { en_US: 'Objects', zh_CN: '物品' },
+        label: { en_US: 'Objects', zh_CN: '物品', pt_BR: 'Objetos' },
         items:
           '📃 📜 📄 📰 🗞️ 📑 🔖 🏷️ 💰 🪙 💴 💵 💶 💷 💸 💳 🧾 💹 ✉️ 📧 📨 📩 📤 📥 📦 📫 📪 📬 📭 📮 🗳️ ✏️ ✒️ 🖋️ 🖊️ 🖌️ 🖍️ 📝 💼 📁 📂 🗂️ 📅 📆 🗒️ 🗓️ 📇 📈 📉 📊 📋 📌 📍 📎 🖇️ 📏 📐 ✂️ 🗃️ 🗄️ 🗑️ 🔒 🔓 🔏 🔐 🔑 🗝️ 🔨 🪓 ⛏️ ⚒️ 🛠️ 🗡️ ⚔️ 🔫 🪃 🏹 🛡️ 🪚 🔧 🪛 🔩 ⚙️ 🗜️ ⚖️ 🦯 🔗 ⛓️ 🪝 🧰 🧲 🪜 ⚗️ 🧪 🧫 🧬 🔬 🔭 📡 💉 🩸 💊 🩹 🩼 🩺 🩻 🚪 🛗 🪞 🪟 🛏️ 🛋️ 🪑 🚽 🪠 🚿 🛁 🪤 🪒 🧴 🧷 🧹 🧺 🧻 🪣 🧼 🫧 🪥 🧽 🧯 🛒 🚬 ⚰️ 🪦 ⚱️ 🗿 🪧 🪪',
       },
       {
-        label: { en_US: 'Symbols', zh_CN: '符号' },
+        label: { en_US: 'Symbols', zh_CN: '符号', pt_BR: 'Símbolos' },
         items:
           '➰ ➿ 〽️ ✳️ ✴️ ❇️ ©️ ®️ ™️ #️⃣ *️⃣ 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 🔠 🔡 🔢 🔣 🔤 🅰️ 🆎 🅱️ 🆑 🆒 🆓 ℹ️ 🆔 Ⓜ️ 🆕 🆖 🅾️ 🆗 🅿️ 🆘 🆙 🆚 🈁 🈂️ 🔴 🟠 🟡 🟢 🔵 🟣 🟤 ⚫ ⚪ 🟥 🟧 🟨 🟩 🟦 🟪 🟫 ⬛ ⬜ ◼️ ◻️ ◾ ◽ ▪️ ▫️ 🔶 🔷 🔸 🔹 🔺 🔻 💠 🔘 🔳 🔲',
       },
       {
-        label: { en_US: 'Flags', zh_CN: '旗帜' },
+        label: { en_US: 'Flags', zh_CN: '旗帜', pt_BR: 'Bandeiras' },
         items:
           '🏁 🇨🇳 🎌 🇩🇪 🇪🇸 🇦🇨 🇦🇩 🇦🇪 🇦🇫 🇦🇬 🇦🇮 🇦🇱 🇦🇲 🇦🇴 🇦🇶 🇦🇷 🇦🇸 🇦🇹 🇦🇺 🇦🇼 🇦🇽 🇦🇿 🇧🇦 🇧🇧 🇧🇩 🇧🇪 🇧🇫 🇧🇬 🇧🇭 🇧🇮 🇧🇯 🇧🇱 🇧🇲 🇧🇳 🇧🇴 🇧🇶 🇧🇷 🇧🇸 🇧🇹 🇧🇻 🇧🇼 🇧🇾 🇧🇿 🇨🇦 🇨🇨 🇨🇩 🇨🇫 🇨🇬 🇨🇭 🇨🇮 🇨🇰 🇨🇱 🇨🇲 🇨🇴 🇨🇵 🇨🇷 🇨🇺 🇨🇻 🇨🇼 🇨🇽 🇨🇾 🇨🇿 🇩🇬 🇩🇯 🇩🇰 🇩🇲 🇩🇴 🇩🇿 🇪🇦 🇪🇨 🇪🇪 🇪🇬 🇪🇭 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇪🇷 🇪🇹 🇪🇺 🇫🇮 🇫🇯 🇫🇰 🇫🇲 🇫🇴 🇬🇦 🇬🇩 🇬🇪 🇬🇫 🇬🇬 🇬🇭 🇬🇮 🇬🇱 🇬🇲 🇬🇳 🇬🇵 🇬🇶 🇬🇷 🇬🇸 🇬🇹 🇬🇺 🇬🇼 🇬🇾 🇭🇰 🇭🇲 🇭🇳 🇭🇷 🇭🇹 🇭🇺 🇮🇨 🇮🇩 🇮🇪 🇮🇱 🇮🇲 🇮🇳 🇮🇴 🇮🇶 🇮🇷 🇮🇸 🇯🇪 🇯🇲 🇯🇴 🇰🇪 🇰🇬 🇰🇭 🇰🇮 🇰🇲 🇰🇳 🇰🇵 🇰🇼 🇰🇾 🇰🇿 🇱🇦 🇱🇧 🇱🇨 🇱🇮 🇱🇰 🇱🇷 🇱🇸 🇱🇹 🇱🇺 🇱🇻 🇱🇾 🇲🇦 🇲🇨 🇲🇩 🇲🇪 🇲🇫 🇲🇬 🇲🇭 🇲🇰 🇲🇱 🇲🇲 🇲🇳 🇲🇴 🇲🇵 🇲🇶 🇲🇷 🇲🇸 🇲🇹 🇲🇺 🇲🇻 🇲🇼 🇲🇽 🇲🇾 🇲🇿 🇳🇦 🇳🇨 🇳🇪 🇳🇫 🇳🇬 🇳🇮 🇳🇱 🇳🇴',
       },
@@ -209,35 +200,36 @@ const defaultOptions: UmoEditorOptions = {
       { label: 'A5', width: 14.8, height: 21.0 },
       { label: 'B5', width: 17.6, height: 25.0 },
       {
-        label: { en_US: 'No. 5 Envelope', zh_CN: '5号信封' },
+        label: { "en_US": "No. 5 Envelope", "zh_CN": "5号信封", "pt_BR": "Envelope No. 5" },
         width: 10.9,
-        height: 12.9,
+        height: 12.9
       },
       {
-        label: { en_US: 'No. 6 Envelope', zh_CN: '6号信封' },
+        label: { "en_US": "No. 6 Envelope", "zh_CN": "6号信封", "pt_BR": "Envelope No. 6" },
         width: 11.9,
-        height: 22.9,
+        height: 22.9
       },
       {
-        label: { en_US: 'No. 7 Envelope', zh_CN: '7号信封' },
+        label: { "en_US": "No. 7 Envelope", "zh_CN": "7号信封", "pt_BR": "Envelope No. 7" },
         width: 16.1,
-        height: 22.8,
+        height: 22.8
       },
       {
-        label: { en_US: 'No. 9 Envelope', zh_CN: '9号信封' },
+        label: { "en_US": "No. 9 Envelope", "zh_CN": "9号信封", "pt_BR": "Envelope No. 9" },
         width: 22.8,
-        height: 32.3,
+        height: 32.3
       },
       {
-        label: { en_US: 'Legal Paper', zh_CN: '法律用纸' },
+        label: { "en_US": "Legal Paper", "zh_CN": "法律用纸", "pt_BR": "Papel Legal" },
         width: 21.5,
-        height: 33.5,
+        height: 33.5
       },
       {
-        label: { en_US: 'Letter Paper', zh_CN: '信纸' },
+        label: { "en_US": "Letter Paper", "zh_CN": "信纸", "pt_BR": "Papel A4" },
         width: 21.5,
-        height: 27.9,
-      },
+        height: 27.9
+      }
+
     ],
   },
   toolbar: {
@@ -294,6 +286,7 @@ const defaultOptions: UmoEditorOptions = {
     placeholder: {
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
+      pt_BR: 'Por favor, insira o conteúdo do documento...',
     },
     enableSpellcheck: true,
     enableMarkdown: true,
@@ -320,32 +313,32 @@ const defaultOptions: UmoEditorOptions = {
     maxlength: 100,
     commands: [
       {
-        label: { en_US: 'Continuation', zh_CN: '续写' },
-        value: { en_US: 'Continuation', zh_CN: '续写' },
+        label: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação' },
+        value: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação' },
       },
       {
-        label: { en_US: 'Rewrite', zh_CN: '重写' },
-        value: { en_US: 'Rewrite', zh_CN: '重写' },
+        label: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever' },
+        value: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever' },
       },
       {
-        label: { en_US: 'Abbreviation', zh_CN: '缩写' },
-        value: { en_US: 'Abbreviation', zh_CN: '缩写' },
+        label: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação' },
+        value: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação' },
       },
       {
-        label: { en_US: 'Expansion', zh_CN: '扩写' },
-        value: { en_US: 'Expansion', zh_CN: '扩写' },
+        label: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão' },
+        value: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão' },
       },
       {
-        label: { en_US: 'Polish', zh_CN: '润色' },
-        value: { en_US: 'Polish', zh_CN: '润色' },
+        label: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar' },
+        value: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar' },
       },
       {
-        label: { en_US: 'Proofread', zh_CN: '校阅' },
-        value: { en_US: 'Proofread', zh_CN: '校阅' },
+        label: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar' },
+        value: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar' },
       },
       {
-        label: { en_US: 'Translate', zh_CN: '翻译' },
-        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文' },
+        label: { en_US: 'Translate', zh_CN: '翻译', pt_BR: 'Traduzir' },
+        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文', pt_BR: 'Traduzir para chinês' },
         autoSend: false,
       },
     ],
@@ -406,13 +399,19 @@ const defaultOptions: UmoEditorOptions = {
 // 组件 props 所需格式
 const propsOptions = Object.keys(defaultOptions)
 
+export const supportedLocales = {
+  'en-US': 'en_US',
+  'zh-CN': 'zh_CN',
+  'pt-BR': 'pt_BR'
+}
+
 const isLocale = (value: unknown) => {
   if (isString(value) && value.length > 0) {
     return true
   }
   if (isRecord(value)) {
     for (const key of Object.keys(value)) {
-      if (!['en_US', 'zh_CN'].includes(key)) {
+      if (!Object.values(supportedLocales).includes(key)) {
         return false
       }
     }
@@ -430,8 +429,8 @@ const objectSchema = new ObjectSchema({
   locale: {
     merge: 'replace',
     validate(value) {
-      if (value && !['en-US', 'zh-CN'].includes(value)) {
-        throw new Error('Key "locale": must be one of "en-US" or "zh-CN".')
+      if (value && !Object.keys(supportedLocales).includes(value)) {
+        throw new Error(`Key "locale": must be one of ${Object.keys(supportedLocales).join(', ')}.`)
       }
     },
     required: false,
@@ -752,12 +751,12 @@ const objectSchema = new ObjectSchema({
         schema: {
           types: {
             merge: 'replace',
-            validate() {},
+            validate() { },
             required: false,
           },
           nodesComputed: {
             merge: 'replace',
-            validate() {},
+            validate() { },
             required: false,
           },
         },
@@ -776,7 +775,7 @@ const objectSchema = new ObjectSchema({
       },
       content: {
         merge: 'replace',
-        validate() {},
+        validate() { },
         required: false,
       },
       placeholder: {
@@ -829,7 +828,6 @@ const objectSchema = new ObjectSchema({
             ) &&
             !isNumber(value)
           ) {
-            console.log(value)
             throw new Error(
               'Key "document": Key "autofocus" must be one of "start", "end", "all", Number, true, false, null.',
             )

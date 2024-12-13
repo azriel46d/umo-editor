@@ -8,17 +8,21 @@
     filterable
     @menu-click="setFontFamily"
   >
+    <template #valueDisplay="{ label }">
+      <span>{{ label }}</span>
+
+    </template>
     <t-option-group
       v-for="(group, index) in allFonts"
       :key="index"
-      :label="group.label"
+      :label="t(group.label)"
       :divider="false"
     >
       <t-option
         v-for="item in group.children"
-        :key="item.value ?? ''"
+        :key="item.value ?? 'default-font'"
         class="umo-font-family-item"
-        :value="item.value ?? ''"
+        :value="item.value"
         :label="l(item.label)"
       >
         <span
@@ -91,7 +95,7 @@ const fontDetect = (font?: string) => {
 const allFonts = computed(() => {
   const all = [
     {
-      label: t('base.fontFamily.all'),
+      label: 'base.fontFamily.all',
       children: options.value.dicts?.fonts ?? [],
     },
   ]
@@ -109,13 +113,13 @@ const allFonts = computed(() => {
   }
   if ($recent.value.fonts.length > 0) {
     all.unshift({
-      label: t('base.fontFamily.recent'),
+      label: 'base.fontFamily.recent',
       children: getFontsByValues($recent.value.fonts) as any,
     })
   }
   if (usedFonts.length > 0) {
     all.unshift({
-      label: t('base.fontFamily.used'),
+      label: 'base.fontFamily.used',
       children: getFontsByValues(usedFonts) as any,
     })
   }

@@ -6,6 +6,7 @@ import type { SupportedLocale } from '@/types'
 
 import en_US from './locales/en-US.json'
 import zh_CN from './locales/zh-CN.json'
+import pt_BR from './locales/pt-BR.json'
 
 const { options } = useStore()
 
@@ -17,12 +18,17 @@ const getLocale = (lang: SupportedLocale) => {
   return {}
 }
 
+watch(() => options.value.locale, (locale: string) => {
+  i18n.global.locale.value = locale
+})
+
 export const i18n = createI18n({
   legacy: false,
   locale: options.value.locale || 'en-US',
   defaultLocale: 'en-US',
   messages: {
     'en-US': merge(en_US, getLocale('en-US')),
+    'pt-BR': merge(pt_BR, getLocale('pt-BR')),
     'zh-CN': merge(zh_CN, getLocale('zh-CN')),
   },
 })
