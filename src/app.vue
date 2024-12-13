@@ -44,7 +44,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-    content: ``,
+    content: `<p></p>`,
     typographyRules: {
       openDoubleQuote: false,
       rightArrow: false,
