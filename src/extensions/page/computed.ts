@@ -41,7 +41,7 @@ export const sameListCalculation: ComputedFn = (
   parent,
   dom,
 ) => {
-  const { height: pHeight, margin } = getDomHeight(dom)
+  const { height: pHeight, margin } = c(splitContex, dom)
   if (splitContex.isOverflow(pHeight)) {
     splitContex.addHeight(margin)
     return true
@@ -140,7 +140,7 @@ export const defaultNodesComputed: NodesComputed = {
     return false
   },
   [HEADING]: (splitContex, node, pos, parent, dom) => {
-    const { height: pHeight } = getDomHeight(dom)
+    const { height: pHeight } = c(splitContex, dom)
     if (!splitContex.isOverflow(pHeight)) {
       splitContex.addHeight(pHeight)
       return false

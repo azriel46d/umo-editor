@@ -75,10 +75,10 @@ const types = [
   AUDIO,
   TOC,
   VIDEO,
-  HORIZONTALRULE,
   PAGEBREAK,
   TABLEHEADER,
   PAGE,
+  HORIZONTALRULE
 ]
 export default Node.create<PageOptions>({
   priority: 200,
