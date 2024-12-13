@@ -82,27 +82,26 @@ class PageDetector {
     )(selection)
 
     if (!pageDOM) return
+
     const pageBody = (pageDOM as HTMLElement).querySelector(this.#pageClass)
-    if (pageBody) {
-      const childrenHeight = getTotalChildrenHeight(pageBody)
-      deleting =
-        view.state.doc.nodeSize < prevState.doc.nodeSize
-          ? scrollHeight > childrenHeight
-          : false
-      tr.setMeta('scrollHeight', childrenHeight)
-      const inserting = this.isOverflown(childrenHeight)
-      if (inserting) {
-        const curPage = findParentNode((n) => n.type.name === PAGE)(selection)
-        if (curPage && this.checkCriticalPoint(curPage.node)) return
-      }
-      if (inserting || deleting) {
-        if (inserting) tr.setMeta('inserting', inserting)
-        if (deleting) {
-          tr.setMeta('deleting', true)
-        }
-      }
-      view.dispatch(tr)
+    if (!pageBody) { return; }
+
+    const childrenHeight = getTotalChildrenHeight(pageBody)
+    deleting = scrollHeight > childrenHeight
+
+    tr.setMeta('scrollHeight', childrenHeight)
+    const inserting = this.isOverflown(childrenHeight)
+
+    if (inserting) {
+      const curPage = findParentNode((n) => n.type.name === PAGE)(selection)
+      if (curPage && this.checkCriticalPoint(curPage.node)) return
+      tr.setMeta('inserting', inserting)
     }
+
+    if (deleting) {
+      tr.setMeta('deleting', true)
+    }
+    view.dispatch(tr)
   }
 }
 
