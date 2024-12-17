@@ -14,13 +14,14 @@ export default Extension.create({
     return {
       setPlaceholder:
         () =>
-        ({ editor, chain, state }) => {
-          if (!editor.isEmpty || state.doc.content.size > 4) {
-            return false
-          }
-          const content = editor.getJSON()
-          return chain().setContent(content).focus(3).run()
-        },
+          ({ editor, chain, state }) => {
+            if (!editor.isEmpty || state.doc.content.size > 4) {
+              return false
+            }
+            chain().setContent('<p></p>').focus(3).run()
+
+            return true
+          },
     }
   },
 })
