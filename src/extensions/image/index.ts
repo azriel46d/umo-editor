@@ -104,7 +104,7 @@ export default ImageExtension.extend({
         default: 'image',
       },
       zIndex: {
-        default: 0
+        default: 10
       }
     }
   },

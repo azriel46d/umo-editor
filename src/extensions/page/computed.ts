@@ -88,6 +88,11 @@ const c = (
     height = height + 12
   }
 
+  if (!splitContex.validNode) {
+    height = 0
+    margin = 0
+  }
+
   return { height, margin }
 }
 
@@ -649,11 +654,11 @@ export class PageComputedContext {
 
         const isParagraph = node.type.name === PARAGRAPH
 
-        const elementDraggable = !dom?.querySelector('.is-draggable') && !isParagraph
+        const elementNoDraggable = !dom?.querySelector('.is-draggable') && !isParagraph
 
         const paragraphEmpty = dom?.classList.contains('p-empty') && isParagraph
 
-        const paragraphEmptyAfterBlade = isParagraph
+        const paragraphNoEmptyAfterBlade = isParagraph
           && (
             (
               !dom?.classList.contains('p-empty')
@@ -661,7 +666,7 @@ export class PageComputedContext {
             ) || !options.value.document.readOnly
           )
 
-        splitContex.validNode = !!(node.type.name != PAGE && (elementDraggable || paragraphEmptyAfterBlade || paragraphEmpty))
+        splitContex.validNode = !!(node.type.name != PAGE && (elementNoDraggable || paragraphNoEmptyAfterBlade || paragraphEmpty))
 
         const result = (nodesComputed[node.type.name] || nodesComputed.default)(
           splitContex,
@@ -676,7 +681,7 @@ export class PageComputedContext {
         )
 
 
-        if (node.type.name != PAGE && (elementDraggable || paragraphEmptyAfterBlade || paragraphEmpty)) {
+        if (node.type.name != PAGE && (elementNoDraggable || paragraphNoEmptyAfterBlade || paragraphEmpty)) {
           splitContex.firstNode = false
         }
 
