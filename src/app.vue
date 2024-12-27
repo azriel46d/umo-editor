@@ -1,6 +1,7 @@
 <template>
   <div class="box" :class="{ 'hide-editor': readOnly }">
     <button @click="toggleReadOnly">readonly</button>
+    <button @click="editorRef.print">print</button>
     <umo-editor ref="editorRef" v-bind="options" />
   </div>
 </template>
@@ -10,7 +11,7 @@ import { shortId } from '@/utils/short-id'
 // import { UmoEditor } from '../dist/umo-editor'
 
 const editorRef = $ref(null)
-let readOnly = $ref(false)
+let readOnly = $ref(true)
 
 const toggleReadOnly = () => {
   readOnly = !readOnly
@@ -44,7 +45,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-    content: `<p></p>`,
+    content: `<p id="r27887oo" extend="false"></p><p id="x9u7p4ur" extend="false" class="p-empty"></p><text-box id="v5uggu07" extend="false" vnode="true" width="200" height="34" left="6" top="10" draggable="true" rotatable="true" borderwidth="1" bordercolor="#000" borderstyle="solid" backgroundcolor="transparent"><p id="fcv0ph61" extend="false">ELIEZER 1</p></text-box><img id="7s9tr1vd" extend="false" vnode="true" type="image-url" originalsrc="http://izziback.local:83/api/clientes/edbf3cb0-dc12-11ea-b060-731e0ea9161d/imagem" src="https://dummyimage.com/100x100/eee/aaa" width="148.00" height="150" left="35" top="6" draggable="true" rotatable="true" equalproportion="true" flipx="false" flipy="false" uploaded="false" error="false" previewtype="image" zindex="10"><p id="vxbm4tnp" extend="false" class="p-empty"></p><p id="xfzcl1zj" extend="false" class="p-empty"></p><p id="3anxk869" extend="false" class="p-empty"></p><p id="qj7rpy7b" extend="false" class="p-empty"></p><p id="myz88385" extend="false" class="p-empty"></p><p id="avaff9cl" extend="false" class="p-empty"></p><p id="6i55syba" extend="false" class="p-empty"></p><p id="k7pywz29" extend="false" class="p-empty"></p><p id="ix5nap3y" extend="false" class="p-empty"></p><p id="hj87diu7" extend="false" class="p-empty"></p><p id="5pl19tvt" extend="false" class="p-empty"></p><p id="nwkibfdl" extend="false" class="p-empty"></p><p id="kboiw4k2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty"></p><p id="r27887oo" extend="false"></p><p id="x9u7p4ur" extend="false" class="p-empty">s</p><p id="9we85xm3" extend="false" >x</p><text-box id="v5uggu07" extend="false" vnode="true" width="200" height="34" left="6" top="10" draggable="true" rotatable="true" borderwidth="1" bordercolor="#000" borderstyle="solid" backgroundcolor="transparent"><p id="fcv0ph61" extend="false">ELIEZER 1</p></text-box><img id="7s9tr1vd" extend="false" vnode="true" type="image-url" originalsrc="http://izziback.local:83/api/clientes/edbf3cb0-dc12-11ea-b060-731e0ea9161d/imagem" src="https://dummyimage.com/100x100/eee/aaa" width="148.00" height="150" left="35" top="6" draggable="true" rotatable="true" equalproportion="true" flipx="false" flipy="false" uploaded="false" error="false" previewtype="image" zindex="10"><p id="vxbm4tnp" extend="false" class="p-empty"></p><p id="xfzcl1zj" extend="false" class="p-empty"></p><p id="3anxk869" extend="false" class="p-empty"></p><p id="qj7rpy7b" extend="false" class="p-empty"></p><p id="myz88385" extend="false" class="p-empty"></p><p id="avaff9cl" extend="false" class="p-empty"></p><p id="6i55syba" extend="false" class="p-empty"></p><p id="k7pywz29" extend="false" class="p-empty"></p><p id="ix5nap3y" extend="false" class="p-empty"></p><p id="hj87diu7" extend="false" class="p-empty"></p><p id="5pl19tvt" extend="false" class="p-empty"></p><p id="nwkibfdl" extend="false" class="p-empty"></p><p id="kboiw4k2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty">p</p>`,
     typographyRules: {
       openDoubleQuote: false,
       rightArrow: false,
@@ -55,6 +56,16 @@ const options = $ref({
       notEqual: false
 
     },
+  },
+  dicts: {
+    pageSizes: [
+      {
+        label: 'oi',
+        width: 10,
+        height: 15,
+        default: true
+      },
+    ]
   },
   templates,
   cdnUrl: 'https://cdn.umodoc.com',
@@ -120,15 +131,9 @@ const options = $ref({
 <style>
 .box {
   margin: 20px;
-  height: calc(100vh - 40px);
+  height: calc(400vh - 40px);
   border: solid 1px #ddd;
   box-sizing: border-box;
   position: relative;
-}
-
-html,
-body {
-  height: 100vh;
-  overflow: hidden;
 }
 </style>

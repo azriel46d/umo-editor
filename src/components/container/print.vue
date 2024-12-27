@@ -33,7 +33,9 @@ const defaultLineHeight = $computed(
 )
 
 const getIframeCode = () => {
+  const { readOnly } = options.value.document
   const { orientation, size, background } = page.value
+
   /* eslint-disable */
   return `
     <!DOCTYPE html>
@@ -49,7 +51,7 @@ const getIframeCode = () => {
         height: auto;
       }
       @page {
-        size: ${orientation === 'portrait' ? size?.width : size?.height}cm ${orientation === 'portrait' ? size?.height : size?.width}cm; 
+        size: ${orientation === 'portrait' ? size?.width : size?.height}cm ${orientation === 'portrait' ? size?.height : size?.width}cm;
         margin:0;
         background: ${background};
       }
@@ -59,9 +61,11 @@ const getIframeCode = () => {
       <div id="sprite-plyr" style="display: none;">
       ${getPlyrSprite()}
       </div>
-      <div class="umo-editor-container" style="line-height: ${defaultLineHeight};" aria-expanded="false">
-        <div class="tiptap umo-editor" translate="no">
-          ${getContentHtml()}
+      <div ${readOnly ? 'class="hide-editor"' : ''}>
+        <div class="umo-editor-container" style="line-height: ${defaultLineHeight};" aria-expanded="false">
+          <div class="tiptap umo-editor" translate="no">
+            ${getContentHtml()}
+          </div>
         </div>
       </div>
       <script>
