@@ -15,7 +15,7 @@ export const useConfirm = (parmas: DialogOptions) => {
   return DialogPlugin.confirm({
     attach: container,
     placement: 'center',
-    preventScrollThrough: false,
+    preventScrollThrough: true,
     cancelBtn: t('dialog.cancel'),
     ...parmas,
   })
