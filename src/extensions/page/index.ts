@@ -16,6 +16,7 @@ import type { PageOptions } from '@/extensions/page/types'
 import { getFlag } from './core'
 import {
   AUDIO,
+  BARCODE,
   BULLETLIST,
   CASSIE_BLOCK,
   CODE_BLOCK,
@@ -78,7 +79,8 @@ const types = [
   PAGEBREAK,
   TABLEHEADER,
   PAGE,
-  HORIZONTALRULE
+  HORIZONTALRULE,
+  BARCODE
 ]
 export default Node.create<PageOptions>({
   priority: 200,

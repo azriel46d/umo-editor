@@ -221,6 +221,7 @@
 import JsBarcode from 'jsbarcode'
 
 import { shortId } from '@/utils/short-id'
+import { BARCODE } from '@/extensions/page/node-names';
 
 const { content } = defineProps({
   content: {
@@ -355,7 +356,7 @@ const setBarcode = () => {
       ?.chain()
       .focus()
       .insertContent({
-        type: 'barCode',
+        type: BARCODE,
         attrs: {
           value: config.content,
           settings: settingsJson,
