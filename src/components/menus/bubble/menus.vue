@@ -1,4 +1,7 @@
 <template>
+  <template v-if="editor?.isActive(BARCODE)">
+    <menus-toolbar-tools-barcode :content="editor.getAttributes(BARCODE)?.settings ?? ''" />
+  </template>
   <template
     v-if="
       editor?.isActive('toc') ||
@@ -30,6 +33,10 @@
           editor?.getAttributes('image')?.type,
         )
       "
+    />
+    <menus-toolbar-insert-image-link
+      v-if="editor?.getAttributes('image').type === 'image-url'"
+      :src="editor?.getAttributes('image').src"
     />
     <menus-bubble-image-preview
       v-if="
@@ -131,6 +138,7 @@
 
 <script setup lang="ts">
 const { options, editor } = useStore()
+import { BARCODE } from '@/extensions/page/node-names';
 </script>
 
 <style lang="less" scoped>

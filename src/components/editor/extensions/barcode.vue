@@ -10,8 +10,20 @@ const settings = computed(() => {
   return JSON.parse(props.node.attrs.settings)
 })
 
+const renderBarcode = () => {
+  JsBarcode(
+    barcode.value,
+    settings.value.content,
+    settings.value,
+  )
+}
+
+watch(settings, () => {
+  renderBarcode()
+})
+
 onMounted(() => {
-  JsBarcode(barcode.value, props.node.attrs.value, settings.value)
+  renderBarcode()
 })
 
 </script>

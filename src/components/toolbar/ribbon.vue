@@ -81,6 +81,7 @@
           <div class="umo-virtual-group">
             <menus-toolbar-insert-link />
             <menus-toolbar-insert-image />
+            <menus-toolbar-insert-image-link />
             <menus-toolbar-insert-video v-if="!disableItem('video')" />
             <menus-toolbar-insert-audio v-if="!disableItem('audio')" />
             <menus-toolbar-insert-file v-if="!disableItem('file')" />

@@ -347,9 +347,8 @@ const setBarcode = () => {
   }
 
   const settings = { ...config }
-  delete settings.content
 
-  const settingsJson = JSON.stringify(settings).replaceAll("'", "\\\"")
+  const settingsJson = JSON.stringify(settings)
 
   if (changed) {
     editor.value
@@ -358,7 +357,6 @@ const setBarcode = () => {
       .insertContent({
         type: BARCODE,
         attrs: {
-          value: config.content,
           settings: settingsJson,
         }
       })
