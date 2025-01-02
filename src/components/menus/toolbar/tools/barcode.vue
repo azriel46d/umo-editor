@@ -345,20 +345,22 @@ const setBarcode = () => {
     return
   }
 
-  const name = `barcode-${shortId()}.svg`
-
   const settings = { ...config }
   delete settings.content
 
   const settingsJson = JSON.stringify(settings).replaceAll("'", "\\\"")
 
-  const barCodeHtml = `<bar-code key="${name}" value="${config.content}" id="${shortId()}" settings='${settingsJson}'></barcode>`
-
   if (changed) {
     editor.value
       ?.chain()
       .focus()
-      .insertContent(barCodeHtml)
+      .insertContent({
+        type: 'barCode',
+        attrs: {
+          value: config.content,
+          settings: settingsJson,
+        }
+      })
       .run()
   }
   dialogVisible = false

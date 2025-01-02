@@ -29,7 +29,7 @@ let tippyInstance = $ref<Instance | null>(null)
 const tippyOpitons = $ref<Partial<Instance>>({
   appendTo: 'parent',
   maxWidth: 580,
-  zIndex: 99,
+  zIndex: 9*(10**10),
   onShow(instance: Instance) {
     tippyInstance = instance
   },
