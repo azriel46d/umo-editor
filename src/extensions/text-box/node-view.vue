@@ -30,6 +30,7 @@
         :min-width="14"
         :min-height="14"
         :title="t('node.textBox.tip')"
+        :disabledKeyEvent="true"
         @rotate="onRotate"
         @resize="onResize"
         @drag="onDrag"
