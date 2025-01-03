@@ -53,6 +53,7 @@ const onBlur = async () => {
       urlPreview = form.src
     } catch (e) {
       form.errors.src = true
+      urlPreview = IMAGE_PLACEHOLDER
     }
 
     return;
@@ -79,9 +80,12 @@ const setImage = () => {
 }
 
 watch(() => dialogVisible, () => {
-  if (dialogVisible && attrs.src) {
-    urlPreview = attrs.src
-    form.src = attrs.src
+  const src = attrs?.originalSrc ?? attrs?.src
+
+  if (dialogVisible && src) {
+    urlPreview = src
+    form.src = src
+    onBlur()
     return
   }
 
