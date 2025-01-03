@@ -1,7 +1,4 @@
 <template>
-  <template v-if="editor?.isActive(BARCODE)">
-    <menus-toolbar-tools-barcode :content="editor.getAttributes(BARCODE)?.settings ?? ''" />
-  </template>
   <template
     v-if="
       editor?.isActive('toc') ||
@@ -58,6 +55,14 @@
       v-if="editor?.getAttributes('image').previewType !== null"
     />
     <menus-bubble-node-delete />
+  </template>
+  <template v-else-if="editor?.isActive(BARCODE)">
+    <menus-toolbar-base-align-left />
+    <menus-toolbar-base-align-center />
+    <menus-toolbar-base-align-right />
+    <div class="umo-bubble-menu-divider"></div>
+    <menus-bubble-image-draggable />
+    <menus-toolbar-tools-barcode :content="editor.getAttributes(BARCODE)?.settings ?? ''" />
   </template>
   <template
     v-else-if="

@@ -1,4 +1,5 @@
 import { Extension } from '@tiptap/core'
+import { AUDIO, BARCODE, FILE, IFRAME, IMAGE, VIDEO } from './page/node-names'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     setNodeAlign: {
@@ -15,7 +16,7 @@ export default Extension.create({
     return {
       defaultAlignment: 'center',
       alignments: ['flex-start', 'center', 'flex-end'],
-      types: ['image', 'video', 'audio', 'iframe', 'file'],
+      types: [IMAGE, VIDEO, AUDIO, IFRAME, FILE, BARCODE],
     }
   },
   addGlobalAttributes() {

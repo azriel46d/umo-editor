@@ -14,12 +14,27 @@ export default Node.create({
       id: {
         default: null,
       },
-      value: {
-        default: '0148043',
-      },
       settings: {
         default: '{}'
-      }
+      },
+      nodeAlign: {
+        default: 'flex-start'
+      },
+      draggable: {
+        default: false,
+      },
+      left: {
+        default: 0,
+      },
+      top: {
+        default: 0,
+      },
+      angle: {
+        default: null,
+      },
+      zIndex: {
+        default: 100,
+      },
     }
   },
 
