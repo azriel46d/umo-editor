@@ -138,6 +138,7 @@
     },
     "image": "Imagem",
     "link": {
+      "editImage": "Editar Imagem",
       "image": "Inserir Link de Imagem",
       "text": "Link",
       "title": "Inserir Link",

@@ -1,5 +1,10 @@
 <template>
-  <menus-button ico="image" :text="t('insert.link.image')" huge @menu-click="dialogVisible = true">
+  <menus-button
+    :ico="!!attrs ? 'edit' : 'image'"
+    :text="!!attrs ? t('insert.link.editImage') : t('insert.link.image')"
+    huge
+    @menu-click="dialogVisible = true"
+  >
     <modal :visible="dialogVisible" icon="image" :header="t('insert.link.image')" width="420px"
       @confirm="setImage" @close="dialogVisible = false">
       <div class="umo-link-container">
@@ -23,8 +28,8 @@ import { validImage } from '@/extensions/image';
 
 const { editor } = useStore()
 
-const { src = null } = defineProps<{
-  src?: string
+const { attrs } = defineProps<{
+  attrs?: any
 }>()
 
 let dialogVisible = $ref(false)
@@ -62,12 +67,11 @@ const setImage = () => {
     ?.chain()
     .focus()
     .setImage({
+      rotatable: true,
       type: 'image-url',
+      ...(attrs ?? {}),
       src: urlPreview,
       originalSrc: form.errors.src ? form.src : null,
-      width: 'auto',
-      height: 150,
-      rotatable: true,
     }, true)
     .run()
 
@@ -75,9 +79,9 @@ const setImage = () => {
 }
 
 watch(() => dialogVisible, () => {
-  if (dialogVisible && src) {
-    urlPreview = src
-    form.src = src
+  if (dialogVisible && attrs.src) {
+    urlPreview = attrs.src
+    form.src = attrs.src
     return
   }
 

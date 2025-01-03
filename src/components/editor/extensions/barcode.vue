@@ -55,24 +55,25 @@ watch(() => node.attrs.draggable, () => {
   <NodeViewWrapper
     :id="node.attrs.id"
     :style="{ justifyContent: node.attrs.nodeAlign, display: 'flex' }"
-    :class="{ 'is-draggable': node.attrs.draggable }"
   >
-    <drager
-      :selected="selected"
-      :rotatable="true"
-      :boundary="false"
-      :resizable="false"
-      :disabled="!Boolean(node.attrs.draggable) || options.document?.readOnly"
-      :angle="node.attrs.angle"
-      v-bind="propsBarCode"
-      :left="Number(node.attrs.left)"
-      :top="Number(node.attrs.top)"
-      :z-index="node.attrs.zIndex"
-      @rotate="onRotate"
-      @drag="onDrag"
-      @click="selected = true"
-    >
-      <svg ref="barcode"></svg>
-    </drager>
+    <div :class="{ 'is-draggable': node.attrs.draggable }">
+      <drager
+        :selected="selected"
+        :rotatable="true"
+        :boundary="false"
+        :resizable="false"
+        :disabled="!Boolean(node.attrs.draggable) || options.document?.readOnly"
+        :angle="node.attrs.angle"
+        v-bind="propsBarCode"
+        :left="Number(node.attrs.left)"
+        :top="Number(node.attrs.top)"
+        :z-index="node.attrs.zIndex"
+        @rotate="onRotate"
+        @drag="onDrag"
+        @click="selected = true"
+      >
+        <svg ref="barcode"></svg>
+      </drager>
+    </div>
   </NodeViewWrapper>
 </template>

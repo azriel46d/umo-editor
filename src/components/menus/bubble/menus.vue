@@ -33,7 +33,7 @@
     />
     <menus-toolbar-insert-image-link
       v-if="editor?.getAttributes('image').type === 'image-url'"
-      :src="editor?.getAttributes('image').src"
+      :attrs="editor?.getAttributes('image')"
     />
     <menus-bubble-image-preview
       v-if="
@@ -62,7 +62,7 @@
     <menus-toolbar-base-align-right />
     <div class="umo-bubble-menu-divider"></div>
     <menus-bubble-image-draggable />
-    <menus-toolbar-tools-barcode :content="editor.getAttributes(BARCODE)?.settings ?? ''" />
+    <menus-toolbar-tools-barcode :attrs="editor.getAttributes(BARCODE)" />
   </template>
   <template
     v-else-if="

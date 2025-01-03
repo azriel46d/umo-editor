@@ -1,7 +1,7 @@
 <template>
   <menus-button
-    :ico="content ? 'edit' : 'barcode'"
-    :text="content ? t('tools.barcode.edit') : t('tools.barcode.text')"
+    :ico="!!attrs ? 'edit' : 'barcode'"
+    :text="!!attrs ? t('tools.barcode.edit') : t('tools.barcode.text')"
     huge
     @menu-click="dialogVisible = true"
   >
@@ -220,15 +220,11 @@
 <script setup lang="ts">
 import JsBarcode from 'jsbarcode'
 
-import { shortId } from '@/utils/short-id'
 import { BARCODE } from '@/extensions/page/node-names';
 
-const { content } = defineProps({
-  content: {
-    type: String,
-    default: '',
-  },
-})
+const { attrs } = defineProps<{
+  attrs: any
+}>()
 
 const { popupVisible, togglePopup } = usePopup()
 
@@ -315,7 +311,7 @@ watch(
   () => dialogVisible,
   (val: boolean) => {
     if (val) {
-      config = content ? JSON.parse(content) : { ...defaultConfig }
+      config = attrs?.settings ? JSON.parse(attrs.settings) : { ...defaultConfig }
       setTimeout(() => {
         changed = false
       }, 200)
@@ -357,6 +353,7 @@ const setBarcode = () => {
       .insertContent({
         type: BARCODE,
         attrs: {
+          ...attrs,
           settings: settingsJson,
         }
       })
