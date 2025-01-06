@@ -1,6 +1,11 @@
 import { type Editor, findParentNode } from '@tiptap/core'
 import type { Node } from '@tiptap/pm/model'
-import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state'
+import {
+  type EditorState,
+  Plugin,
+  PluginKey,
+  Selection as ProseMirrorSelection,
+} from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
 
 import type { NodesComputed } from '@/extensions/page/types'
@@ -19,7 +24,7 @@ import { CODE_BLOCK, IFRAME, IMAGE, PAGE, TOC, VIDEO } from './node-names'
 
 let composition = false
 
-function getTotalChildrenHeight(parentElement: Element) {
+function getTotalChildrenHeight(parentElement: Element): number {
   let totalHeight = 0
 
   // 遍历所有的子元素
@@ -46,12 +51,12 @@ class PageDetector {
     this.#pageClass = pageClass
   }
 
-  isOverflown(childrenHeight: number) {
+  isOverflown(childrenHeight: number): boolean {
     const { bodyHeight } = getPageOption()
     return childrenHeight > bodyHeight
   }
 
-  checkCriticalPoint(node: Node) {
+  checkCriticalPoint(node: Node): boolean {
     const { childCount, firstChild } = node
     if (
       childCount === 1 &&
@@ -72,12 +77,12 @@ class PageDetector {
   getTableRowsHeight(tableNode: Node): number {
     try {
       const domAtPos = this.#editor.view.domAtPos.bind(this.#editor.view)
-      const resolvedPos = this.#editor.state.selection.$from
+      const { selection } = this.#editor.state
       const tableDOM = findParentDomRefOfType(
         this.#editor.schema.nodes.table,
-        domAtPos
-      )(this.#editor.state.selection)
-      
+        domAtPos,
+      )(selection)
+
       if (!tableDOM) return 0
       return (tableDOM as HTMLElement).offsetHeight
     } catch (e) {
@@ -86,12 +91,18 @@ class PageDetector {
     }
   }
 
-  #isTableCell(selection: Selection): boolean {
+  #isTableCell(selection: ProseMirrorSelection): boolean {
+    //@ts-ignore
     const { $from } = selection
-    let depth = $from.depth
+    if (!$from) return false
+    //@ts-ignore
+    let { depth } = $from
     while (depth > 0) {
       const node = $from.node(depth)
-      if (node.type.name === 'table_cell' || node.type.name === 'table_header') {
+      if (
+        node.type.name === 'table_cell' ||
+        node.type.name === 'table_header'
+      ) {
         return true
       }
       depth--
@@ -101,10 +112,10 @@ class PageDetector {
 
   update(view: EditorView, prevState: EditorState) {
     if (composition) return
-    
+
     const state = paginationPluginKey.getState(view.state)
     if (!state.runState) return
-    
+
     const { selection, schema, tr } = view.state
     if (view.state.doc.eq(prevState.doc)) return
 
@@ -123,11 +134,13 @@ class PageDetector {
     if (!pageDOM) return
 
     const pageBody = (pageDOM as HTMLElement).querySelector(this.#pageClass)
-    if (!pageBody) { return; }
+    if (!pageBody) {
+      return
+    }
 
     const childrenHeight = getTotalChildrenHeight(pageBody)
     const deleting = scrollHeight > childrenHeight
-    
+
     tr.setMeta('scrollHeight', childrenHeight)
     const inserting = this.isOverflown(childrenHeight)
 
@@ -147,7 +160,9 @@ class PageDetector {
 export const paginationPluginKey = new PluginKey('pagination')
 export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
   buildComputedHtml()
-  const plugin = new Plugin({
+  let paginationTimeout: ReturnType<typeof setTimeout>
+
+  const plugin: Plugin = new Plugin({
     key: paginationPluginKey,
     view: () => {
       return new PageDetector(editor)
@@ -158,7 +173,6 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
       },
       apply: (tr, prevState) => {
         const newState = prevState.transform(tr)
-        // Prevent rapid re-pagination
         if (tr.getMeta('preventPagination')) {
           newState.runState = false
         }
@@ -166,8 +180,7 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
       },
     },
     appendTransaction([newTr], _prevState, state) {
-      // Skip if pagination is disabled
-      if (!this.getState(state).runState) {
+      if (!plugin.getState(state).runState) {
         return null
       }
 
@@ -175,7 +188,7 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
       const page = new PageComputedContext(
         editor,
         { ...defaultNodesComputed, ...nodesComputed },
-        this.getState(state),
+        plugin.getState(state),
         state,
       )
       return page.run()
@@ -184,13 +197,11 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
       handleDOMEvents: {
         compositionstart(view) {
           composition = true
-          // Disable pagination during composition
           view.dispatch(view.state.tr.setMeta('preventPagination', true))
           return false
         },
         compositionend(view) {
           composition = false
-          // Re-enable pagination after composition
           setTimeout(() => {
             if (!view.isDestroyed) {
               view.dispatch(view.state.tr.setMeta('preventPagination', false))
@@ -199,18 +210,17 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
           return false
         },
         keydown(view, event) {
-          // Disable pagination during rapid typing
           if (!event.ctrlKey && !event.metaKey && !event.altKey) {
             view.dispatch(view.state.tr.setMeta('preventPagination', true))
-            clearTimeout(this.paginationTimeout)
-            this.paginationTimeout = setTimeout(() => {
+            clearTimeout(paginationTimeout)
+            paginationTimeout = setTimeout(() => {
               if (!view.isDestroyed) {
                 view.dispatch(view.state.tr.setMeta('preventPagination', false))
               }
             }, 500)
           }
           return false
-        }
+        },
       },
       transformPasted(slice) {
         slice.content.descendants((node: any) => {
@@ -245,7 +255,10 @@ export const idPlugin = (types: string[]) => {
         nextState.doc.descendants((node, pos) => {
           const { attrs } = node
 
-          if (types.includes(node.type.name) && (!attrs.id || idsUsed.has(attrs?.id))) {
+          if (
+            types.includes(node.type.name) &&
+            (!attrs.id || idsUsed.has(attrs?.id))
+          ) {
             tr.setNodeMarkup(pos, undefined, { ...attrs, id: getId() })
             modified = true
           }
