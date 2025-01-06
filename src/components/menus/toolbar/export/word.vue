@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { Document, HeadingLevel, ImageRun, Packer, PageBreak, Paragraph, Table, TableCell, TableRow, TextRun, WidthType, VerticalAlign, HeightRule, TableLayoutType } from 'docx'
+import { Document, HeadingLevel, HeightRule, ImageRun, Packer, PageBreak, Paragraph, Table, TableCell, TableLayoutType, TableRow, TextRun, VerticalAlign, WidthType } from 'docx'
 
-const { editor } = useStore()
-const { t } = useI18n()
+const { editor, options } = useStore()
+
 
 // Convert base64 to array buffer
 const base64ToArrayBuffer = (base64: string) => {
@@ -21,6 +21,7 @@ const base64ToArrayBuffer = (base64: string) => {
 // Fetch image and convert to array buffer
 const getImageBuffer = async (src: string): Promise<ArrayBuffer> => {
   if (src.startsWith('data:')) {
+    //@ts-ignore
     const base64 = src.split(',')[1]
     return base64ToArrayBuffer(base64)
   }
@@ -82,6 +83,7 @@ const processNode = async (node: any): Promise<any[]> => {
     const runs = await Promise.all(node.content?.map(processNode) || [])
     elements.push(new Paragraph({
       children: runs.flat(),
+      //@ts-ignore
       heading: HeadingLevel[`HEADING_${level}`]
     }))
   }
@@ -90,7 +92,7 @@ const processNode = async (node: any): Promise<any[]> => {
     const rows = await Promise.all(node.content?.map(async (row: any) => {
       const cells = await Promise.all(row.content?.map(async (cell: any, columnIndex: number) => {
         const paragraphs = (await Promise.all(cell.content?.map(processNode) || [])).flat()
-        
+
         return new TableCell({
           children: paragraphs,
           width: {
@@ -106,7 +108,7 @@ const processNode = async (node: any): Promise<any[]> => {
           verticalAlign: VerticalAlign.TOP
         })
       }) || [])
-      return new TableRow({ 
+      return new TableRow({
         children: cells,
         height: {
           value: 400,
@@ -205,7 +207,7 @@ const exportToWord = async () => {
 
     const link = document.createElement('a')
     link.href = url
-    link.download = 'document.docx'
+    link.download = `${options.value.document.title || 'document'}.docx`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
