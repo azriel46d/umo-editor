@@ -1,11 +1,6 @@
 <template>
-  <menus-button
-    v-if="options.toolbar?.importWord?.enabled"
-    ico="word"
-    :text="t('base.importWord.text')"
-    huge
-    @menu-click="importWord"
-  />
+  <menus-button v-if="options.toolbar?.importWord?.enabled" ico="word" :text="t('base.importWord.text')" huge
+    @menu-click="importWord" />
 </template>
 
 <script setup lang="ts">
@@ -13,6 +8,7 @@ const { editor, options } = useStore()
 
 // 动态导入 mammoth.js
 onMounted(() => {
+
   const mammothScriptElement = document.querySelector('#mammoth-script')
   if (
     mammothScriptElement === null &&
@@ -107,7 +103,10 @@ const importWord = () => {
       // 解析和加工 Mammoth 返回的 HTML 内容
       const domparser = new DOMParser()
       const doc = domparser.parseFromString(value, 'text/html')
-      for (const img of doc.querySelectorAll('img')) {
+      
+      // Process images first to reduce DOM operations
+      const images = Array.from(doc.querySelectorAll('img'))
+      images.forEach(img => {
         const parent = img.parentElement
         if (parent?.tagName === 'P') {
           parent.insertAdjacentElement('beforebegin', img)
@@ -115,10 +114,26 @@ const importWord = () => {
             parent.remove()
           }
         }
-      }
+      })
+
+      // Set content in chunks if it's a large document
       const content = doc.body.innerHTML.toString()
-      editor.value?.commands.setContent(content)
-      editor.value?.commands.autoPaging()
+      if (content.length > 100000) { // For large documents
+        // First set the basic structure
+        editor.value?.commands.setContent('')
+        
+        // Then insert the content
+        requestAnimationFrame(() => {
+          editor.value?.commands.setContent(content)
+          // Wait a bit before auto-paging to let the content render
+          setTimeout(() => {
+            editor.value?.commands.autoPaging()
+          }, 100)
+        })
+      } else {
+        editor.value?.commands.setContent(content)
+        editor.value?.commands.autoPaging()
+      }
     } catch {
       useMessage('error', t('base.importWord.importError'))
     }

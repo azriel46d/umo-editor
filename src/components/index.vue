@@ -1,38 +1,21 @@
 <template>
-  <t-config-provider
-    :global-config="{
-      ...localeConfig[locale],
-      classPrefix: 'umo',
-    }"
-  >
-    <div
-      :id="container.substr(1)"
-      class="umo-editor-container"
-      :class="{
-        'toolbar-classic': isRecord($toolbar) && $toolbar.mode === 'classic',
-        'toolbar-ribbon': isRecord($toolbar) && $toolbar.mode === 'ribbon',
-        'toolbar-source': isRecord($toolbar) && $toolbar.mode === 'source',
-        'preview-mode': page.preview?.enabled,
-        'laser-pointer': page.preview?.enabled && page.preview?.laserPointer,
-      }"
-      :style="{ height: options.height }"
-    >
+  <t-config-provider :global-config="{
+    ...localeConfig[locale],
+    classPrefix: 'umo',
+  }">
+    <div :id="container.substr(1)" class="umo-editor-container" :class="{
+      'toolbar-classic': isRecord($toolbar) && $toolbar.mode === 'classic',
+      'toolbar-ribbon': isRecord($toolbar) && $toolbar.mode === 'ribbon',
+      'toolbar-source': isRecord($toolbar) && $toolbar.mode === 'source',
+      'preview-mode': page.preview?.enabled,
+      'laser-pointer': page.preview?.enabled && page.preview?.laserPointer,
+    }" :style="{ height: options.height }">
       <header class="umo-toolbar">
         <div class="umo-editor-title">
-          <t-input
-            v-model="options.document.title"
-            :placeholder="t('document.title')"
-          />
+          <t-input v-model="options.document.title" :placeholder="t('document.title')" />
         </div>
-        <toolbar
-          :key="toolbarKey"
-          @menu-change="(event: any) => emits('menuChange', event)"
-        >
-          <template
-            v-for="item in options.toolbar?.menus"
-            :key="item"
-            #[`toolbar_${item}`]="slotProps"
-          >
+        <toolbar :key="toolbarKey" @menu-change="(event: any) => emits('menuChange', event)">
+          <template v-for="item in options.toolbar?.menus" :key="item" #[`toolbar_${item}`]="slotProps">
             <slot :name="`toolbar_${item}`" v-bind="slotProps" />
           </template>
         </toolbar>
@@ -624,7 +607,8 @@ const setLocale = (params: SupportedLocale) => {
   }
   const $locale = useState('locale')
   $locale.value = params
-  location.reload()
+  locale.value = $locale.value
+  // location.reload()
 }
 
 const getLocale = () => locale.value
@@ -863,25 +847,30 @@ defineExpose({
     .umo-input__inner {
       text-align: center;
     }
+
     .umo-input {
       border: none !important;
     }
   }
+
   .umo-toolbar,
   .umo-footer {
     background-color: var(--umo-color-white);
   }
+
   .umo-main {
     flex: 1;
     background-color: var(--umo-container-background);
     overflow: hidden;
   }
+
   &.preview-mode {
     &.laser-pointer {
       .umo-main {
         cursor: url('@/assets/images/laser-pointer.svg'), auto;
       }
     }
+
     .umo-toolbar {
       display: none;
     }

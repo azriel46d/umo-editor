@@ -36,10 +36,10 @@ function getTotalChildrenHeight(parentElement: Element) {
 }
 
 class PageDetector {
-  // eslint-disable-next-line
   #editor: Editor
   #pageClass: string
   #checkPoints = [IMAGE, IFRAME, CODE_BLOCK, TOC, VIDEO]
+  lastTableUpdate: number | null = null
 
   constructor(editor: Editor, pageClass = '.umo-page-node-content') {
     this.#editor = editor
@@ -57,8 +57,9 @@ class PageDetector {
       childCount === 1 &&
       firstChild?.type.name === 'table' &&
       firstChild.childCount === 1
-    )
+    ) {
       return true
+    }
     if (
       firstChild &&
       childCount === 1 &&
@@ -68,14 +69,52 @@ class PageDetector {
     return false
   }
 
+  getTableRowsHeight(tableNode: Node): number {
+    try {
+      const domAtPos = this.#editor.view.domAtPos.bind(this.#editor.view)
+      const resolvedPos = this.#editor.state.selection.$from
+      const tableDOM = findParentDomRefOfType(
+        this.#editor.schema.nodes.table,
+        domAtPos
+      )(this.#editor.state.selection)
+      
+      if (!tableDOM) return 0
+      return (tableDOM as HTMLElement).offsetHeight
+    } catch (e) {
+      console.warn('Error measuring table height:', e)
+      return 0
+    }
+  }
+
+  #isTableCell(selection: Selection): boolean {
+    const { $from } = selection
+    let depth = $from.depth
+    while (depth > 0) {
+      const node = $from.node(depth)
+      if (node.type.name === 'table_cell' || node.type.name === 'table_header') {
+        return true
+      }
+      depth--
+    }
+    return false
+  }
+
   update(view: EditorView, prevState: EditorState) {
     if (composition) return
+    
+    const state = paginationPluginKey.getState(view.state)
+    if (!state.runState) return
+    
     const { selection, schema, tr } = view.state
     if (view.state.doc.eq(prevState.doc)) return
 
+    // Quick check for table cell editing
+    if (this.#isTableCell(selection)) {
+      return
+    }
+
     const domAtPos = view.domAtPos.bind(view)
     const { scrollHeight } = paginationPluginKey.getState(prevState)
-    let deleting = false
     const pageDOM = findParentDomRefOfType(
       schema.nodes[PAGE],
       domAtPos,
@@ -87,8 +126,8 @@ class PageDetector {
     if (!pageBody) { return; }
 
     const childrenHeight = getTotalChildrenHeight(pageBody)
-    deleting = scrollHeight > childrenHeight
-
+    const deleting = scrollHeight > childrenHeight
+    
     tr.setMeta('scrollHeight', childrenHeight)
     const inserting = this.isOverflown(childrenHeight)
 
@@ -117,15 +156,21 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
       init: () => {
         return new PageState(false, false, false, false, 0, true)
       },
-      /*判断标志位是否存在  如果存在 则修改 state 值
-       * Meta数据是一个事务级别的 一个事务结束 meta消失
-       * state则在整个生命周期里都存在的
-       * */
       apply: (tr, prevState) => {
-        return prevState.transform(tr)
+        const newState = prevState.transform(tr)
+        // Prevent rapid re-pagination
+        if (tr.getMeta('preventPagination')) {
+          newState.runState = false
+        }
+        return newState
       },
     },
     appendTransaction([newTr], _prevState, state) {
+      // Skip if pagination is disabled
+      if (!this.getState(state).runState) {
+        return null
+      }
+
       removeAbsentHtmlH()
       const page = new PageComputedContext(
         editor,
@@ -137,15 +182,37 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
     },
     props: {
       handleDOMEvents: {
-        compositionstart(view, event) {
+        compositionstart(view) {
           composition = true
+          // Disable pagination during composition
+          view.dispatch(view.state.tr.setMeta('preventPagination', true))
+          return false
         },
-
-        compositionend(view, event) {
+        compositionend(view) {
           composition = false
+          // Re-enable pagination after composition
+          setTimeout(() => {
+            if (!view.isDestroyed) {
+              view.dispatch(view.state.tr.setMeta('preventPagination', false))
+            }
+          }, 300)
+          return false
         },
+        keydown(view, event) {
+          // Disable pagination during rapid typing
+          if (!event.ctrlKey && !event.metaKey && !event.altKey) {
+            view.dispatch(view.state.tr.setMeta('preventPagination', true))
+            clearTimeout(this.paginationTimeout)
+            this.paginationTimeout = setTimeout(() => {
+              if (!view.isDestroyed) {
+                view.dispatch(view.state.tr.setMeta('preventPagination', false))
+              }
+            }, 500)
+          }
+          return false
+        }
       },
-      transformPasted(slice, view) {
+      transformPasted(slice) {
         slice.content.descendants((node: any) => {
           node.attrs.id = getId()
         })
@@ -155,6 +222,7 @@ export const pagePlugin = (editor: Editor, nodesComputed: NodesComputed) => {
   })
   return plugin
 }
+
 export const idPluginKey = new PluginKey('attrkey')
 export const idPlugin = (types: string[]) => {
   const plugin = new Plugin({

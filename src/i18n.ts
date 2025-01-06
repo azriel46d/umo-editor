@@ -5,8 +5,8 @@ import { createI18n } from 'vue-i18n'
 import type { SupportedLocale } from '@/types'
 
 import en_US from './locales/en-US.json'
-import zh_CN from './locales/zh-CN.json'
 import pt_BR from './locales/pt-BR.json'
+import zh_CN from './locales/zh-CN.json'
 
 const { options } = useStore()
 
@@ -18,9 +18,13 @@ const getLocale = (lang: SupportedLocale) => {
   return {}
 }
 
-watch(() => options.value.locale, (locale: string) => {
-  i18n.global.locale.value = locale
-})
+watch(
+  () => options.value.locale,
+  (locale: string) => {
+    console.log('change!!')
+    i18n.global.locale.value = locale
+  },
+)
 
 export const i18n = createI18n({
   legacy: false,

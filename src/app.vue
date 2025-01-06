@@ -2,16 +2,20 @@
   <div class="box" :class="{ 'hide-editor': readOnly }">
     <button @click="toggleReadOnly">readonly</button>
     <button @click="editorRef.print">print</button>
+    <button @click="toggleLang">language</button>
     <umo-editor ref="editorRef" v-bind="options" />
   </div>
 </template>
 
 <script setup lang="ts">
+
+
 import { shortId } from '@/utils/short-id'
 // import { UmoEditor } from '../dist/umo-editor'
 
 const editorRef = $ref(null)
-let readOnly = $ref(true)
+let readOnly = $ref(false)
+
 
 const toggleReadOnly = () => {
   readOnly = !readOnly
@@ -37,7 +41,7 @@ const templates = [
   },
 ]
 const options = $ref({
-  locale: 'pt-BR',
+  locale: 'en-US',
   toolbar: {
     // defaultMode: 'classic',
     // menus: ['base'],
@@ -58,13 +62,13 @@ const options = $ref({
     },
   },
   dicts: {
-    pageSizes: [
+    "pageSizes": [
       {
-        label: 'oi',
-        width: 10,
-        height: 15,
-        default: true
-      },
+        "label": "A4",
+        "width": 21,
+        "height": 29.4,
+        "default": true
+      }
     ]
   },
   templates,
@@ -86,12 +90,27 @@ const options = $ref({
     nickName: 'Umo Editor',
     avatarUrl: 'https://tdesign.gtimg.com/site/avatar.jpg',
   },
-  page: {
-    defaultMargin: {
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
+  "page": {
+    "defaultMargin": {
+      "left": 1.18,
+      "right": 1.18,
+      "top": 2.54,
+      "bottom": 2.54
+    },
+    "defaultOrientation": "portrait",
+    "defaultBackground": "#fff",
+    "watermark": {
+      "type": "compact",
+      "alpha": 0.2,
+      "fontColor": "#000",
+      "fontFamily": "SimSun",
+      "fontSize": 16,
+      "fontWeight": "normal",
+      "text": ""
+    },
+    "nodesComputedOption": {
+      "types": [],
+      "nodesComputed": {}
     }
   },
   async onSave(_: string, __: number, document: { content: string }) {

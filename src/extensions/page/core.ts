@@ -324,7 +324,10 @@ export function getDomHeight(dom: HTMLElement) {
   const marginTop = contentStyle.getPropertyValue('margin-top')
   const marginBottom = contentStyle.getPropertyValue('margin-bottom')
   const margin = Number.parseFloat(marginTop) + Number.parseFloat(marginBottom)
-  const height = margin + dom.offsetHeight + Number.parseFloat(contentStyle.borderWidth)
+  
+  // Use getBoundingClientRect for more reliable height calculation
+  const rect = dom.getBoundingClientRect()
+  const height = rect.height
 
   return { margin, height }
 }

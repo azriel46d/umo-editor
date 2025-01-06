@@ -1,44 +1,25 @@
 <template>
-  <div
-    v-if="$toolbar.mode !== 'classic'"
-    class="umo-toolbar-headding"
-    :class="{ unfold: popupVisible }"
-    :disabled="!editor?.isEditable"
-  >
+  <div v-if="$toolbar.mode !== 'classic'" class="umo-toolbar-headding" :class="{ unfold: popupVisible }"
+    :disabled="!editor?.isEditable">
     <div class="umo-heading-container">
       <template v-for="(item, index) in options" :key="item.value">
-        <div
-          v-if="index < 4"
-          class="card"
-          :class="{ active: item.value === currentValue && editor?.isEditable }"
-          @click="setHeading(item.value)"
-        >
+        <div v-if="index < 4" class="card" :class="{ active: item.value === currentValue && editor?.isEditable }"
+          @click="setHeading(item.value)">
           <div class="title" :class="item.desc">{{ t(item.label, item.binds) }}</div>
           <div class="subtitle">{{ item.desc }}</div>
         </div>
       </template>
-      <t-popup
-        :attach="container"
-        trigger="click"
-        placement="bottom-right"
-        overlay-class-name="umo-heading-container-popup"
-        destroy-on-close
-        :visible="popupVisible"
-      >
+      <t-popup :attach="container" trigger="click" placement="bottom-right"
+        overlay-class-name="umo-heading-container-popup" destroy-on-close :visible="popupVisible">
         <div class="arrow" @click="popupVisible = !popupVisible">
           <icon name="arrow-down" />
         </div>
         <template #content>
           <div ref="popupContentRef" class="umo-heading-container">
             <template v-for="(item, index) in options" :key="item.value">
-              <div
-                v-if="index >= 4"
-                class="card"
-                :class="{
-                  active: item.value === currentValue && editor?.isEditable,
-                }"
-                @click="setHeading(item.value)"
-              >
+              <div v-if="index >= 4" class="card" :class="{
+                active: item.value === currentValue && editor?.isEditable,
+              }" @click="setHeading(item.value)">
                 <div class="title" :class="item.desc">{{ t(item.label, item.binds) }}</div>
                 <div class="subtitle">{{ item.desc }}</div>
               </div>
@@ -48,24 +29,10 @@
       </t-popup>
     </div>
   </div>
-  <menus-button
-    v-else
-    :text="t('base.heading.tip')"
-    hide-text
-    menu-type="select"
-    :style="{ width: '76px' }"
-    :placeholder="t('base.heading.text')"
-    borderless
-    :select-value="currentValue"
-    @menu-click="setHeading"
-  >
-    <t-option
-      v-for="item in options"
-      :key="item.value"
-      class="umo-heading-select-option"
-      :value="item.value"
-      :label="item.label"
-    >
+  <menus-button v-else :text="t('base.heading.tip')" hide-text menu-type="select" :style="{ width: '76px' }"
+    :placeholder="t('base.heading.text')" borderless :select-value="currentValue" @menu-click="setHeading">
+    <t-option v-for="item in options" :key="item.value" class="umo-heading-select-option" :value="item.value"
+      :label="item.label">
       <div class="heading-size" :class="item.desc">{{ item.label }}</div>
     </t-option>
   </menus-button>
@@ -147,13 +114,16 @@ onClickOutside(
   overflow: hidden;
   border-radius: 3px;
   box-sizing: border-box;
+
   &[disabled='true'] {
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
   }
+
   &.unfold {
     overflow: visible;
+
     .umo-heading-container {
       border-color: var(--umo-border-color-light);
       border-bottom: none;
@@ -162,6 +132,7 @@ onClickOutside(
     }
   }
 }
+
 .umo-heading-container {
   display: flex;
   background-color: var(--umo-button-hover-background);
@@ -172,6 +143,7 @@ onClickOutside(
   box-sizing: border-box;
   border: solid 1px transparent;
   white-space: nowrap;
+
   .card {
     background-color: var(--umo-color-white);
     border: solid 1px var(--umo-border-color-light);
@@ -183,37 +155,47 @@ onClickOutside(
     cursor: pointer;
     flex: 0 0 68px;
     height: 42px;
+
     &:hover,
     &.active {
       border-color: var(--umo-primary-color);
     }
+
     .title {
       font-size: 14px;
       line-height: 18px;
       font-weight: 600;
+
       &.text {
         font-size: 12px;
         font-weight: 400;
       }
+
       &.h1 {
         font-size: 16px;
       }
+
       &.h2 {
         font-size: 14px;
       }
+
       &.h3 {
         font-size: 13px;
       }
+
       &.h4 {
         font-size: 12px;
       }
+
       &.h5 {
         font-size: 11px;
       }
+
       &.h6 {
         font-size: 10px;
       }
     }
+
     .subtitle {
       font-size: 8px;
       color: var(--umo-text-color-light);
@@ -222,6 +204,7 @@ onClickOutside(
       line-height: 1;
     }
   }
+
   .arrow {
     display: flex;
     align-items: center;
@@ -233,15 +216,18 @@ onClickOutside(
     border-radius: 3px;
     cursor: pointer;
     z-index: 20;
+
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
+
     .umo-icon {
       font-size: 12px;
       color: var(--umo-text-color-light);
     }
   }
 }
+
 .unfold {
   .arrow {
     :deep(.umo-icon) {
@@ -262,40 +248,50 @@ onClickOutside(
     margin: 1px -8px 0 0 !important;
     padding: 0;
     width: 318px;
+
     .heading-container {
       border-top-right-radius: 0;
       border-top-left-radius: 0;
     }
   }
 }
+
 .umo-heading-select-option {
   height: auto !important;
+
   .heading-size {
     line-height: 2em;
     font-weight: 600;
     min-width: 100px;
     color: var(--umo-text-color);
   }
+
   .text {
     font-size: 12px;
     font-weight: 400;
     line-height: 2.4em;
   }
+
   .h1 {
     font-size: 24px;
   }
+
   .h2 {
     font-size: 20px;
   }
+
   .h3 {
     font-size: 18px;
   }
+
   .h4 {
     font-size: 16px;
   }
+
   .h5 {
     font-size: 14px;
   }
+
   .h6 {
     font-size: 12px;
   }

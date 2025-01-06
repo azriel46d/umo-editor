@@ -103,44 +103,32 @@ export const defaultNodesComputed: NodesComputed = {
   [TASKLIST]: sameListCalculation,
   [TASKITEM]: sameItemCalculation,
   [TABLE_ROW]: (splitContex, node, pos, parent, dom) => {
-    const chunks = splitContex.splitResolve(pos)
-    if (splitContex.isOverflow(0)) {
-      if (count > 1) {
-        count = 1
-        splitContex.setBoundary(chunks[chunks.length - 2][2], chunks.length - 2)
-      } else {
-        splitContex.setBoundary(pos, chunks.length - 1)
-        count += 1
-      }
-      return false
-    }
     const { height: pHeight } = getDomHeight(dom)
+    const chunks = splitContex.splitResolve(pos)
+
+    // Simple overflow check - if row is too tall for current page
     if (splitContex.isOverflow(pHeight)) {
-      if (pHeight > splitContex.getHeight()) {
-        splitContex.addHeight(pHeight)
-        return false
-      }
-      //如果当前行是list的第一行并且已经超过分页高度 直接返回上一层级的切割点
-      if (parent?.firstChild === node) {
-        splitContex.setBoundary(chunks[chunks.length - 2][2], chunks.length - 2)
-      } else {
-        //如果不是第一行 直接返回当前行的切割点
+      // If this is not the first row, split here
+      if (parent?.firstChild !== node) {
         splitContex.setBoundary(pos, chunks.length - 1)
       }
-    } else {
-      splitContex.addHeight(pHeight)
+      // If it is the first row, we have to include it on this page
+      // regardless of height to prevent infinite loops
     }
+    
+    // Always add the height after processing
+    splitContex.addHeight(pHeight)
     return false
   },
   [TABLE]: (splitContex, node, pos, parent, dom) => {
-    const { height: pHeight, margin } = c(splitContex, dom)
-
-    //如果列表的高度超过分页高度 直接返回继续循环 tr 或者li
+    const { height: pHeight } = c(splitContex, dom)
+    
+    // If table is too tall, process rows individually
     if (splitContex.isOverflow(pHeight)) {
-      splitContex.addHeight(margin)
       return true
     }
-    //没有超过分页高度 累加高度
+    
+    // If table fits, add its height and continue
     splitContex.addHeight(pHeight)
     return false
   },
@@ -400,86 +388,6 @@ export class PageComputedContext {
   }
 
   /**
-   * @description 递归分割page
-   */
-  splitDocument() {
-    const { schema } = this.state
-    for (; ;) {
-      // 获取最后一个page计算高度，如果返回值存在的话证明需要分割
-      const splitInfo = this.getNodeHeight()
-      if (!splitInfo) return
-      const type = getNodeType(PAGE, schema)
-      this.lift({
-        pos: splitInfo.pos,
-        depth: splitInfo.depth,
-        typesAfter: [{ type }],
-        schema,
-      } as SplitParams)
-      this.startIndex += 1
-    }
-  }
-
-  /**
-   * 重第count页开始合并page
-   * @param count
-   */
-  mergeDefaultDocument(count: number) {
-    const { tr } = this
-    if (this.forcePageId) {
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
-        // @ts-ignore
-        const nodeSize = tr.doc.content.content
-          .slice(0, count)
-          .map((item: Node) => item.nodeSize)
-          .reduce((a: number, b: number) => a + b, 0)
-        let depth = 1
-        if (tr.doc.child(count).attrs.id === this.forcePageId) {
-          break
-        }
-        const currentPage = tr.doc.content.child(count - 1)
-        const nextPage = tr.doc.content.child(count)
-        if (
-          (nextPage?.firstChild?.type === currentPage?.lastChild?.type ||
-            nextPage?.firstChild?.type.name.includes(EXTEND)) &&
-          nextPage?.firstChild?.attrs?.extend
-        ) {
-          depth = 2
-          this.restDomIds.push(currentPage?.lastChild?.attrs?.id)
-        }
-        tr.join(nodeSize, depth)
-      }
-    } else {
-      //把所有的page 合并成一个 page
-      while (tr.doc.content.childCount > count) {
-        const nodesize = tr.doc.content.lastChild
-          ? tr.doc.content.lastChild.nodeSize
-          : 0
-        let depth = 1
-        //如果 前一页的最后一个node 和后一页的node 是同类 则合并
-        if (tr.doc.content.lastChild !== tr.doc.content.firstChild) {
-          //获取倒数第二页
-          const prePage = tr.doc.content.child(tr.doc.content.childCount - 2)
-          //获取最后一页
-          const lastPage = tr.doc.content.lastChild
-          //如果最后一页的第一个子标签和前一页的最后一个子标签类型一致 或者是扩展类型(是主类型的拆分类型) 进行合并的时候 深度为2
-
-          if (
-            (lastPage?.firstChild?.type === prePage?.lastChild?.type ||
-              lastPage?.firstChild?.type.name.includes(EXTEND)) &&
-            lastPage?.firstChild?.attrs?.extend
-          ) {
-            depth = 2
-            this.restDomIds.push(prePage?.lastChild?.attrs?.id)
-          }
-        }
-        tr.join(tr.doc.content.size - nodesize, depth)
-      }
-    }
-    this.tr = tr
-  }
-
-  /**
    * @method mergeDocument
    * @description  合并剩余文档 将剩余文档进行分页
    *  深度判断：如果剩余页的 第一个子标签是 扩展类型(是主类型的拆分类型) 进行合并的时候 深度为2
@@ -576,6 +484,87 @@ export class PageComputedContext {
       new ReplaceStep(pos, pos, new Slice(before.append(after), depth, depth)),
     )
     this.tr = tr
+  }
+
+  /**
+   * @method mergeDefaultDocument
+   * @description 重第count页开始合并page
+   * @param count
+   */
+  mergeDefaultDocument(count: number) {
+    const { tr } = this
+    if (this.forcePageId) {
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        // @ts-ignore
+        const nodeSize = tr.doc.content.content
+          .slice(0, count)
+          .map((item: Node) => item.nodeSize)
+          .reduce((a: number, b: number) => a + b, 0)
+        let depth = 1
+        if (tr.doc.child(count).attrs.id === this.forcePageId) {
+          break
+        }
+        const currentPage = tr.doc.content.child(count - 1)
+        const nextPage = tr.doc.content.child(count)
+        if (
+          (nextPage?.firstChild?.type === currentPage?.lastChild?.type ||
+            nextPage?.firstChild?.type.name.includes(EXTEND)) &&
+          nextPage?.firstChild?.attrs?.extend
+        ) {
+          depth = 2
+          this.restDomIds.push(currentPage?.lastChild?.attrs?.id)
+        }
+        tr.join(nodeSize, depth)
+      }
+    } else {
+      //把所有的page 合并成一个 page
+      while (tr.doc.content.childCount > count) {
+        const nodesize = tr.doc.content.lastChild
+          ? tr.doc.content.lastChild.nodeSize
+          : 0
+        let depth = 1
+        //如果 前一页的最后一个node 和后一页的node 是同类 则合并
+        if (tr.doc.content.lastChild !== tr.doc.content.firstChild) {
+          //获取倒数第二页
+          const prePage = tr.doc.content.child(tr.doc.content.childCount - 2)
+          //获取最后一页
+          const lastPage = tr.doc.content.lastChild
+          //如果最后一页的第一个子标签和前一页的最后一个子标签类型一致 或者是扩展类型(是主类型的拆分类型) 进行合并的时候 深度为2
+
+          if (
+            (lastPage?.firstChild?.type === prePage?.lastChild?.type ||
+              lastPage?.firstChild?.type.name.includes(EXTEND)) &&
+            lastPage?.firstChild?.attrs?.extend
+          ) {
+            depth = 2
+            this.restDomIds.push(prePage?.lastChild?.attrs?.id)
+          }
+        }
+        tr.join(tr.doc.content.size - nodesize, depth)
+      }
+    }
+    this.tr = tr
+  }
+
+  /**
+   * @description 递归分割page
+   */
+  splitDocument() {
+    const { schema } = this.state
+    for (; ;) {
+      // 获取最后一个page计算高度，如果返回值存在的话证明需要分割
+      const splitInfo = this.getNodeHeight()
+      if (!splitInfo) return
+      const type = getNodeType(PAGE, schema)
+      this.lift({
+        pos: splitInfo.pos,
+        depth: splitInfo.depth,
+        typesAfter: [{ type }],
+        schema,
+      } as SplitParams)
+      this.startIndex += 1
+    }
   }
 
   /**
