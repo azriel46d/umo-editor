@@ -3,7 +3,6 @@ import type { Editor } from '@tiptap/vue-3'
 import type { TableOfContentDataItem } from '@tiptap-pro/extension-table-of-contents'
 import { isRecord } from '@tool-belt/type-predicates'
 
-import { changeComputedHtml } from '@/extensions/page/core'
 import { defaultOptions, objectSchema } from '@/options'
 import type { PageOption, UmoEditorOptions } from '@/types'
 import { shortId } from '@/utils/short-id'
@@ -90,11 +89,19 @@ export const useStore = createGlobalState(() => {
     updatePage(page)
   })
 
-  const updatePage = ({ size, defaultBackground, defaultMargin, defaultOrientation, watermark, }: PageOption) => {
+  const updatePage = ({
+    size,
+    defaultBackground,
+    defaultMargin,
+    defaultOrientation,
+    watermark,
+  }: PageOption) => {
     page.value = {
-      size: size ?? options.value.dicts?.pageSizes.find(
-        (item: { default: boolean }) => item.default,
-      ),
+      size:
+        size ??
+        options.value.dicts?.pageSizes.find(
+          (item: { default: boolean }) => item.default,
+        ),
       margin: defaultMargin,
       background: defaultBackground,
       orientation: defaultOrientation,
@@ -113,23 +120,23 @@ export const useStore = createGlobalState(() => {
     }
   }
 
-  watch(
-    () => options.value.page,
-    updatePage,
-    { immediate: true, once: true, deep: true },
-  )
+  watch(() => options.value.page, updatePage, {
+    immediate: true,
+    once: true,
+    deep: true,
+  })
 
-  watch(
-    () => [page.value.size, page.value.margin, page.value.orientation],
-    () => {
-      editor.value?.commands.autoPaging(false)
-      changeComputedHtml()
-      setTimeout(() => {
-        editor.value?.commands.autoPaging(true)
-      }, 1000)
-    },
-    { deep: true },
-  )
+  // watch(
+  //   () => [page.value.size, page.value.margin, page.value.orientation],
+  //   () => {
+  //     editor.value?.commands.autoPaging(false)
+  //     changeComputedHtml()
+  //     setTimeout(() => {
+  //       editor.value?.commands.autoPaging(true)
+  //     }, 1000)
+  //   },
+  //   { deep: true },
+  // )
 
   const setEditor = (editorInstance: Editor) => {
     editor.value = editorInstance

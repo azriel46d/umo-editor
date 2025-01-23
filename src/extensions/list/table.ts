@@ -1,6 +1,10 @@
 import { Table } from '@tiptap/extension-table'
+import type {
+  Fragment,
+  Node as ProsemirrorNode,
+  Schema,
+} from '@tiptap/pm/model'
 import { TextSelection } from '@tiptap/pm/state'
-import type { DOMOutputSpec, Fragment, Node as ProsemirrorNode, Schema } from '@tiptap/pm/model'
 import { TableView } from '@tiptap/pm/tables'
 
 export class CustomTableView extends TableView {
@@ -27,7 +31,7 @@ export default Table.extend({
   addOptions() {
     return {
       ...this.parent?.(),
-      View: CustomTableView as any
+      View: CustomTableView as any,
     }
   },
 
@@ -36,7 +40,10 @@ export default Table.extend({
       ...this.parent?.(),
       id: {
         default: null,
-      }
+      },
+      groupId: {
+        default: null,
+      },
     }
   },
 
@@ -44,21 +51,22 @@ export default Table.extend({
     return {
       ...this.parent?.(),
       /** @ts-ignore */
-      insertTable: ({ rows = 3, cols = 3, withHeaderRow = true }) => ({ editor, tr, dispatch }) => {
-        const node = createTable(editor.schema, rows + 2, cols, withHeaderRow);
+      insertTable: ({ rows = 3, cols = 3, withHeaderRow = true }) =>
+        ({ editor, tr, dispatch }) => {
+          const node = createTable(editor.schema, rows + 2, cols, withHeaderRow)
 
-        if (dispatch) {
-          const offset = tr.selection.from + 1
+          if (dispatch) {
+            const offset = tr.selection.from + 1
 
-          tr.replaceSelectionWith(node)
-            .scrollIntoView()
-            .setSelection(TextSelection.near(tr.doc.resolve(offset)))
-        }
+            tr.replaceSelectionWith(node)
+              .scrollIntoView()
+              .setSelection(TextSelection.near(tr.doc.resolve(offset)))
+          }
 
-        return true
-      }
+          return true
+        },
     }
-  }
+  },
 })
 
 export function createTable(
@@ -66,12 +74,14 @@ export function createTable(
   rowsCount: number,
   colsCount: number,
   withHeaderRow: boolean,
-  cellContent?: Fragment | ProsemirrorNode | Array<ProsemirrorNode>,
+  cellContent?: Fragment | ProsemirrorNode | ProsemirrorNode[],
 ): ProsemirrorNode {
   const types = schema.cached.tableNodeTypes
   const headerCells: ProsemirrorNode[] = []
   const cells: ProsemirrorNode[] = []
-  const cells2: ProsemirrorNode[] = [types.cell.createAndFill({ colspan: colsCount })];
+  const cells2: ProsemirrorNode[] = [
+    types.cell.createAndFill({ colspan: colsCount }),
+  ]
 
   for (let index = 0; index < colsCount; index += 1) {
     const cell: ProsemirrorNode = types.cell.createAndFill()
@@ -91,15 +101,16 @@ export function createTable(
 
   for (let index = 0; index < rowsCount; index += 1) {
     if ([1, rowsCount - 1].includes(index)) {
-      console.log(cells2)
       rows.push(types.row.createChecked({ class: 'hide-render' }, cells2))
       continue
     }
 
-    rows.push(types.row.createChecked(
-      null,
-      withHeaderRow && index === 0 ? headerCells : cells,
-    ))
+    rows.push(
+      types.row.createChecked(
+        null,
+        withHeaderRow && index === 0 ? headerCells : cells,
+      ),
+    )
   }
 
   return types.table.createChecked(null, rows)

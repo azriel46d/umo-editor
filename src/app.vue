@@ -26,6 +26,13 @@ onMounted(() => {
   editorRef.setReadOnly(readOnly)
 })
 
+const TEST_TABLE_HTML = `<h1>Hello world</h1><p> lorem ipsum</p>
+<table>
+  <thead><tr><th scope="col">Column 1</th><th scope="col">Column 2</th></tr></thead>
+  <tbody>${new Array(100).fill('').map((item, index) => `<tr><td>${index + 1}</td><td>${(Math.random() * 100).toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</td></tr>`).join('')}</tbody>
+</table>
+<h1>hello2</h1>
+`
 const templates = [
   {
     title: { zh_CN: '工作任务', en_US: 'Work Task', pt_BR: 'Tarefas de Trabalho' },
@@ -49,7 +56,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-    content: `<p id="r27887oo" extend="false"></p><p id="x9u7p4ur" extend="false" class="p-empty"></p><text-box id="v5uggu07" extend="false" vnode="true" width="200" height="34" left="6" top="10" draggable="true" rotatable="true" borderwidth="1" bordercolor="#000" borderstyle="solid" backgroundcolor="transparent"><p id="fcv0ph61" extend="false">ELIEZER 1</p></text-box><img id="7s9tr1vd" extend="false" vnode="true" type="image-url" originalsrc="http://izziback.local:83/api/clientes/edbf3cb0-dc12-11ea-b060-731e0ea9161d/imagem" src="https://dummyimage.com/100x100/eee/aaa" width="148.00" height="150" left="35" top="6" draggable="true" rotatable="true" equalproportion="true" flipx="false" flipy="false" uploaded="false" error="false" previewtype="image" zindex="10"><p id="vxbm4tnp" extend="false" class="p-empty"></p><p id="xfzcl1zj" extend="false" class="p-empty"></p><p id="3anxk869" extend="false" class="p-empty"></p><p id="qj7rpy7b" extend="false" class="p-empty"></p><p id="myz88385" extend="false" class="p-empty"></p><p id="avaff9cl" extend="false" class="p-empty"></p><p id="6i55syba" extend="false" class="p-empty"></p><p id="k7pywz29" extend="false" class="p-empty"></p><p id="ix5nap3y" extend="false" class="p-empty"></p><p id="hj87diu7" extend="false" class="p-empty"></p><p id="5pl19tvt" extend="false" class="p-empty"></p><p id="nwkibfdl" extend="false" class="p-empty"></p><p id="kboiw4k2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty"></p><p id="r27887oo" extend="false"></p><p id="x9u7p4ur" extend="false" class="p-empty">s</p><p id="9we85xm3" extend="false" >x</p><text-box id="v5uggu07" extend="false" vnode="true" width="200" height="34" left="6" top="10" draggable="true" rotatable="true" borderwidth="1" bordercolor="#000" borderstyle="solid" backgroundcolor="transparent"><p id="fcv0ph61" extend="false">ELIEZER 1</p></text-box><img id="7s9tr1vd" extend="false" vnode="true" type="image-url" originalsrc="http://izziback.local:83/api/clientes/edbf3cb0-dc12-11ea-b060-731e0ea9161d/imagem" src="https://dummyimage.com/100x100/eee/aaa" width="148.00" height="150" left="35" top="6" draggable="true" rotatable="true" equalproportion="true" flipx="false" flipy="false" uploaded="false" error="false" previewtype="image" zindex="10"><p id="vxbm4tnp" extend="false" class="p-empty"></p><p id="xfzcl1zj" extend="false" class="p-empty"></p><p id="3anxk869" extend="false" class="p-empty"></p><p id="qj7rpy7b" extend="false" class="p-empty"></p><p id="myz88385" extend="false" class="p-empty"></p><p id="avaff9cl" extend="false" class="p-empty"></p><p id="6i55syba" extend="false" class="p-empty"></p><p id="k7pywz29" extend="false" class="p-empty"></p><p id="ix5nap3y" extend="false" class="p-empty"></p><p id="hj87diu7" extend="false" class="p-empty"></p><p id="5pl19tvt" extend="false" class="p-empty"></p><p id="nwkibfdl" extend="false" class="p-empty"></p><p id="kboiw4k2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty"></p><p id="9we85xm2" extend="false" class="p-empty">p</p>`,
+    content: TEST_TABLE_HTML,
     typographyRules: {
       openDoubleQuote: false,
       rightArrow: false,

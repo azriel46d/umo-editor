@@ -1,30 +1,21 @@
 <template>
-  <editor-content
-    class="umo-editor-container"
-    :class="{
-      'is-empty': isEmpty,
-      'show-line-number': page.showLineNumber,
-      'format-painter': painter.enabled,
-      'disable-page-break': !page.pagination,
-    }"
-    :editor="editor"
-    :style="{
+  <editor-content class="umo-editor-container" :class="{
+    'is-empty': isEmpty,
+    'show-line-number': page.showLineNumber,
+    'format-painter': painter.enabled,
+    'disable-page-break': !page.pagination,
+  }" :editor="editor" :style="{
       lineHeight: defaultLineHeight,
       '--umo-editor-placeholder': `'${l(options.document?.placeholder ?? {})}'`,
-    }"
-    :spellcheck="
-      options.document?.enableSpellcheck && $document.enableSpellcheck
-    "
-  />
+    }" :spellcheck="options.document?.enableSpellcheck && $document.enableSpellcheck
+      " />
   <menus-bubble v-if="editor && !page.preview?.enabled && !editorDestroyed" />
-  <menus-context-block
-    v-if="
-      options.document?.enableBlockMenu &&
-      !page.preview?.enabled &&
-      editor &&
-      !editorDestroyed
-    "
-  />
+  <menus-context-block v-if="
+    options.document?.enableBlockMenu &&
+    !page.preview?.enabled &&
+    editor &&
+    !editorDestroyed
+  " />
 </template>
 
 <script setup lang="ts">
@@ -34,8 +25,7 @@ import Mathematics from '@tiptap-pro/extension-mathematics'
 
 import { extensions } from '@/extensions'
 import Image from '@/extensions/image'
-import Page from '@/extensions/page'
-import { pagePlugin } from '@/extensions/page/page-plugin'
+import Pagination, { PageNode } from '@/extensions/pagination/src'
 
 const {
   options,
@@ -80,10 +70,11 @@ const editorInstance: Editor = new Editor({
   },
   parseOptions: options.value.document?.parseOptions,
   extensions: [
-    Page.configure({
-      types: options.value.page.nodesComputedOption?.types ?? [],
-      slots: useSlots(),
-    }),
+    // Page.configure({
+    //   types: options.value.page.nodesComputedOption?.types ?? [],
+    //   slots: useSlots(),
+    // }),
+    PageNode, Pagination,
     ...extensions(options.value, container, tableOfContents.value),
     ...(options.value.extensions as Extension[]),
   ],
@@ -98,26 +89,6 @@ const editorInstance: Editor = new Editor({
 })
 setEditor(editorInstance)
 
-// 注册分页组件
-const registerPagePlugin = async () => {
-  await nextTick()
-  const { nodesComputed } = options.value.page.nodesComputedOption ?? {}
-
-  editorInstance.registerPlugin(pagePlugin(editorInstance, nodesComputed ?? {}))
-  setTimeout(() => {
-    const tr = editorInstance.state.tr.setMeta('initSplit', true)
-    editorInstance.view.dispatch(tr)
-  }, 500)
-}
-watch(
-  () => isReady,
-  () => {
-    if (isReady) {
-      void registerPagePlugin()
-    }
-  },
-  { once: true },
-)
 
 // 动态导入 katex 样式
 const loadTatexStyle = () => {
