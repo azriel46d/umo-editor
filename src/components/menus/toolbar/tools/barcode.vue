@@ -220,8 +220,6 @@
 <script setup lang="ts">
 import JsBarcode from 'jsbarcode'
 
-import { BARCODE } from '@/extensions/page/node-names';
-
 const { attrs } = defineProps<{
   attrs: any
 }>()

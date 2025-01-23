@@ -115,26 +115,7 @@ const importWord = () => {
 
       // Set content in chunks if it's a large document
       const content = doc.body.innerHTML.toString()
-<<<<<<< HEAD
-      if (content.length > 100000) { // For large documents
-        // First set the basic structure
-        editor.value?.commands.setContent('')
-        
-        // Then insert the content
-        requestAnimationFrame(() => {
-          editor.value?.commands.setContent(content)
-          // Wait a bit before auto-paging to let the content render
-          setTimeout(() => {
-            editor.value?.commands.autoPaging()
-          }, 100)
-        })
-      } else {
-        editor.value?.commands.setContent(content)
-        editor.value?.commands.autoPaging()
-      }
-=======
       editor.value?.commands.setContent(content)
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
     } catch {
       useMessage('error', t('base.importWord.importError'))
     }

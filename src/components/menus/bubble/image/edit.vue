@@ -5,8 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { BARCODE } from '@/extensions/page/node-names';
-
 const { editor } = useStore()
 const type = computed(() => {
   return editor.value?.getAttributes('image').type

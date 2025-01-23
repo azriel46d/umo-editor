@@ -3,11 +3,7 @@ import type { Editor } from '@tiptap/vue-3'
 import type { TableOfContentDataItem } from '@tiptap-pro/extension-table-of-contents'
 import { isRecord } from '@tool-belt/type-predicates'
 
-<<<<<<< HEAD
 import { defaultOptions, objectSchema } from '@/options'
-=======
-import { defaultOptions, ojbectSchema } from '@/options'
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 import type { PageOption, UmoEditorOptions } from '@/types'
 import { shortId } from '@/utils/short-id'
 
@@ -87,61 +83,6 @@ export const useStore = createGlobalState(() => {
     painter.value.marks = marks
   }
 
-<<<<<<< HEAD
-  watch(options, ({ page }: UmoEditorOptions) => {
-    updatePage(page)
-  })
-
-  const updatePage = ({
-    size,
-    defaultBackground,
-    defaultMargin,
-    defaultOrientation,
-    watermark,
-  }: PageOption) => {
-    page.value = {
-      size:
-        size ??
-        options.value.dicts?.pageSizes.find(
-          (item: { default: boolean }) => item.default,
-        ),
-      margin: defaultMargin,
-      background: defaultBackground,
-      orientation: defaultOrientation,
-      watermark,
-      header: true,
-      footer: true,
-      showLineNumber: false,
-      showToc: false,
-      pagination: true,
-      zoomLevel: 100,
-      autoWidth: false,
-      preview: {
-        enabled: false,
-        laserPointer: true,
-      },
-    }
-  }
-
-  watch(() => options.value.page, updatePage, {
-    immediate: true,
-    once: true,
-    deep: true,
-  })
-
-  // watch(
-  //   () => [page.value.size, page.value.margin, page.value.orientation],
-  //   () => {
-  //     editor.value?.commands.autoPaging(false)
-  //     changeComputedHtml()
-  //     setTimeout(() => {
-  //       editor.value?.commands.autoPaging(true)
-  //     }, 1000)
-  //   },
-  //   { deep: true },
-  // )
-
-=======
   watch(
     () => options.value.page,
     ({
@@ -173,7 +114,6 @@ export const useStore = createGlobalState(() => {
     { immediate: true, once: true },
   )
 
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   const setEditor = (editorInstance: Editor) => {
     editor.value = editorInstance
   }

@@ -16,16 +16,6 @@
           <icon name="spellcheck" color="red" />
         </t-button>
       </tooltip>
-<<<<<<< HEAD
-      <tooltip :content="page.pagination ? t('pagination.disable') : t('pagination.title')
-        ">
-        <t-button class="umo-status-bar-button" :class="{ active: page.pagination }" variant="text" size="small"
-          @click="togglePagination">
-          <icon name="page-break" />
-        </t-button>
-      </tooltip>
-=======
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
       <tooltip :content="t('shortcut.title')">
         <t-button class="umo-status-bar-button" variant="text" size="small" @click="showShortcut = true">
           <icon name="shortcut" />
@@ -348,11 +338,7 @@ const autoWidth = (auto = true, padding = 50) => {
     console.warn('Page auto width calculation error', e)
   }
 }
-<<<<<<< HEAD
-useHotkeys('Control+0,command+0', autoWidth)
-=======
 useHotkeys('Ctrl+0,command+0', autoWidth)
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 
 watch(
   () => page.value.showToc,

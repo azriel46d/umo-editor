@@ -31,13 +31,8 @@ const defaultLineHeight = $computed(
 )
 
 const getIframeCode = () => {
-<<<<<<< HEAD
   const { readOnly } = options.value.document
-  const { orientation, size, background } = page.value
-
-=======
   const { orientation, size, margin, background } = page.value
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   /* eslint-disable */
   return `
     <!DOCTYPE html>
@@ -58,11 +53,6 @@ const getIframeCode = () => {
         transform: scale(1) !important;
       }
       @page {
-<<<<<<< HEAD
-        size: ${orientation === 'portrait' ? size?.width : size?.height}cm ${orientation === 'portrait' ? size?.height : size?.width}cm;
-        margin:0;
-        background: ${background};
-=======
         size: ${orientation === 'portrait' ? size?.width : size?.height}cm ${orientation === 'portrait' ? size?.height : size?.width}cm; 
         margin: ${margin?.top}cm 0 ${margin?.bottom}cm;
         padding: 0;
@@ -73,7 +63,6 @@ const getIframeCode = () => {
       @page:last {
         margin-bottom: 0;
         page-break-after: avoid;
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
       }
       </style>
     </head>

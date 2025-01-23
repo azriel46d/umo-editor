@@ -56,32 +56,8 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
-<<<<<<< HEAD
-    content: TEST_TABLE_HTML,
-    typographyRules: {
-      openDoubleQuote: false,
-      rightArrow: false,
-      leftArrow: false,
-      closeDoubleQuote: false,
-      openSingleQuote: false,
-      closeSingleQuote: false,
-      notEqual: false
-
-    },
-  },
-  dicts: {
-    "pageSizes": [
-      {
-        "label": "A4",
-        "width": 21,
-        "height": 29.4,
-        "default": true
-      }
-    ]
-=======
-    content: localStorage.getItem('document.content') ?? '<p>测试文档</p>',
+    content: localStorage.getItem('document.content') ?? TEST_TABLE_HTML,
     // enableComment: false
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   },
   templates,
   cdnUrl: 'https://cdn.umodoc.com',

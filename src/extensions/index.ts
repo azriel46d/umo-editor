@@ -10,13 +10,8 @@ import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
 import Subscript from '@tiptap/extension-subscript'
 import Superscript from '@tiptap/extension-superscript'
-<<<<<<< HEAD
-import TableRow from './table-row'
-import Paragraph from './paragraph'
-=======
 import Table from '@tiptap/extension-table'
 import TableRow from '@tiptap/extension-table-row'
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import TextColor from '@tiptap/extension-text-style'
@@ -52,6 +47,7 @@ import Margin from './margin'
 import NodeAlign from './node-align'
 import OrderedList from './ordered-list'
 import PageBreak from './page-break'
+import PaginationExtension, { PageNode } from './pagination/src'
 import Selection from './selection'
 import TableCell from './table-cell'
 import TableHeader from './table-header'
@@ -60,131 +56,9 @@ import TextBox from './text-box'
 import Toc from './toc'
 import Video from './video'
 
-<<<<<<< HEAD
-// Custom
-import BarCodeExtension from '@/extensions/bar-code'
-=======
+
 const { options, container, page, tableOfContents } = useStore()
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
-
-export const extensions = (
-  { dicts, document: doc, file }: any,
-  container: any,
-  tableOfContents: any,
-) => [
-    StarterKit.configure({
-      document: false,
-      bold: false,
-      bulletList: false,
-      orderedList: false,
-      codeBlock: false,
-      horizontalRule: false,
-      dropcursor: false,
-    }),
-    Document.extend({ content: 'page+' }),
-    Placeholder.configure({
-      placeholder: l(doc.placeholder),
-    }),
-    Focus.configure({
-      className: 'umo-node-focused',
-      mode: 'all',
-    }),
-    FormatPainter,
-    FontFamily,
-    FontSize,
-    Bold.extend({
-      renderHTML: ({ HTMLAttributes }) => ['b', HTMLAttributes, 0],
-    }),
-    Underline,
-    Subscript,
-    Superscript,
-    Color,
-    TextColor,
-    Highlight.configure({
-      multicolor: true,
-    }),
-    BulletList,
-    OrderedList,
-    Indent,
-    TextAlign,
-    NodeAlign,
-    TaskItem.configure({ nested: true }),
-    TaskList.configure({
-      HTMLAttributes: {
-        class: 'umo-task-list',
-      },
-    }),
-    LineHeight.configure({
-      types: ['heading', 'paragraph'],
-      defaultLineHeight: dicts.lineHeights.find((item: any) => item.default)
-        .value,
-    }),
-    Paragraph,
-    Margin,
-    SearchReplace.configure({
-      searchResultClass: 'umo-search-result',
-    }),
-    Link,
-    Image,
-    Video,
-    Audio,
-    File,
-    TextBox,
-    CodeBlock,
-    ColorHighlighter,
-    hr,
-    Iframe,
-    Mathematics.configure({
-      regex: /#([^#]*)#/gi
-    }),
-
-<<<<<<< HEAD
-    // 表格
-    Table.configure({
-      allowTableNodeSelection: true,
-      resizable: true,
-    }),
-    TableRow,
-    TableHeader,
-    TableCell,
-    // 页面
-    Toc,
-    // 其他
-    Selection,
-    TableOfContents.configure({
-      getIndex: getHierarchicalIndexes,
-      onUpdate: (content) => {
-        tableOfContents.value = content
-      },
-      scrollParent: () =>
-        document.querySelector(
-          `${container} .umo-zoomable-container`,
-        ) as HTMLElement,
-      getId: () => shortId(6),
-    }),
-    Typography.configure(doc.typographyRules),
-    CharacterCount.configure({
-      limit: doc.characterLimit !== 0 ? doc.characterLimit : undefined,
-    }),
-    FileHandler.configure({
-      allowedMimeTypes: file.allowedMimeTypes,
-      onPaste(editor: Editor, files: any) {
-        for (const file of files) {
-          editor.commands.insertFile({ file, autoType: true })
-        }
-      },
-      onDrop: (editor: Editor, files: any, pos: number) => {
-        for (const file of files) {
-          editor.commands.insertFile({ file, autoType: true, pos })
-        }
-      },
-    }),
-    Dropcursor.configure({
-      color: 'var(--umo-primary-color)',
-    }),
-    BarCodeExtension
-  ]
-=======
+const { dicts, document: doc, file } = options.value
 export const extensions = [
   StarterKit.configure({
     bold: false,
@@ -194,6 +68,8 @@ export const extensions = [
     horizontalRule: false,
     dropcursor: false,
   }),
+  PaginationExtension,
+  PageNode,
   Placeholder.configure({
     placeholder: l(options.value.document.placeholder),
   }),
@@ -310,4 +186,3 @@ export const inputAndPasteRules = () => {
   }
   return enableRules
 }
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60

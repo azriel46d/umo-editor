@@ -1,7 +1,6 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import Component from '@/components/editor/extensions/barcode.vue'
-import { BARCODE } from './page/node-names'
 
 export default Node.create({
   name: BARCODE,

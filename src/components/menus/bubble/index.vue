@@ -14,10 +14,6 @@
       </template>
     </menus-bubble-menus>
     <assistant-input v-if="options?.assistant?.enabled && assistantBox" />
-<<<<<<< HEAD
-=======
-    <!-- <comment-input v-if="options?.document?.enableComment && commentBox" /> -->
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   </bubble-menu>
 </template>
 
@@ -33,11 +29,7 @@ let tippyInstance = $ref<Instance | null>(null)
 const tippyOpitons = $ref<Partial<Instance>>({
   appendTo: 'parent',
   maxWidth: 580,
-<<<<<<< HEAD
-  zIndex: 9*(10**10),
-=======
   zIndex: 110,
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   onShow(instance: Instance) {
     tippyInstance = instance
   },

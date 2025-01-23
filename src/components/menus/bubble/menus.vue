@@ -31,10 +31,6 @@
         )
       "
     />
-    <menus-toolbar-insert-image-link
-      v-if="editor?.getAttributes('image').type === 'image-url'"
-      :attrs="editor?.getAttributes('image')"
-    />
     <menus-bubble-image-preview
       v-if="
         editor?.getAttributes('image')?.type === 'image' ||
@@ -46,23 +42,15 @@
     <menus-bubble-image-open />
     <div class="umo-bubble-menu-divider"></div>
     <menus-bubble-image-edit />
-    <template v-if="editor?.isActive('image') && editor?.getAttributes('image').draggable">
-      <menus-bubble-node-duplicate />
-      <menus-bubble-draggable-up-layer />
-      <menus-bubble-draggable-down-layer />
-    </template>
+    <menus-bubble-node-duplicate
+      v-if="
+        editor?.isActive('image') && editor?.getAttributes('image').draggable
+      "
+    />
     <menus-bubble-node-tofile
       v-if="editor?.getAttributes('image').previewType !== null"
     />
     <menus-bubble-node-delete />
-  </template>
-  <template v-else-if="editor?.isActive(BARCODE)">
-    <menus-toolbar-base-align-left />
-    <menus-toolbar-base-align-center />
-    <menus-toolbar-base-align-right />
-    <div class="umo-bubble-menu-divider"></div>
-    <menus-bubble-image-draggable />
-    <menus-toolbar-tools-barcode :attrs="editor.getAttributes(BARCODE)" />
   </template>
   <template
     v-else-if="
@@ -138,20 +126,16 @@
       <menus-bubble-text-box-background />
       <div class="umo-bubble-menu-divider"></div>
     </template>
-<<<<<<< HEAD
-=======
     <!-- <template v-if="options.document?.enableComment && commentBox">
       <menus-bubble-comment />
       <div class="umo-bubble-menu-divider"></div>
     </template> -->
->>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
     <slot name="bubble_menu" />
   </template>
 </template>
 
 <script setup lang="ts">
 const { options, editor } = useStore()
-import { BARCODE } from '@/extensions/page/node-names';
 </script>
 
 <style lang="less" scoped>
