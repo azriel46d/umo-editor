@@ -2,7 +2,7 @@
   <template
     v-if="
       editor?.isActive('toc') ||
-      editor?.isActive('pagination') ||
+      editor?.isActive('pageBreak') ||
       editor?.isActive('horizontalRule') ||
       editor?.getAttributes('image').error
     "
@@ -127,6 +127,7 @@
     <menus-toolbar-base-strike />
     <div class="umo-bubble-menu-divider"></div>
     <menus-toolbar-base-align-dropdown />
+    <menus-toolbar-insert-link />
     <div class="umo-bubble-menu-divider"></div>
     <menus-toolbar-base-color />
     <menus-toolbar-base-background-color />
@@ -137,6 +138,13 @@
       <menus-bubble-text-box-background />
       <div class="umo-bubble-menu-divider"></div>
     </template>
+<<<<<<< HEAD
+=======
+    <!-- <template v-if="options.document?.enableComment && commentBox">
+      <menus-bubble-comment />
+      <div class="umo-bubble-menu-divider"></div>
+    </template> -->
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
     <slot name="bubble_menu" />
   </template>
 </template>

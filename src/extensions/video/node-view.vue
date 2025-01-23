@@ -18,8 +18,6 @@
         :max-height="maxHeight"
         :equal-proportion="true"
         @resize="onResize"
-        @resize-start="onResizeStart"
-        @resize-end="onResizeEnd"
         @click="selected = true"
       >
         <video
@@ -73,10 +71,10 @@ onMounted(async () => {
   player = mediaPlayer(videoRef)
   if (node.attrs.uploaded === false && node.attrs.file) {
     try {
-      const { url } =
+      const { id,url } =
         (await options.value?.onFileUpload?.(node.attrs.file)) ?? {}
       if (containerRef.value) {
-        updateAttributes({ src: url, file: null, uploaded: true })
+        updateAttributes({ id,src: url, file: null, uploaded: true })
       }
     } catch (error) {
       useMessage('error', (error as Error).message)
@@ -101,12 +99,6 @@ const onLoad = () => {
 }
 const onResize = ({ width, height }: { width: number; height: number }) => {
   updateAttributes({ width, height })
-}
-const onResizeStart = () => {
-  editor.value?.commands.autoPaging(false)
-}
-const onResizeEnd = () => {
-  editor.value?.commands.autoPaging(true)
 }
 onBeforeUnmount(() => {
   if (player) {

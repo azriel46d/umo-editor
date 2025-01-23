@@ -26,34 +26,77 @@ const defaultOptions: UmoEditorOptions = {
   height: '100%',
   dicts: {
     fonts: [
-      { label: { en_US: 'Default Font', zh_CN: '默认字体', pt_BR: 'Fonte padrão' }, value: null },
-      { label: { en_US: 'Songti', zh_CN: '宋体', pt_BR: 'Songti' }, value: 'SimSun' },
-      { label: { en_US: 'Heiti', zh_CN: '黑体', pt_BR: 'Heiti' }, value: 'SimHei' },
-      { label: { en_US: 'Kaiti', zh_CN: '楷体', pt_BR: 'Kaiti' }, value: 'KaiTi' },
       {
-        label: { en_US: 'Kaiti GB2312', zh_CN: '楷体_GB2312', pt_BR: 'Kaiti GB2312' },
+        label: { en_US: 'Default Font', zh_CN: '默认字体', ru_RU: 'default', pt_BR: 'default' },
+        value: null,
+      },
+      {
+        label: { en_US: 'Songti', zh_CN: '宋体', ru_RU: 'Songti', pt_BR: 'Songti' },
+        value: 'SimSun',
+      },
+      {
+        label: { en_US: 'Heiti', zh_CN: '黑体', ru_RU: 'Heiti', pt_BR: 'Heiti' },
+        value: 'SimHei',
+      },
+      {
+        label: { en_US: 'Kaiti', zh_CN: '楷体', ru_RU: 'Kaiti', pt_BR: 'Kaiti' },
+        value: 'KaiTi',
+      },
+      {
+        label: {
+          en_US: 'Kaiti GB2312',
+          zh_CN: '楷体_GB2312',
+          ru_RU: 'Kaiti GB2312',
+          pt_BR: 'Kaiti GB2312',
+        },
         value: 'KaiTi_GB2312',
       },
-      { label: { en_US: 'Fangsong', zh_CN: '仿宋', pt_BR: 'Fangsong' }, value: 'FangSong' },
       {
-        label: { en_US: 'Fangsong GB2312', zh_CN: '仿宋_GB2312', pt_BR: 'Fangsong GB2312' },
+        label: { en_US: 'Fangsong', zh_CN: '仿宋', ru_RU: 'Fangsong', pt_BR: 'Fangsong' },
+        value: 'FangSong',
+      },
+      {
+        label: {
+          en_US: 'Fangsong GB2312',
+          zh_CN: '仿宋_GB2312',
+          ru_RU: 'Fangsong GB2312',
+          pt_BR: 'Fangsong GB2312',
+        },
         value: 'FangSong_GB2312',
       },
-      { label: { en_US: 'STSong', zh_CN: '华文宋体', pt_BR: 'STSong' }, value: 'STSong' },
       {
-        label: { en_US: 'STFangsong', zh_CN: '华文仿宋', pt_BR: 'STFangsong' },
+        label: { en_US: 'STSong', zh_CN: '华文宋体', ru_RU: 'STSong', pt_BR: 'STSong' },
+        value: 'STSong',
+      },
+      {
+        label: { en_US: 'STFangsong', zh_CN: '华文仿宋', ru_RU: 'STFangsong', pt_BR: 'STFangsong  ' },
         value: 'STFangsong',
       },
       {
-        label: { en_US: 'FZ Fangsong Simplified', zh_CN: '方正仿宋简体', pt_BR: 'FZ Fangsong Simplified' },
+        label: {
+          en_US: 'FZ Fangsong Simplified',
+          zh_CN: '方正仿宋简体',
+          ru_RU: 'FZ Fangsong Simplified',
+          pt_BR: 'FZ Fangsong Simplified',
+        },
         value: 'FZFangSong-Z02S',
       },
       {
-        label: { en_US: 'FZ Xiaobiao Song', zh_CN: '方正小标宋', pt_BR: 'FZ Xiaobiao Song' },
+        label: {
+          en_US: 'FZ Xiaobiao Song',
+          zh_CN: '方正小标宋',
+          ru_RU: 'FZ Xiaobiao Song',
+          pt_BR: 'FZ Xiaobiao Song',
+        },
         value: 'FZXiaoBiaoSong-B05S',
       },
       {
-        label: { en_US: 'Microsoft Yahei', zh_CN: '微软雅黑', pt_BR: 'Microsoft Yahei' },
+        label: {
+          en_US: 'Microsoft Yahei',
+          zh_CN: '微软雅黑',
+          ru_RU: 'Microsoft Yahei',
+          pt_BR: 'Microsoft Yahei',
+        },
         value: 'Microsoft Yahei',
       }
     ],
@@ -121,32 +164,77 @@ const defaultOptions: UmoEditorOptions = {
       "#36194E",
     ],
     lineHeights: [
-      { label: { en_US: 'Single', zh_CN: '单倍行距', pt_BR: 'Simples' }, value: 1 },
       {
-        label: { en_US: '1.5 Line Spacing', zh_CN: '1.5 倍行距', pt_BR: 'Espaçamento de 1.5 linhas' },
+        label: { en_US: 'Single', zh_CN: '单倍行距', ru_RU: 'Одинарный', pt_BR: 'Simples' },
+        value: 1,
+      },
+      {
+        label: {
+          en_US: '1.5 Line Spacing',
+          zh_CN: '1.5 倍行距',
+          ru_RU: '1.5 Межстрочных интервала',
+          pt_BR: 'Espaçamento de 1.5 linhas'
+        },
         value: 1.5,
         default: true,
       },
-      { label: { en_US: 'Double', zh_CN: '2 倍行距', pt_BR: 'Duas vezes' }, value: 2 },
-      { label: { en_US: '2.5 Line Spacing', zh_CN: '2.5 倍行距', pt_BR: 'Espaçamento de 2.5 linhas' }, value: 2.5 },
-      { label: { en_US: 'Triple', zh_CN: '3 倍行距', pt_BR: 'Três vezes' }, value: 3 },
+      {
+        label: { en_US: 'Double', zh_CN: '2 倍行距', ru_RU: 'Двойной', pt_BR: 'Duas vezes' },
+        value: 2,
+      },
+      {
+        label: {
+          en_US: '2.5 Line Spacing',
+          zh_CN: '2.5 倍行距',
+          ru_RU: '2.5 Межстрочных интервала',
+          pt_BR: 'Espaçamento de 2.5 linhas'
+        },
+        value: 2.5,
+      },
+      {
+        label: { en_US: 'Triple', zh_CN: '3 倍行距', ru_RU: 'Тройной', pt_BR: 'Três vezes' },
+        value: 3,
+      },
     ],
     symbols: [
       {
-        label: { en_US: 'Plain Text', zh_CN: '普通文本', pt_BR: 'Texto Padrão' },
+        label: {
+          en_US: 'Plain Text',
+          zh_CN: '普通文本',
+          ru_RU: 'Простой Текст',
+          pt_BR: 'Texto Padrão'
+        },
         items: '‹›«»‘’“”‚„¡¿‥…‡‰‱‼⁈⁉⁇©®™§¶⁋',
       },
       {
-        label: { en_US: 'Currency Symbols', zh_CN: '货币符号', pt_BR: 'Símbolos de Moeda' },
+        label: {
+          en_US: 'Currency Symbols',
+          zh_CN: '货币符号',
+          ru_RU: 'Символы Валют',
+          pt_BR: 'Símbolos de Moeda'
+        },
         items: '$€¥£¢₠₡₢₣₤¤₿₥₦₧₨₩₪₫₭₮₯₰₱₲₳₴₵₶₷₸₹₺₻₼₽',
       },
       {
-        label: { en_US: 'Mathematical Symbols', zh_CN: '数学符号', pt_BR: 'Símbolos Matemáticos' },
+        label: {
+          en_US: 'Mathematical Symbols',
+          zh_CN: '数学符号',
+          ru_RU: 'Математические Символы',
+          pt_BR: 'Símbolos Matemáticos'
+        },
         items: '<>≤≥–—¯‾°−±÷⁄×ƒ∫∑∞√∼≅≈≠≡∈∉∋∏∧∨¬∩∪∂∀∃∅∇∗∝∠¼½¾',
       },
-      { label: { en_US: 'Arrows', zh_CN: '箭头', pt_BR: 'Setas' }, items: '←→↑↓⇐⇒⇑⇓⇠⇢⇡⇣⇤⇥⤒⤓↨' },
       {
-        label: { en_US: 'Latin Script', zh_CN: '拉丁语', pt_BR: 'Alfabeto Latino' },
+        label: { en_US: 'Arrows', zh_CN: '箭头', ru_RU: 'Стрелки', pt_BR: 'Setas' },
+        items: '←→↑↓⇐⇒⇑⇓⇠⇢⇡⇣⇤⇥⤒⤓↨',
+      },
+      {
+        label: {
+          en_US: 'Latin Script',
+          zh_CN: '拉丁语',
+          ru_RU: 'Латинская письменность',
+          pt_BR: 'Alfabeto Latino'
+        },
         items:
           'ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ',
       },
@@ -154,78 +242,128 @@ const defaultOptions: UmoEditorOptions = {
 
     emojis: [
       {
-        label: { en_US: 'Emotions & People', zh_CN: '表情与角色', pt_BR: 'Emoções & Pessoas' },
+        label: {
+          en_US: 'Emotions & People',
+          zh_CN: '表情与角色',
+          ru_RU: 'Эмоции & Люди',
+          pt_BR: 'Emoções & Pessoas'
+        },
         items:
           '😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 🫠 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺️ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😶‍🌫️ 😏 😒 🙄 😬 😮‍💨 🤥 😌 😔 😪 🤤 😴 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 😵‍💫 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 🫤 😟 🙁 ☹️ 😮 😯 😲 😳 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👹 👺 👻 👽 👾 🤖 👋 🤚 🖐️ ✋ 🖖 🫱 🫲 🫳 🫴 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 🫵 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻',
       },
       {
-        label: { en_US: 'Animals & Nature', zh_CN: '动物与自然', pt_BR: 'Animais & Natureza' },
+        label: {
+          en_US: 'Animals & Nature',
+          zh_CN: '动物与自然',
+          ru_RU: 'Животные & Природа',
+          pt_BR: 'Animais & Natureza' 
+        },
         items:
           '🐵 🐒 🦍 🦧 🐶 🐕 🦮 🐕‍🦺 🐩 🐺 🦊 🦝 🐱 🐈 🐈‍⬛ 🦁 🐯 🐅 🐆 🐴 🐎 🦄 🦓 🦌 🦬 🐮 🐂 🐃 🐄 🐷 🐖 🐗 🐽 🐏 🐑 🐐 🐪 🐫 🦙 🦒 🐘 🦣 🦏 🦛 🐭 🐁 🐀 🐹 🐰 🐇 🐿️ 🦫 🦔 🦇 🐻 🐻‍❄️ 🐨 🐼 🦥 🦦 🦨 🦘 🦡 🐾 🦃 🐔 🐓 🐣 🐤 🐥 🐦 🐧 🕊️ 🦅 🦆 🦢 🦉 🦤 🪶 🦩 🦚 🦜 🐸 🐊 🐢 🦎 🐍 🐲 🐉 🦕 🦖 🐳 🐋 🐬 🦭 🐟 🐠 🐡 🦈 🐙 🐚 🪸 🐌 🦋 🐛 🐜 🐝 🪲 🐞 🦗 🪳 🕷️ 🕸️ 🦂 🦟 🪰 🪱 🦠 💐 🌸 💮 🪷 🏵️ 🌹 🥀 🌺 🌻 🌼 🌷 🌱 🪴 🌲 🌳 🌴 🌵 🌾 🌿 ☘️ 🍀 🍁 🍂 🍃 🪹 🪺',
       },
       {
-        label: { en_US: 'Food & Drink', zh_CN: '食物与食品', pt_BR: 'Comida & Bebida' },
+        label: {
+          en_US: 'Food & Drink',
+          zh_CN: '食物与食品',
+          ru_RU: 'Еда & Напитки',
+          pt_BR: 'Comida & Bebida',
+        },
         items:
           '🥬 🥦 🧄 🧅 🍄 🥜 🫘 🌰 🍞 🥐 🥖 🫓 🥨 🥯 🥞 🧇 🧀 🍖 🍗 🥩 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🫔 🥙 🧆 🥚 🍳 🥘 🍲 🫕 🥣 🥗 🍿 🧈 🧂 🥫 🍱 🍘 🍙 🍚 🍛 🍜 🍝 🍠 🍢 🍣 🍤 🍥 🥮 🍡 🥟 🥠 🥡 🦀 🦞 🦐 🦑 🦪 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🫖 🍵 🍶 🍾 🍷 🍸 🍹 🍺 🍻 🥂 🥃 🫗 🥤 🧋 🧃 🧉 🧊 🥢 🍽️ 🍴 🥄 🔪 🫙 🏺',
       },
       {
-        label: { en_US: 'Activities', zh_CN: '活动', pt_BR: 'Atividades' },
+        label: { en_US: 'Activities', zh_CN: '活动', ru_RU: 'Активность', pt_BR: 'Atividades'  },
         items:
           '🎗️ 🎟️ 🎫 🎖️ 🏆 🏅 🥇 🥈 🥉 ⚽ ⚾ 🥎 🏀 🏐 🏈 🏉 🎾 🥏 🎳 🏏 🏑 🏒 🥍 🏓 🏸 🥊 🥋 🥅 ⛳ ⛸️ 🎣 🤿 🎽 🎿 🛷 🥌 🎯 🪀 🪁 🎱 🔮 🪄 🧿 🪬 🎮 🕹️ 🎰 🎲 🧩 🧸 🪅 🪩 🪆 ♠️ ♥️ ♦️ ♣️ ♟️ 🃏 🀄 🎴 🎭 🖼️ 🎨 🧵 🪡 🧶 🪢',
       },
       {
-        label: { en_US: 'Travel & Places', zh_CN: '旅行与景点', pt_BR: 'Viagem & Lugares' },
+        label: {
+          en_US: 'Travel & Places',
+          zh_CN: '旅行与景点',
+          ru_RU: 'Путешествия & Места',
+          pt_BR: 'Viagem & Lugares'
+        },
         items:
           '🚈 🚉 🚊 🚝 🚞 🚋 🚌 🚍 🚎 🚐 🚑 🚒 🚓 🚔 🚕 🚖 🚗 🚘 🚙 🛻 🚚 🚛 🚜 🏎️ 🏍️ 🛵 🦽 🦼 🛺 🚲 🛴 🛹 🛼 🚏 🛣️ 🛤️ 🛢️ ⛽ 🛞 🚨 🚥 🚦 🛑 🚧 ⚓ 🛟 ⛵ 🛶 🚤 🛳️ ⛴️ 🛥️ 🚢 ✈️ 🛩️ 🛫 🛬 🪂 💺 🚁 🚟 🚠 🚡 🛰️ 🚀 🛸 🛎️ 🧳 ⌛ ⏳ ⌚ ⏰ ⏱️ ⏲️ 🕰️ 🕛 🕧 🕐 🕜 🕑 🕝 🕒 🕞 🕓 🕟 🕔 🕠 🕕 🕡 🕖 🕢 🕗 🕣 🕘 🕤 🕙 🕥 🕚 🕦 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌙 🌚 🌛 🌜 🌡️ ☀️ 🌝 🌞 🪐 ⭐ 🌟 🌠 🌌 ☁️ ⛅ ⛈️ 🌤️ 🌥️ 🌦️ 🌧️ 🌨️ 🌩️ 🌪️ 🌫️ 🌬️ 🌀 🌈 🌂 ☂️ ☔ ⛱️ ⚡ ❄️ ☃️ ⛄ ☄️ 🔥 💧 🌊',
       },
       {
-        label: { en_US: 'Objects', zh_CN: '物品', pt_BR: 'Objetos' },
+        label: { en_US: 'Objects', zh_CN: '物品', ru_RU: 'Объекты', pt_BR: 'Objetos'  },
         items:
           '📃 📜 📄 📰 🗞️ 📑 🔖 🏷️ 💰 🪙 💴 💵 💶 💷 💸 💳 🧾 💹 ✉️ 📧 📨 📩 📤 📥 📦 📫 📪 📬 📭 📮 🗳️ ✏️ ✒️ 🖋️ 🖊️ 🖌️ 🖍️ 📝 💼 📁 📂 🗂️ 📅 📆 🗒️ 🗓️ 📇 📈 📉 📊 📋 📌 📍 📎 🖇️ 📏 📐 ✂️ 🗃️ 🗄️ 🗑️ 🔒 🔓 🔏 🔐 🔑 🗝️ 🔨 🪓 ⛏️ ⚒️ 🛠️ 🗡️ ⚔️ 🔫 🪃 🏹 🛡️ 🪚 🔧 🪛 🔩 ⚙️ 🗜️ ⚖️ 🦯 🔗 ⛓️ 🪝 🧰 🧲 🪜 ⚗️ 🧪 🧫 🧬 🔬 🔭 📡 💉 🩸 💊 🩹 🩼 🩺 🩻 🚪 🛗 🪞 🪟 🛏️ 🛋️ 🪑 🚽 🪠 🚿 🛁 🪤 🪒 🧴 🧷 🧹 🧺 🧻 🪣 🧼 🫧 🪥 🧽 🧯 🛒 🚬 ⚰️ 🪦 ⚱️ 🗿 🪧 🪪',
       },
       {
-        label: { en_US: 'Symbols', zh_CN: '符号', pt_BR: 'Símbolos' },
+        label: { en_US: 'Symbols', zh_CN: '符号', ru_RU: 'Символы', pt_BR: 'Símbolos' },
         items:
           '➰ ➿ 〽️ ✳️ ✴️ ❇️ ©️ ®️ ™️ #️⃣ *️⃣ 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 🔠 🔡 🔢 🔣 🔤 🅰️ 🆎 🅱️ 🆑 🆒 🆓 ℹ️ 🆔 Ⓜ️ 🆕 🆖 🅾️ 🆗 🅿️ 🆘 🆙 🆚 🈁 🈂️ 🔴 🟠 🟡 🟢 🔵 🟣 🟤 ⚫ ⚪ 🟥 🟧 🟨 🟩 🟦 🟪 🟫 ⬛ ⬜ ◼️ ◻️ ◾ ◽ ▪️ ▫️ 🔶 🔷 🔸 🔹 🔺 🔻 💠 🔘 🔳 🔲',
       },
       {
-        label: { en_US: 'Flags', zh_CN: '旗帜', pt_BR: 'Bandeiras' },
+        label: { en_US: 'Flags', zh_CN: '旗帜', ru_RU: 'Флаги', pt_BR: 'Bandeiras' },
         items:
           '🏁 🇨🇳 🎌 🇩🇪 🇪🇸 🇦🇨 🇦🇩 🇦🇪 🇦🇫 🇦🇬 🇦🇮 🇦🇱 🇦🇲 🇦🇴 🇦🇶 🇦🇷 🇦🇸 🇦🇹 🇦🇺 🇦🇼 🇦🇽 🇦🇿 🇧🇦 🇧🇧 🇧🇩 🇧🇪 🇧🇫 🇧🇬 🇧🇭 🇧🇮 🇧🇯 🇧🇱 🇧🇲 🇧🇳 🇧🇴 🇧🇶 🇧🇷 🇧🇸 🇧🇹 🇧🇻 🇧🇼 🇧🇾 🇧🇿 🇨🇦 🇨🇨 🇨🇩 🇨🇫 🇨🇬 🇨🇭 🇨🇮 🇨🇰 🇨🇱 🇨🇲 🇨🇴 🇨🇵 🇨🇷 🇨🇺 🇨🇻 🇨🇼 🇨🇽 🇨🇾 🇨🇿 🇩🇬 🇩🇯 🇩🇰 🇩🇲 🇩🇴 🇩🇿 🇪🇦 🇪🇨 🇪🇪 🇪🇬 🇪🇭 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇪🇷 🇪🇹 🇪🇺 🇫🇮 🇫🇯 🇫🇰 🇫🇲 🇫🇴 🇬🇦 🇬🇩 🇬🇪 🇬🇫 🇬🇬 🇬🇭 🇬🇮 🇬🇱 🇬🇲 🇬🇳 🇬🇵 🇬🇶 🇬🇷 🇬🇸 🇬🇹 🇬🇺 🇬🇼 🇬🇾 🇭🇰 🇭🇲 🇭🇳 🇭🇷 🇭🇹 🇭🇺 🇮🇨 🇮🇩 🇮🇪 🇮🇱 🇮🇲 🇮🇳 🇮🇴 🇮🇶 🇮🇷 🇮🇸 🇯🇪 🇯🇲 🇯🇴 🇰🇪 🇰🇬 🇰🇭 🇰🇮 🇰🇲 🇰🇳 🇰🇵 🇰🇼 🇰🇾 🇰🇿 🇱🇦 🇱🇧 🇱🇨 🇱🇮 🇱🇰 🇱🇷 🇱🇸 🇱🇹 🇱🇺 🇱🇻 🇱🇾 🇲🇦 🇲🇨 🇲🇩 🇲🇪 🇲🇫 🇲🇬 🇲🇭 🇲🇰 🇲🇱 🇲🇲 🇲🇳 🇲🇴 🇲🇵 🇲🇶 🇲🇷 🇲🇸 🇲🇹 🇲🇺 🇲🇻 🇲🇼 🇲🇽 🇲🇾 🇲🇿 🇳🇦 🇳🇨 🇳🇪 🇳🇫 🇳🇬 🇳🇮 🇳🇱 🇳🇴',
       },
     ],
     pageSizes: [
-      { label: 'A4', width: 21.0, height: 29.4, default: true },
+      { label: 'A4', width: 21.0, height: 29.7, default: true },
       { label: 'A3', width: 29.7, height: 42.0 },
       { label: 'A5', width: 14.8, height: 21.0 },
       { label: 'B5', width: 17.6, height: 25.0 },
       {
-        label: { "en_US": "No. 5 Envelope", "zh_CN": "5号信封", "pt_BR": "Envelope No. 5" },
+        label: {
+          en_US: 'No. 5 Envelope',
+          zh_CN: '5号信封',
+          ru_RU: 'Конверт №5',
+          "pt_BR": "Envelope No. 5"
+        },
         width: 10.9,
         height: 12.9
       },
       {
-        label: { "en_US": "No. 6 Envelope", "zh_CN": "6号信封", "pt_BR": "Envelope No. 6" },
+        label: {
+          en_US: 'No. 6 Envelope',
+          zh_CN: '6号信封',
+          ru_RU: 'Конверт №6',
+          "pt_BR": "Envelope No. 6"
+        },
         width: 11.9,
         height: 22.9
       },
       {
-        label: { "en_US": "No. 7 Envelope", "zh_CN": "7号信封", "pt_BR": "Envelope No. 7" },
+        label: {
+          en_US: 'No. 7 Envelope',
+          zh_CN: '7号信封',
+          ru_RU: 'Конверт №7',
+          "pt_BR": "Envelope No. 7" 
+        },
         width: 16.1,
         height: 22.8
       },
       {
-        label: { "en_US": "No. 9 Envelope", "zh_CN": "9号信封", "pt_BR": "Envelope No. 9" },
+        label: {
+          en_US: 'No. 9 Envelope',
+          zh_CN: '9号信封',
+          ru_RU: 'Конверт №9',
+          "pt_BR": "Envelope No. 9"
+        },
         width: 22.8,
         height: 32.3
       },
       {
-        label: { "en_US": "Legal Paper", "zh_CN": "法律用纸", "pt_BR": "Papel Legal" },
+        label: {
+          en_US: 'Legal Paper',
+          zh_CN: '法律用纸',
+          ru_RU: 'Юридическая бумага',
+          "pt_BR": "Papel Legal"
+        },
         width: 21.5,
         height: 33.5
       },
       {
-        label: { "en_US": "Letter Paper", "zh_CN": "信纸", "pt_BR": "Papel A4" },
+        label: {
+          en_US: 'Letter Paper',
+          zh_CN: '信纸',
+          ru_RU: 'Бумага для писем',
+          "pt_BR": "Papel A4" 
+        },
         width: 21.5,
         height: 27.9
       }
@@ -252,6 +390,7 @@ const defaultOptions: UmoEditorOptions = {
     },
     defaultOrientation: 'portrait',
     defaultBackground: '#fff',
+    showBreakMarks: true,
     watermark: {
       type: 'compact',
       alpha: 0.2,
@@ -261,24 +400,6 @@ const defaultOptions: UmoEditorOptions = {
       fontWeight: 'normal',
       text: '',
     },
-    /*
-     * 新添加的 bolck 自定义节点如果需要参与分页，需要给 types 添加对应的类型 types:["myBlock"],
-     * 如果是用 nodeView 实现的节点，需要自定义节点外层添加代码 :id="node.attrs.id"，可以参考 image 扩展
-     * 如果需要添加自定义计算方法，请在 nodesComputedOption 中添加
-     * 例如新添加节点名字为 'myBlock'
-     * nodesComputedOption:{
-     *   types: ["myBlock"],
-     *   nodesComputed: {
-     *    'myBlock': (splitContex, node, pos, parent, dom) => {
-     *      //分页计算代码
-     *    }
-     *  }
-     * } 否则走默认的计算
-     **/
-    nodesComputedOption: {
-      types: [],
-      nodesComputed: {},
-    },
   },
   document: {
     title: '',
@@ -287,6 +408,7 @@ const defaultOptions: UmoEditorOptions = {
       en_US: 'Please enter the document content...',
       zh_CN: '请输入文档内容...',
       pt_BR: 'Por favor, insira o conteúdo do documento...',
+      ru_RU: 'Пожалуйста, введите содержимое документа...',
     },
     enableSpellcheck: true,
     enableMarkdown: true,
@@ -313,32 +435,32 @@ const defaultOptions: UmoEditorOptions = {
     maxlength: 100,
     commands: [
       {
-        label: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação' },
-        value: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação' },
+        label: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação', ru_RU: 'Продолжение' },
+        value: { en_US: 'Continuation', zh_CN: '续写', pt_BR: 'Continuação', ru_RU: 'Продолжение' },
       },
       {
-        label: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever' },
-        value: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever' },
+        label: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever', ru_RU: 'Переписать' },
+        value: { en_US: 'Rewrite', zh_CN: '重写', pt_BR: 'Reescrever', ru_RU: 'Переписать' },
       },
       {
-        label: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação' },
-        value: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação' },
+        label: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação', ru_RU: 'Аббревиатура' },
+        value: { en_US: 'Abbreviation', zh_CN: '缩写', pt_BR: 'Abreviação', ru_RU: 'Аббревиатура' },
       },
       {
-        label: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão' },
-        value: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão' },
+        label: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão', ru_RU: 'Расширение' },
+        value: { en_US: 'Expansion', zh_CN: '扩写', pt_BR: 'Expansão', ru_RU: 'Расширение' },
       },
       {
-        label: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar' },
-        value: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar' },
+        label: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar', ru_RU: 'Улучшение' },
+        value: { en_US: 'Polish', zh_CN: '润色', pt_BR: 'Aperfeiçoar', ru_RU: 'Улучшение' },
       },
       {
-        label: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar' },
-        value: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar' },
+        label: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar', ru_RU: 'Корректировка' },
+        value: { en_US: 'Proofread', zh_CN: '校阅', pt_BR: 'Revisar', ru_RU: 'Корректировка' },
       },
       {
-        label: { en_US: 'Translate', zh_CN: '翻译', pt_BR: 'Traduzir' },
-        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文', pt_BR: 'Traduzir para chinês' },
+        label: { en_US: 'Translate', zh_CN: '翻译', pt_BR: 'Traduzir', ru_RU: 'Перевод' },
+        value: { en_US: 'Translate to chinese', zh_CN: '翻译成英文', pt_BR: 'Traduzir para chinês', ru_RU: 'Перевод на китайский' },
         autoSend: false,
       },
     ],
@@ -354,12 +476,20 @@ const defaultOptions: UmoEditorOptions = {
   file: {
     allowedMimeTypes: [],
     maxSize: 1024 * 1024 * 100, // 100M
+    preview: [
+      { extensions: ['pdf'], url: '{url}' },
+      {
+        extensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+        url: 'https://view.officeapps.live.com/op/embed.aspx?src={{url}}&amp;wdStartOn=1&amp;wdPrint=0&amp;wdEmbedCode=0',
+      },
+    ],
   },
   user: {},
   extensions: [],
   translations: {
     en_US: {},
     zh_CN: {},
+    ru_RU: {},
   },
   async onSave() {
     return await new Promise((_, reject) => {
@@ -402,7 +532,8 @@ const propsOptions = Object.keys(defaultOptions)
 export const supportedLocales = {
   'en-US': 'en_US',
   'zh-CN': 'zh_CN',
-  'pt-BR': 'pt_BR'
+  'pt-BR': 'pt_BR',
+  'ru_RU': 'ru_RU'
 }
 
 const isLocale = (value: unknown) => {
@@ -690,6 +821,11 @@ const objectSchema = new ObjectSchema({
         validate: 'string',
         required: false,
       },
+      showBreakMarks: {
+        merge: 'replace',
+        validate: 'boolean',
+        required: false,
+      },
       watermark: {
         required: false,
         merge: 'replace',
@@ -809,11 +945,11 @@ const objectSchema = new ObjectSchema({
         validate: 'boolean',
         required: false,
       },
-      enableComment: {
-        merge: 'replace',
-        validate: 'boolean',
-        required: false,
-      },
+      // enableComment: {
+      //   merge: 'replace',
+      //   validate: 'boolean',
+      //   required: false,
+      // },
       readOnly: {
         merge: 'replace',
         validate: 'boolean',
@@ -972,6 +1108,29 @@ const objectSchema = new ObjectSchema({
       maxSize: {
         merge: 'replace',
         validate: 'number',
+        required: false,
+      },
+      preview: {
+        merge: 'replace',
+        validate(value) {
+          value.forEach((item: { extensions: [any]; url: string }) => {
+            if (typeof item !== 'object') {
+              throw new Error(
+                'Key "file": Key "preview" must be an array of objects.',
+              )
+            }
+            if (!Array.isArray(item.extensions)) {
+              throw new Error(
+                'Key "file": Key "preview": Key "extensions" must be an array of strings.',
+              )
+            }
+            if (!item.url?.includes('{url}')) {
+              throw new Error(
+                'Key "file": Key "preview": Key "url" must include "{url}".',
+              )
+            }
+          })
+        },
         required: false,
       },
     },

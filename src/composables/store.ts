@@ -3,7 +3,11 @@ import type { Editor } from '@tiptap/vue-3'
 import type { TableOfContentDataItem } from '@tiptap-pro/extension-table-of-contents'
 import { isRecord } from '@tool-belt/type-predicates'
 
+<<<<<<< HEAD
 import { defaultOptions, objectSchema } from '@/options'
+=======
+import { defaultOptions, ojbectSchema } from '@/options'
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 import type { PageOption, UmoEditorOptions } from '@/types'
 import { shortId } from '@/utils/short-id'
 
@@ -24,7 +28,7 @@ export const useStore = createGlobalState(() => {
     once: true,
     marks: [],
   })
-
+  const bookmark = ref(true)
   const blockMenu = ref(false)
   const assistantBox = ref(false)
   const commentBox = ref(false)
@@ -38,8 +42,6 @@ export const useStore = createGlobalState(() => {
   const printing = ref(false)
   const exportImage = ref(false)
   const exportPDF = ref(false)
-  const hidePageHeader = ref(true)
-  const hidePageFooter = ref(true)
   const editorDestroyed = ref(false)
 
   const setOptions = (value: unknown, isDefault = false) => {
@@ -85,6 +87,7 @@ export const useStore = createGlobalState(() => {
     painter.value.marks = marks
   }
 
+<<<<<<< HEAD
   watch(options, ({ page }: UmoEditorOptions) => {
     updatePage(page)
   })
@@ -138,6 +141,39 @@ export const useStore = createGlobalState(() => {
   //   { deep: true },
   // )
 
+=======
+  watch(
+    () => options.value.page,
+    ({
+      defaultBackground,
+      defaultMargin,
+      defaultOrientation,
+      watermark,
+      showBreakMarks,
+    }: PageOption) => {
+      page.value = {
+        size: options.value.dicts?.pageSizes.find(
+          (item: { default: boolean }) => item.default,
+        ),
+        margin: defaultMargin,
+        background: defaultBackground,
+        orientation: defaultOrientation,
+        showBreakMarks,
+        watermark,
+        showLineNumber: false,
+        showToc: false,
+        zoomLevel: 100,
+        autoWidth: false,
+        preview: {
+          enabled: false,
+          laserPointer: true,
+        },
+      }
+    },
+    { immediate: true, once: true },
+  )
+
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   const setEditor = (editorInstance: Editor) => {
     editor.value = editorInstance
   }
@@ -168,6 +204,7 @@ export const useStore = createGlobalState(() => {
     page,
     editor,
     painter,
+    bookmark,
     blockMenu,
     assistantBox,
     commentBox,
@@ -178,8 +215,6 @@ export const useStore = createGlobalState(() => {
     printing,
     exportImage,
     exportPDF,
-    hidePageHeader,
-    hidePageFooter,
     editorDestroyed,
     setOptions,
     setEditor,

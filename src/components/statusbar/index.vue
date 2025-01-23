@@ -16,6 +16,7 @@
           <icon name="spellcheck" color="red" />
         </t-button>
       </tooltip>
+<<<<<<< HEAD
       <tooltip :content="page.pagination ? t('pagination.disable') : t('pagination.title')
         ">
         <t-button class="umo-status-bar-button" :class="{ active: page.pagination }" variant="text" size="small"
@@ -23,6 +24,8 @@
           <icon name="page-break" />
         </t-button>
       </tooltip>
+=======
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
       <tooltip :content="t('shortcut.title')">
         <t-button class="umo-status-bar-button" variant="text" size="small" @click="showShortcut = true">
           <icon name="shortcut" />
@@ -85,18 +88,6 @@
                 {{ t('wordCount.limit') }}
                 <span>
                   {{ options.document?.characterLimit ?? 0 }}
-                </span>
-              </li>
-              <li>
-                {{ t('wordCount.currentPage') }}
-                <span>
-                  {{ editor?.getAttributes('page').pageNumber }}
-                </span>
-              </li>
-              <li>
-                {{ t('wordCount.totalPage') }}
-                <span>
-                  {{ editor?.$nodes('page')?.length ?? 0 }}
                 </span>
               </li>
             </ul>
@@ -239,15 +230,6 @@ const showShortcut = $ref(false)
 
 const reset = inject('reset') as (silent: boolean) => void
 
-// 分页
-const togglePagination = () => {
-  page.value.pagination = !page.value.pagination
-  const tr = editor.value?.state.tr.setMeta('splitPage', false)
-  if (tr) {
-    editor.value?.view.dispatch(tr)
-  }
-}
-
 // 字数统计
 const showWordCount = $ref(false)
 const selectionCharacters = computed(() => {
@@ -355,8 +337,9 @@ const autoWidth = (auto = true, padding = 50) => {
     const pageEl = editorEl?.querySelector('.umo-page-content')
     const editorWidth = editorEl?.clientWidth ?? 0
     const pageWidth = pageEl?.clientWidth ?? 0
-    page.value.zoomLevel =
-      Number(((editorWidth - padding * 2) / pageWidth).toFixed(2)) * 100
+    page.value.zoomLevel = Math.floor(
+      Number((editorWidth - padding * 2) / pageWidth) * 100,
+    )
 
     page.value.autoWidth = true
   } catch (e) {
@@ -365,7 +348,11 @@ const autoWidth = (auto = true, padding = 50) => {
     console.warn('Page auto width calculation error', e)
   }
 }
+<<<<<<< HEAD
 useHotkeys('Control+0,command+0', autoWidth)
+=======
+useHotkeys('Ctrl+0,command+0', autoWidth)
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 
 watch(
   () => page.value.showToc,
@@ -380,6 +367,7 @@ watch(
 const langs = [
   { content: '🇨🇳 简体中文', value: 'zh-CN' },
   { content: '🇱🇷 English', value: 'en-US' },
+  { content: '🇷🇺 Русский', value: 'ru-RU' },
 ]
 const setLocale = inject('setLocale') as (value: SupportedLocale) => void
 

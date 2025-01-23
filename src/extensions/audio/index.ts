@@ -19,10 +19,10 @@ export default Node.create({
       vnode: {
         default: true,
       },
-      id: {
+      file: {
         default: null,
       },
-      file: {
+      id: {
         default: null,
       },
       name: {

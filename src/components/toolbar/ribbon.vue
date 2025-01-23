@@ -88,22 +88,23 @@
             <menus-toolbar-insert-code-block
               v-if="!disableItem('code-block')"
             />
-            <menus-toolbar-insert-symbol />
+            <menus-toolbar-insert-symbol v-if="!disableItem('symbol')" />
             <menus-toolbar-insert-chinese-date
               v-if="!disableItem('chineseDate')"
             />
             <menus-toolbar-insert-emoji v-if="!disableItem('emoji')" />
             <menus-toolbar-insert-math v-if="!disableItem('math')" />
+            <menus-toolbar-insert-bookmark v-if="!disableItem('bookmark')" />
           </div>
           <div class="umo-virtual-group">
             <menus-toolbar-insert-hard-break />
             <menus-toolbar-insert-hr />
             <menus-toolbar-insert-toc />
-            <menus-toolbar-insert-text-box />
+            <menus-toolbar-insert-text-box v-if="!disableItem('textBox')" />
           </div>
           <div class="umo-virtual-group">
             <menus-toolbar-insert-template />
-            <menus-toolbar-insert-web-page />
+            <menus-toolbar-insert-web-page v-if="!disableItem('webPage')" />
           </div>
           <div class="virtual-group is-slot">
             <slot name="toolbar_insert" toolbar-mode="ribbon" />
@@ -203,15 +204,9 @@
               </div>
             </div>
           </div>
-          <div
-            v-if="!hidePageHeader || !hidePageFooter"
-            class="umo-virtual-group"
-          >
-            <menus-toolbar-page-header v-if="!hidePageHeader" />
-            <menus-toolbar-page-footer v-if="!hidePageFooter" />
-          </div>
           <div class="umo-virtual-group">
             <menus-toolbar-page-break />
+            <menus-toolbar-page-break-marks />
             <menus-toolbar-page-line-number />
             <menus-toolbar-page-watermark />
             <menus-toolbar-page-background />
@@ -226,8 +221,7 @@
         <template v-if="currentMenu === 'export'">
           <div class="umo-virtual-group">
             <menus-toolbar-export-image />
-            <menus-toolbar-export-pdf />
-            <menus-toolbar-export-word />
+            <menus-toolbar-export-pdf v-if="!disableItem('exportPDF')" />
             <menus-toolbar-export-text />
           </div>
           <div class="umo-virtual-group">
@@ -253,7 +247,7 @@ const props = defineProps<{
 }>()
 const emits = defineEmits(['menu-change'])
 
-const { options, hidePageHeader, hidePageFooter } = useStore()
+const { options } = useStore()
 const disableItem = (name: string) => {
   return options.value.toolbar?.disableMenuItems.includes(name)
 }

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <editor-content class="umo-editor-container" :class="{
     'is-empty': isEmpty,
     'show-line-number': page.showLineNumber,
@@ -16,13 +17,38 @@
     editor &&
     !editorDestroyed
   " />
+=======
+  <editor-content
+    class="umo-editor-content"
+    :class="{
+      'show-bookmark': bookmark,
+      'show-line-number': page.showLineNumber,
+      'format-painter': painter.enabled,
+      'is-empty': editor?.isEmpty,
+    }"
+    :editor="editor"
+    :style="{
+      lineHeight: defaultLineHeight,
+    }"
+    :spellcheck="
+      options.document?.enableSpellcheck && $document.enableSpellcheck
+    "
+  />
+  <template
+    v-if="
+      editor && !editorDestroyed && !page.preview?.enabled && !editorDestroyed
+    "
+  >
+    <menus-context-block v-if="options.document?.enableBlockMenu" />
+    <menus-bubble />
+  </template>
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 </template>
 
 <script setup lang="ts">
-import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent, type Extension } from '@tiptap/vue-3'
-import Mathematics from '@tiptap-pro/extension-mathematics'
 
+<<<<<<< HEAD
 import { extensions } from '@/extensions'
 import Image from '@/extensions/image'
 import Pagination, { PageNode } from '@/extensions/pagination/src'
@@ -37,31 +63,26 @@ const {
   container,
   tableOfContents,
 } = useStore()
+=======
+import { extensions, inputAndPasteRules } from '@/extensions'
+
+const { options, editor, page, painter, bookmark, setEditor, editorDestroyed } =
+  useStore()
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 
 const $document = useState('document')
-
-let enableRules: boolean | Extension[] = true
-if (
-  !options.value.document?.enableMarkdown ||
-  !$document.value?.enableMarkdown
-) {
-  enableRules = [Mathematics, Typography, Image as Extension]
-}
 
 const defaultLineHeight = $computed(
   () =>
     options.value.dicts?.lineHeights?.find((item: any) => item.default)?.value,
 )
 
-let isReady = $ref<boolean>(false)
-let isEmpty = $ref<boolean>(false)
-
 const editorInstance: Editor = new Editor({
   editable: !options.value.document?.readOnly,
   autofocus: options.value.document?.autofocus,
   content: options.value.document?.content,
-  enableInputRules: enableRules,
-  enablePasteRules: enableRules,
+  enableInputRules: inputAndPasteRules(),
+  enablePasteRules: inputAndPasteRules(),
   editorProps: {
     attributes: {
       class: 'umo-editor',
@@ -69,6 +90,7 @@ const editorInstance: Editor = new Editor({
     ...options.value.document?.editorProps,
   },
   parseOptions: options.value.document?.parseOptions,
+<<<<<<< HEAD
   extensions: [
     // Page.configure({
     //   types: options.value.page.nodesComputedOption?.types ?? [],
@@ -84,12 +106,19 @@ const editorInstance: Editor = new Editor({
   },
   onUpdate({ editor }) {
     isEmpty = editor.commands.setPlaceholder('')
+=======
+  extensions: [...extensions, ...(options.value.extensions as Extension[])],
+  onUpdate({ editor }) {
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
     $document.value.content = editor.getHTML()
   },
 })
 setEditor(editorInstance)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
 // 动态导入 katex 样式
 const loadTatexStyle = () => {
   const katexStyleElement = document.querySelector('#katex-style')
@@ -105,7 +134,9 @@ const loadTatexStyle = () => {
   }
 }
 
-onMounted(loadTatexStyle)
+onMounted(() => {
+  loadTatexStyle()
+})
 
 // 销毁编辑器实例
 onBeforeUnmount(() => {

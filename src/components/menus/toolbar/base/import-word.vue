@@ -68,9 +68,6 @@ const importWord = () => {
         }
         if (result?.value) {
           editor.value?.commands.setContent(result.value)
-          setTimeout(() => {
-            editor.value?.commands.autoPaging()
-          }, 500)
         } else {
           useMessage('error', t('base.importWord.importError'))
         }
@@ -118,6 +115,7 @@ const importWord = () => {
 
       // Set content in chunks if it's a large document
       const content = doc.body.innerHTML.toString()
+<<<<<<< HEAD
       if (content.length > 100000) { // For large documents
         // First set the basic structure
         editor.value?.commands.setContent('')
@@ -134,6 +132,9 @@ const importWord = () => {
         editor.value?.commands.setContent(content)
         editor.value?.commands.autoPaging()
       }
+=======
+      editor.value?.commands.setContent(content)
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
     } catch {
       useMessage('error', t('base.importWord.importError'))
     }

@@ -56,6 +56,7 @@ const options = $ref({
   },
   document: {
     // title: '测试文档',
+<<<<<<< HEAD
     content: TEST_TABLE_HTML,
     typographyRules: {
       openDoubleQuote: false,
@@ -77,6 +78,10 @@ const options = $ref({
         "default": true
       }
     ]
+=======
+    content: localStorage.getItem('document.content') ?? '<p>测试文档</p>',
+    // enableComment: false
+>>>>>>> 2c2ed5be5052d8803ba4e9eb804ba6ea001c2a60
   },
   templates,
   cdnUrl: 'https://cdn.umodoc.com',
@@ -142,6 +147,9 @@ const options = $ref({
       type: file.type,
       size: file.size,
     }
+  },
+  onFileDelete(id: string, url: string) {
+    console.log(id, url)
   },
   async onAssistant() {
     return await Promise.resolve('<p>AI助手测试</p>')

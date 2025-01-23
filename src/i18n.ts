@@ -6,6 +6,7 @@ import type { SupportedLocale } from '@/types'
 
 import en_US from './locales/en-US.json'
 import pt_BR from './locales/pt-BR.json'
+import ru_RU from './locales/ru-RU.json'
 import zh_CN from './locales/zh-CN.json'
 
 const { options } = useStore()
@@ -34,5 +35,6 @@ export const i18n = createI18n({
     'en-US': merge(en_US, getLocale('en-US')),
     'pt-BR': merge(pt_BR, getLocale('pt-BR')),
     'zh-CN': merge(zh_CN, getLocale('zh-CN')),
+    'ru-RU': merge(ru_RU, getLocale('ru-RU')),
   },
 })

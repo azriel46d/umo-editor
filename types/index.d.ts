@@ -1,8 +1,7 @@
 import type { Extension } from '@tiptap/core'
 import type { AsyncFunction } from '@tool-belt/type-predicates'
-
 import type { NodesComputed } from '@/extensions/page/types'
-export type SupportedLocale = 'en-US' | 'zh-CN' | 'pt-BR'
+export type SupportedLocale = 'en-US' | 'zh-CN' | 'ru-RU' | 'pt-BR'
 export interface MarginOption {
   left: number
   right: number
@@ -18,17 +17,12 @@ export interface WatermarkOption {
   fontWeight: string
   text: string
 }
-export interface NodesComputedOption {
-  types: string[]
-  nodesComputed: NodesComputed
-}
-
 export interface PageOption {
   defaultMargin?: MarginOption
   defaultOrientation?: string
   defaultBackground?: string
+  showBreakMarks?: boolean
   watermark?: WatermarkOption
-  nodesComputedOption?: NodesComputedOption
   size?: {
     width: number
     height: number
@@ -47,7 +41,6 @@ export interface PageOption {
   footer?: boolean
   showLineNumber?: boolean
   showToc?: boolean
-  pagination?: boolean
   zoomLevel?: number
   bodyHeight?: number
   autoWidth?: boolean
@@ -99,7 +92,7 @@ export interface DocumentOptions {
   enableMarkdown?: boolean
   enableBubbleMenu?: boolean
   enableBlockMenu?: boolean
-  enableComment?: boolean
+  // enableComment?: boolean
   readOnly?: boolean
   autofocus?: 'start' | 'end' | 'all' | number | boolean | null
   characterLimit?: number
@@ -109,7 +102,9 @@ export interface DocumentOptions {
   autoSave?: AutoSaveOptions
 }
 
-export type LocaleLabel = string | Record<'en_US' | 'zh_CN' | 'pt_BR', string>
+export type LocaleLabel =
+  | string
+  | { en_US: string; zh_CN: string; ru_RU: string, pt_BR: string }
 
 export interface PageSize {
   label: LocaleLabel
@@ -178,6 +173,15 @@ export interface AssistantResult {
   command?: string
 }
 
+export interface FileOptions {
+  allowedMimeTypes: string[]
+  maxSize: number
+  preview: {
+    extensions?: string[]
+    url: string
+  }[]
+}
+
 export interface UmoEditorOptions {
   editorKey: string
   locale: SupportedLocale
@@ -199,7 +203,7 @@ export interface UmoEditorOptions {
   cdnUrl?: string
   shareUrl?: string
   diagrams?: Record<string, unknown>
-  file?: { allowedMimeTypes: string[]; maxSize: number }
+  file?: FileOptions
   user?: Record<string, unknown>
   extensions?: Extension[]
   translations?: Record<string, unknown>
