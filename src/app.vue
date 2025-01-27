@@ -87,6 +87,7 @@ const options = $ref({
     },
     "defaultOrientation": "portrait",
     "defaultBackground": "#fff",
+    showBreakMarks: false,
     "watermark": {
       "type": "compact",
       "alpha": 0.2,
@@ -123,9 +124,6 @@ const options = $ref({
       type: file.type,
       size: file.size,
     }
-  },
-  onFileDelete(id: string, url: string) {
-    console.log(id, url)
   },
   async onAssistant() {
     return await Promise.resolve('<p>AI助手测试</p>')

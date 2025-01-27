@@ -1,7 +1,7 @@
 <template>
   <menus-button
-    :ico="!!attrs ? 'edit' : 'barcode'"
-    :text="!!attrs ? t('tools.barcode.edit') : t('tools.barcode.text')"
+    :ico="content ? 'edit' : 'barcode'"
+    :text="content ? t('tools.barcode.edit') : t('tools.barcode.text')"
     huge
     @menu-click="dialogVisible = true"
   >
@@ -219,10 +219,16 @@
 
 <script setup lang="ts">
 import JsBarcode from 'jsbarcode'
+import svg64 from 'svg64'
 
-const { attrs } = defineProps<{
-  attrs: any
-}>()
+import { shortId } from '@/utils/short-id'
+
+const { content } = defineProps({
+  content: {
+    type: String,
+    default: '',
+  },
+})
 
 const { popupVisible, togglePopup } = usePopup()
 
@@ -309,7 +315,7 @@ watch(
   () => dialogVisible,
   (val: boolean) => {
     if (val) {
-      config = attrs?.settings ? JSON.parse(attrs.settings) : { ...defaultConfig }
+      config = content ? JSON.parse(content) : { ...defaultConfig }
       setTimeout(() => {
         changed = false
       }, 200)
@@ -334,27 +340,33 @@ const setBarcode = () => {
     useMessage('error', t('tools.barcode.renderError'))
     return
   }
-
   if (config.content === '') {
     useMessage('error', t('tools.barcode.notEmpty'))
     return
   }
-
-  const settings = { ...config }
-
-  const settingsJson = JSON.stringify(settings)
+  const name = `barcode-${shortId()}.svg`
+  const { size } = new Blob([barcodeSvgRef.outerHTML], {
+    type: 'image/svg+xml',
+  })
+  const width = barcodeSvgRef?.width.animVal.value
+  const height = barcodeSvgRef?.height.animVal.value
 
   if (changed) {
     editor.value
       ?.chain()
       .focus()
-      .insertContent({
-        type: BARCODE,
-        attrs: {
-          ...attrs,
-          settings: settingsJson,
-        }
-      })
+      .setImage(
+        {
+          type: 'barcode',
+          name,
+          size,
+          src: svg64(barcodeSvgRef?.outerHTML ?? ''),
+          content: JSON.stringify(config),
+          width,
+          height,
+        },
+        !!content,
+      )
       .run()
   }
   dialogVisible = false

@@ -47,7 +47,6 @@ import Margin from './margin'
 import NodeAlign from './node-align'
 import OrderedList from './ordered-list'
 import PageBreak from './page-break'
-import PaginationExtension, { PageNode } from './pagination/src'
 import Selection from './selection'
 import TableCell from './table-cell'
 import TableHeader from './table-header'
@@ -68,8 +67,8 @@ export const extensions = [
     horizontalRule: false,
     dropcursor: false,
   }),
-  PaginationExtension,
-  PageNode,
+  // PaginationExtension,
+  // PageNode,
   Placeholder.configure({
     placeholder: l(options.value.document.placeholder),
   }),
